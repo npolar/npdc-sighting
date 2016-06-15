@@ -1,2 +1,2 @@
 # npdc-sighting
-Marine Mammal Sighting
+Reporting observations of marine mammal sightings in Svalbard
