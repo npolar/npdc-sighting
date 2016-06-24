@@ -13,7 +13,13 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
   // StationBooking -> npolarApiResource -> ngResource
   $scope.resource = Sighting;
 
-  let templates = [];
+
+   let templates = [
+    {
+      match: "locations_item",
+      template: "<inventory:coverage></inventory:coverage>"
+    }
+];
 
   let i18n = [{
       map: require('./en.json'),
@@ -33,8 +39,8 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
    });
 
 
-  //let autocompleteFacets = ["people.first_name", "people.last_name", "people.organisation"];
-  //formulaAutoCompleteService.autocompleteFacets(autocompleteFacets, Sighting, $scope.formula);
+  let autocompleteFacets = ["organisation"];
+  formulaAutoCompleteService.autocompleteFacets(autocompleteFacets, Sighting, $scope.formula);
 
 
   chronopicService.defineOptions({ match: 'released', format: '{date}'});

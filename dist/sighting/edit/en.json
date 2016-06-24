@@ -1,87 +1,49 @@
 {
   "fields": {
-     "research_station": {
-       "title": "research station",
-       "values": [
-              "Troll",
-              "Norvegia",
-              "Sverdrup"
+    "species": {
+       "title": "species",
+       "values": ["unknown",
+       "polar bear",
+        "walrus",
+        "bearded seal",
+        "harbor seal",
+        "harp seal",
+        "hooded seal",
+        "ringed seal",
+        "beluga whale",
+        "balaenoptera musculus",
+        "bowhead whale",
+        "common minke whale",
+        "fin whale",
+        "humpback whale",
+        "killer whale",
+        "narwhal",
+        "northern bottlenose whale",
+        "pilot whale",
+        "sei whale",
+        "sperm whale",
+        "white beaked dolphin",
+        "whale (unspecified)",
+        "seal (unspecified)",
+        "polar bear den",
+        "other species"
        ]
      },
-     "research_type": {
-       "title": "type of research",
+     "bear_cubs":{
+       "title": "bear cubs",
        "values": [
-              "research",
-              "monitoring",
-              "mapping",
-              "outreach/VIP",
-              "education",
-              "logistic operations",
-              "other"
-       ]
+              "cub of the year",
+              "one year old",
+              "two year old"]
      },
-     "topics": {
-      "title": "topics",
-      "values": [
-              "acidification",
-              "atmosphere",
-              "biology",
-              "biochemistry",
-              "biodiversity",
-              "chemistry",
-              "climate",
-              "conservation",
-              "ecology",
-              "ecotoxicology",
-              "environment",
-              "geology",
-              "geophysics",
-              "glaciology",
-              "history",
-              "human dimension",
-              "management",
-              "marine",
-              "marineecosystems",
-              "maps",
-              "oceanography",
-              "other",
-              "paleoclimate",
-              "remote sensing",
-              "seaice",
-              "snow",
-              "terrestrial",
-              "topography",
-              "vegetation"
-      ]
-    },
-    "people": {
-      "items": {
-        "fields": {
-          "roles": {
-            "values": [
-              "carpenter",
-              "chef",
-              "electrician",
-              "expedition leader",
-              "field assistant",
-              "field responsible",
-              "investigator",
-              "IT",
-              "KSAT",
-              "mecanic",
-              "mecanic TAF",
-              "other",
-              "physician",
-              "pilot",
-              "research technitian",
-              "security",
-              "service technitian",
-              "transport",
-              "VIP"
-            ]
-          }
-        }
-      }
-    }
+     "editor_assessment": {
+       "title": "editor's assessment",
+       "values": [
+              "not handled",
+              "likely / well documented observation",
+              "unusual observation / information missing",
+              "highly unusual observation / information missing / could something be wrong?"
+       ]
+     }
   }
 }

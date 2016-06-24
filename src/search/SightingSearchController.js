@@ -9,13 +9,23 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
 
 
    npdcAppConfig.search.local.results.detail = (entry) => {
-     let updatedText = NpolarTranslate.translate('updated');
-      let r = updatedText +":";
-     return r+` ${(entry.updated.split('T')[0])}`;
+     let updatedText = NpolarTranslate.translate('Last updated');
+      let r = "  " + updatedText +":";
+       let eventDateText = NpolarTranslate.translate('Event date');
+      let e =  eventDateText +":";
+
+     if (entry.updated !== null && entry.event_date !== null) {
+         return  e+` ${(entry.event_date.split('T')[0])}` + r+` ${(entry.updated.split('T')[0])}`;
+     } else {
+        return 'No dates';
+     }
 };
 
 
   npdcAppConfig.cardTitle = "Marine mammal sighting";
+
+  //Get title and subtitle
+  npdcAppConfig.search.local.results.title = "locality";
   npdcAppConfig.search.local.results.subtitle = "species";
 
 
@@ -23,7 +33,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
     let defaults = {
       limit: "50",
       sort: "-updated",
-      fields: 'event_date,species,habitat,updated',
+      fields: 'event_date,species,habitat,updated,id,locality',
       facets: 'draft'};
 
     let invariants = $scope.security.isAuthenticated() ? {} : {} ;

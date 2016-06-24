@@ -10,12 +10,15 @@ var npdcSightingApp = angular.module('npdcSightingApp', ['npdcCommon','leaflet']
 npdcSightingApp.controller('SightingShowController', require('./show/SightingShowController'));
 npdcSightingApp.controller('SightingSearchController', require('./search/SightingSearchController'));
 npdcSightingApp.controller('SightingEditController', require('./edit/SightingEditController'));
+npdcSightingApp.directive('sightingCoverage', require('./edit/coverage/coverageDirective'));
+
 
 // Bootstrap ngResource models using NpolarApiResource
 var resources = [
   {'path': '/', 'resource': 'NpolarApi'},
   {'path': '/user', 'resource': 'User'},
-  {'path': '/sighting', 'resource': 'Sighting'}
+  {'path': '/sighting', 'resource': 'Sighting'},
+  {'path': '/expedition', 'resource': 'Expedition'}
 ];
 
 resources.forEach(service => {
