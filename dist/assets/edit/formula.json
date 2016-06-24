@@ -3,7 +3,7 @@
             "title": "Travel/Trip",
             "fields": [
                          {
-                            "id": "name",
+                            "id": "title",
                             "title": "name of travel/trip/expedition"
                         },
                         {
@@ -114,7 +114,7 @@
                     "description": "Preferably in decimal degrees"
                 },
                 {
-                    "id": "placename",
+                    "id": "@placename",
                     "title": "placename",
                     "description": "Observation's placename"
                 },

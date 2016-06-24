@@ -7,9 +7,9 @@
     "vurdering"
   ],
   "fields": {
-    "name": {
-         "title": "kategori",
-         "description": "kategori"
+    "title": {
+         "title": "navn på reise/tur/ekspedisjon",
+         "description": "navn på reise/tur/ekspedisjon"
     },
     "contact_info": {
          "title": "kontaktinformasjon",
@@ -142,7 +142,7 @@
                "title":"lengdegrad",
                "description": "lengdegrad i desimalgrader"
       },
-      "placename":{
+      "@placename":{
               "title": "stedsnavn",
               "description": "stedsnavn der observasjonen ble gjort"
       },

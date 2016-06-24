@@ -38,6 +38,12 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
     languages: npdcAppConfig.formula.languages.concat(i18n)
    });
 
+   formulaAutoCompleteService.autocomplete({
+    match: "@placename",
+    querySource: npolarApiConfig.base + '/placename',
+    label: 'title',
+    value: 'ident'
+}, $scope.formula);
 
   let autocompleteFacets = ["organisation"];
   formulaAutoCompleteService.autocompleteFacets(autocompleteFacets, Sighting, $scope.formula);
