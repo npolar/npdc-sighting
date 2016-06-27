@@ -13,40 +13,41 @@
 
 
       <section>
-      <p><md-icon class="md-avatar-icon">person</md-icon> {{ 'Observer' | t }}: {{document.created_by}}</p>
-      <p><md-icon>business</md-icon> {{ 'Organisation' | t }}: {{document.organisation}}</p>
-       <p>{{ 'Name travel/trip/expedition' | t }}: {{document.title}}</p>
-      <p>Platform: {{document.platform}}</p>
-      <p>{{ 'Platform comment' | t }}: {{document.platform_comment}}</p>
-      <p>{{ 'Dates' | t }}: {{(document.start_date).split('T')[0]}} - {{(document.end_date).split('T')[0]}}</p>
-      <p ng-if="document.species"><a ng-href="{{document.href}}"> {{ 'Link to expedition' | t }}</a></p>
+      <p ng-if="document.created_by"><md-icon class="md-avatar-icon">person</md-icon> {{ 'Observer' | t }}: {{document.created_by}}</p>
+      <p ng-if="document.organisation"><md-icon>business</md-icon> {{ 'Organisation' | t }}: {{document.organisation}}</p>
+      <p ng-if="document.title">{{ 'Name travel/trip/expedition' | t }}: {{document.title}}</p>
+      <p ng-if="document.platform">Platform: {{document.platform}}</p>
+      <p ng-if="document.platform_comment">{{ 'Platform comment' | t }}: {{document.platform_comment}}</p>
+      <p ng-if="document.start_date" || "document.end_date">{{ 'Dates' | t }}: {{(document.start_date).split('T')[0]}} - {{(document.end_date).split('T')[0]}}</p>
+      <p ng-if="document.href"><a ng-href="{{document.href}}"> {{ 'Link to expedition' | t }}</a></p>
       </section>
 
       <section>
         <md-divider></md-divider>
         <h3>{{ 'Observation' | t }}</h3>
-        <p>{{ 'Species' | t }}: {{document.species}}</p>
-        <p>Habitat: {{document.habitat}}</p>
-        <p>{{ 'Number of male adults' | t }}: {{document.adult_m}}</p>
-        <p>{{ 'Number of female adults' | t }}: {{document.adult_f}}</p>
-        <p>{{ 'Number of adults where sex is unknown' | t }}: {{document.adult}}</p>
-        <p>{{ 'Number of young adults, not included previously' | t }}: {{document.sub_adult}}</p>
-        <p>{{ 'Number of cubs/calfs/pups' | t }}: {{document.cub_calf_pup}}</p>
-        <p>{{ 'Number of unidentified' | t }}: {{document.unidentified}}</p>
-        <p>{{ 'Total count' | t }}: {{document.total}}</p>
-        <p>{{ 'How old were the polar bear cubs?' | t }} {{document.bear_cubs}}</p>
-        <p>{{ 'What was the condition of the polar bear(s)?' | t }} {{document.polar_bear_condition}}</p>
-        <p>{{ 'Did you see a polar bear den?' | t }} {{document.polar_bear_den}}</p>
-        <p>{{ 'Observed dead or alive?' | t }} {{document.dead_alive}}</p>
+        <p ng-if="document.species">{{ 'Species' | t }}: {{document.species}}</p>
+        <p ng-if="document.habitat">Habitat: {{document.habitat}}</p>
+        <p ng-if="document.adult_m">{{ 'Number of male adults' | t }}: {{document.adult_m}}</p>
+        <p ng-if="document.adult_f">{{ 'Number of female adults' | t }}: {{document.adult_f}}</p>
+        <p ng-if="document.adult">{{ 'Number of adults where sex is unknown' | t }}: {{document.adult}}</p>
+        <p ng-if="document.sub_adult">{{ 'Number of young adults, not included previously' | t }}: {{document.sub_adult}}</p>
+        <p ng-if="document.cub_calf_pup">{{ 'Number of cubs/calfs/pups' | t }}: {{document.cub_calf_pup}}</p>
+        <p ng-if="document.unidentified">{{ 'Number of unidentified' | t }}: {{document.unidentified}}</p>
+        <p ng-if="document.total">{{ 'Total count' | t }}: {{document.total}}</p>
+        <p ng-if="document.bear_cubs">{{ 'How old were the polar bear cubs?' | t }} {{document.bear_cubs}}</p>
+        <p ng-if="document.polar_bear_condition">{{ 'What was the condition of the polar bear(s)?' | t }} {{document.polar_bear_condition}}</p>
+        <p ng-if="document.polar_bear_den">{{ 'Did you see a polar bear den?' | t }} {{document.polar_bear_den}}</p>
+        <p ng-if="document.dead_alive">{{ 'Observed dead or alive?' | t }} {{document.dead_alive}}</p>
+        <p ng-if="document.occurrence_remarks">{{ 'Occurrence remarks' | t }}: {{document.occurrence_remarks}}</p>
       </section>
 
       <section>
         <md-divider></md-divider>
         <h3>{{ 'Time/location' | t }}</h3>
-        <p>{{ 'Observation date' | t }}: {{document.event_date.split('T')[0]}}</p>
-        <p>{{ 'Placename' | t }}: {{document.placename}}</p>
-        <p>{{ 'Placename comment' | t }}: {{document.placename_comment}}</p>
-          <p><md-icon>place</md-icon>{{ 'Location coordinates (see map above)' | t }}: [{{document.latitude}},{{document.longitude}}]</p>
+        <p ng-if="document.event_date" >{{ 'Observation date' | t }}: {{document.event_date.split('T')[0]}}</p>
+        <p ng-if="document.placename">{{ 'Placename' | t }}: {{document.placename}}</p>
+        <p ng-if="document.placename_comment">{{ 'Placename comment' | t }}: {{document.placename_comment}}</p>
+        <p ng-if="document.latitude" || "document.longitude"><md-icon>place</md-icon>{{ 'Location coordinates (see map above)' | t }}: [{{document.latitude}},{{document.longitude}}]</p>
        </section>
 
 
@@ -55,7 +56,7 @@
          <h3>{{ "Editor's feedback" | t }}</h3>
         <p ng-if="document.date_identified">{{ "Date identified" | t }}: {{document.date_identified.split('T')[0]}}</p>
         <p ng-if="document.editor_assessment">{{ "Editor's assessment" | t }}: {{document.editor_assessment}}</p>
-        <p ng-if="document.occurrence_remarks">{{ 'Occurrence remarks' | t }}: {{document.occurrence_remarks}}</p>
+        <p ng-if="document.editor_comment">{{ "Editor's comment" | t }}: {{document.editor_comment}}</p>
         <br />
         </section>
 

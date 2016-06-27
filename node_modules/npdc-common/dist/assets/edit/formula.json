@@ -55,7 +55,7 @@
                 {
                     "id": "adult",
                     "title": "number of adults when sex is unknown",
-                    "description": "number of adults when sex is unknown"
+                    "description": "number of adults where sex is unknown"
                 },
                 {
                     "id": "sub_adult",
@@ -68,7 +68,7 @@
                 },
                  {
                     "id": "bear_cubs",
-                    "title": "how old were the bear cubs?",
+                    "title": "how old were the polar bear cubs?",
                     "description": "one-year old, two-year old etc"
                 },
                 {

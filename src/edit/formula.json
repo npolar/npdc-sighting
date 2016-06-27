@@ -94,10 +94,6 @@
                 {
                     "id": "total",
                     "title": "total count"
-                },
-                {
-                    "id": "occurrence_remarks",
-                    "title": "occurrence remarks"
                 }
             ]
         },
