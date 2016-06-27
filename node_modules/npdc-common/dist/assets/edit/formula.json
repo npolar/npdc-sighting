@@ -4,7 +4,7 @@
             "fields": [
                          {
                             "id": "title",
-                            "title": "name of travel/trip/expedition"
+                            "title": "name travel/trip/expedition"
                         },
                         {
                             "id": "contact_info",
@@ -26,10 +26,14 @@
                         {
                             "id": "end_date",
                             "title": "end date"
-                        }
-                    ]
-        },
-        {
+                        },
+                        {
+                            "id": "href",
+                            "title": "link to NPI's expedition database (NPI staff only)"
+
+      }]
+},
+                    {
             "title": "Observation",
             "fields": [
                 {
@@ -55,8 +59,8 @@
                 },
                 {
                     "id": "sub_adult",
-                    "title": "young adults, not included previously",
-                    "description": "young adults, not included previously"
+                    "title": "number of young adults, not included previously",
+                    "description": "number of young adults, not included previously"
                 },
                 {
                     "id": "cub_calf_pup",

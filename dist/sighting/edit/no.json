@@ -36,7 +36,7 @@
         "annet"]
       },
       "platform_comment":{
-         "title":"kommentar til platform",
+         "title":"kommentar til platform - navn på skip etc",
          "description": "kommentar til platform - navn på skip etc"
       },
       "start_date":{
@@ -44,6 +44,9 @@
       },
       "end_date":{
          "title": "sluttdato"
+      },
+       "href":{
+         "title": "lenke til NPs ekspedisjonsdatabase (fylles ut av NP ansatte)"
       },
       "species":{
         "title": "art",
@@ -110,7 +113,11 @@
       },
       "polar_bear_den":{
             "title": "så du et isbjørnhi?",
-            "description": "så du et isbjørnhi?"
+            "description": "så du et isbjørnhi?",
+            "values": [
+                    "nei",
+                    "ja"
+            ]
       },
       "unidentified":{
             "title":"antall uidentifiserte",
@@ -135,11 +142,11 @@
                     "description": "observasjonsdato"
       },
       "latitude":{
-               "title":"breddegrad",
+               "title":"breddegrad (desimalgrader)",
               "description": "Breddegrad i desimalgrader"
       },
       "longitude":{
-               "title":"lengdegrad",
+               "title":"lengdegrad (desimalgrader)",
                "description": "lengdegrad i desimalgrader"
       },
       "@placename":{

@@ -13,84 +13,62 @@
 
 
       <section>
-      <p ><md-icon>place</md-icon>
-        {{document.research_station.charAt(0).toUpperCase() +  document.research_station.slice(1)}}</p>
-        <div ng-if="document.stay_dates" ng-repeat="item in document.stay_dates">
-            </p> {{ (item.start_date).split('T')[0] }} - {{ (item.end_date).split('T')[0] }}</p>
-        </div>
+      <p><md-icon class="md-avatar-icon">person</md-icon> {{ 'Observer' | t }}: {{document.created_by}}</p>
+      <p><md-icon>business</md-icon> {{ 'Organisation' | t }}: {{document.organisation}}</p>
+       <p>{{ 'Name travel/trip/expedition' | t }}: {{document.title}}</p>
+      <p>Platform: {{document.platform}}</p>
+      <p>{{ 'Platform comment' | t }}: {{document.platform_comment}}</p>
+      <p>{{ 'Dates' | t }}: {{(document.start_date).split('T')[0]}} - {{(document.end_date).split('T')[0]}}</p>
+      <p ng-if="document.species"><a ng-href="{{document.href}}"> {{ 'Link to expedition' | t }}</a></p>
       </section>
-
-      <section ng-if="document.summary">
-          <md-divider></md-divider>
-        <h3>{{ 'Summary' | t }}</h3>
-
-        <p marked="document.summary"></p>
-      </section>
-
-
-<section ng-if="document.people && document.people.length > 0">
-  <h3>{{ 'People' | t }}</h3>
-  <md-divider></md-divider>
-  <md-list>
-    <md-list-item class="md-2-line" ng-repeat="person in document.people">
-      <md-icon class="md-avatar-icon">person</md-icon>
-        <div class="md-list-item-text">
-          <h3> {{ person.first_name }} {{ person.last_name }} {{ person.number_of_persons }} </h3>
-          <p> {{ person.organisation }}&nbsp;{{ person.country }} </p>
-          <p ng-if="person.roles"><span ng-repeat="r in person.roles">{{ r | t }}<span ng-if="!$last">, </span></span></p>
-          <div ng-repeat="dates in person.station_dates">
-           <p>{{ (dates.start_date).substr(0,10) }} - {{ (dates.end_date).substr(0,10)}}</p>
-         </div>
-        </div>
-      </md-list-item>
-    </md-list>
-</section>
-
- <npdc:organisations></npdc:organisations>
-
-  <!--<npdc:links links="links" ></npdc:links> -->
-
- <section>
-  <div ng-if="links.length > 0">
-    <h3>{{ 'Links' | t }}</h3>
-    <md-divider></md-divider>
-    <md-list>
-      <md-list-item class="md-2-line" ng-repeat="link in links">
-        <div class="md-list-item-text">
-          <a ng-href="{{link.href}}">{{ link.title || link.href }}</a>
-          <p>{{ link.rel }}</p>
-        </div>
-      </md-list-item>
-    </md-list>
-  </div>
-  </section>
-
-
 
       <section>
         <md-divider></md-divider>
-        <h3>{{ 'Classification' | t }}</h3>
+        <h3>{{ 'Observation' | t }}</h3>
+        <p>{{ 'Species' | t }}: {{document.species}}</p>
+        <p>Habitat: {{document.habitat}}</p>
+        <p>{{ 'Number of male adults' | t }}: {{document.adult_m}}</p>
+        <p>{{ 'Number of female adults' | t }}: {{document.adult_f}}</p>
+        <p>{{ 'Number of adults where sex is unknown' | t }}: {{document.adult}}</p>
+        <p>{{ 'Number of young adults, not included previously' | t }}: {{document.sub_adult}}</p>
+        <p>{{ 'Number of cubs/calfs/pups' | t }}: {{document.cub_calf_pup}}</p>
+        <p>{{ 'Number of unidentified' | t }}: {{document.unidentified}}</p>
+        <p>{{ 'Total count' | t }}: {{document.total}}</p>
+        <p>{{ 'How old were the polar bear cubs?' | t }} {{document.bear_cubs}}</p>
+        <p>{{ 'What was the condition of the polar bear(s)?' | t }} {{document.polar_bear_condition}}</p>
+        <p>{{ 'Did you see a polar bear den?' | t }} {{document.polar_bear_den}}</p>
+        <p>{{ 'Observed dead or alive?' | t }} {{document.dead_alive}}</p>
+      </section>
 
-        <div ng-if="document.topics">
-          <h4>{{ 'Topics' | t }}</h4>
-          <p>
-            <md-icon>label_outline</md-icon><span ng-repeat="topic in document.topics">
-              <a ng-href="?q=&filter-topics={{topic}}">{{ topic }}</a>{{!$last ? ' / ':''}}
-            </span>
-          </p>
-        </div>
+      <section>
+        <md-divider></md-divider>
+        <h3>{{ 'Time/location' | t }}</h3>
+        <p>{{ 'Observation date' | t }}: {{document.event_date.split('T')[0]}}</p>
+        <p>{{ 'Placename' | t }}: {{document.placename}}</p>
+        <p>{{ 'Placename comment' | t }}: {{document.placename_comment}}</p>
+          <p><md-icon>place</md-icon>{{ 'Location coordinates (see map above)' | t }}: [{{document.latitude}},{{document.longitude}}]</p>
+       </section>
 
 
-      <section ng-if="alternate">
+        <section>
+        <md-divider></md-divider>
+         <h3>{{ "Editor's feedback" | t }}</h3>
+        <p ng-if="document.date_identified">{{ "Date identified" | t }}: {{document.date_identified.split('T')[0]}}</p>
+        <p ng-if="document.editor_assessment">{{ "Editor's assessment" | t }}: {{document.editor_assessment}}</p>
+        <p ng-if="document.occurrence_remarks">{{ 'Occurrence remarks' | t }}: {{document.occurrence_remarks}}</p>
+        <br />
+        </section>
+
+
+     <!-- <section ng-if="alternate">
         <md-divider></md-divider>
         <h3>{{ 'Machine-readable metadata' | t }}</h3>
-        <!-- @todo CC0 for metadata? <p></p> -->
         <p>
           <div ng-repeat="link in alternate">
             <a ng-href="{{link.href}}" title="{{link.type}}">{{ link.title || link.href }}</a>
             </div>
         </p>
-      </section>
+      </section> -->
 
 <!-- created updated -->
       <section>

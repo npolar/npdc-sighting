@@ -25,7 +25,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
   npdcAppConfig.cardTitle = "Marine mammal sighting";
 
   //Get title and subtitle
-  npdcAppConfig.search.local.results.title = "locality";
+  npdcAppConfig.search.local.results.title = "title";
   npdcAppConfig.search.local.results.subtitle = "species";
 
 
@@ -33,7 +33,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
     let defaults = {
       limit: "50",
       sort: "-updated",
-      fields: 'event_date,species,habitat,updated,id,locality',
+      fields: 'title,event_date,species,habitat,updated,id,locality',
       facets: 'draft'};
 
     let invariants = $scope.security.isAuthenticated() ? {} : {} ;
