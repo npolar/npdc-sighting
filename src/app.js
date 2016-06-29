@@ -11,6 +11,7 @@ npdcSightingApp.controller('SightingShowController', require('./show/SightingSho
 npdcSightingApp.controller('SightingSearchController', require('./search/SightingSearchController'));
 npdcSightingApp.controller('SightingEditController', require('./edit/SightingEditController'));
 npdcSightingApp.directive('sightingCoverage', require('./edit/coverage/coverageDirective'));
+npdcSightingApp.factory('Sighting', require('./edit/Sighting'));
 
 
 // Bootstrap ngResource models using NpolarApiResource
@@ -34,7 +35,7 @@ npdcSightingApp.config(require('./router'));
 npdcSightingApp.config(($httpProvider, npolarApiConfig) => {
   var autoconfig = new AutoConfig("test");
   angular.extend(npolarApiConfig, autoconfig, { resources });
-  console.debug("npolarApiConfig", npolarApiConfig);
+  //console.debug("npolarApiConfig", npolarApiConfig);
 
   $httpProvider.interceptors.push('npolarApiInterceptor');
 });

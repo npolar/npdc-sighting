@@ -1,7 +1,6 @@
 'use strict';
 
-var SightingShowController = function($controller, $routeParams,
-  $scope, $q, Sighting, Expedition, npdcAppConfig) {
+var SightingShowController = function($controller, $routeParams, $scope, $q, Sighting, Expedition, npdcAppConfig) {
     'ngInject';
 
 
@@ -10,48 +9,49 @@ var SightingShowController = function($controller, $routeParams,
   });
   $scope.resource = Sighting;
 
-
+  //Find link for file downloads
   let uri = (sighting) => {
-    let link = sighting.links.find(l => {
-      return l.rel === "alternate" && (/html$/).test(l.type);
+    let link = null;
+    if (sighting.links) {
+         link = sighting.links.find(l => {
+         return l.rel === "alternate" && (/html$/).test(l.type);
     });
-    if (link) {
+    }
+    if (link !== null) {
       return link.href.replace(/^http:/, "https:");
     } else {
       return `https://data.npolar.no/sighting/${ sighting.id }`;
     }
   };
 
+  //Creating intial coord for disply map
   $scope.mapOptions = {};
-  $scope.mapOptions.initcoord = [78.223333, 15.646944];
+  $scope.mapOptions.initcoord = [79.004959, 17.666016];
 
   let show = function() {
 
     $scope.show().$promise.then((sighting) => {
 
-     let lat = null;
-     let lng = null;
-     if ($scope.document.latitude) { lat = $scope.document.latitude; }
-     if ($scope.document.longitude) { lng = $scope.document.longitude; }
+     if (typeof $scope.document.latitude !== 'undefined' && typeof $scope.document.longitude !== 'undefined') {
+            var lat = $scope.document.latitude;
+            var lng = $scope.document.longitude;
+            $scope.mapOptions.coverage = [[[lat, lng],[lat,lng]]];
+            $scope.mapOptions.geojson = "geojson";
+     }
 
-     $scope.mapOptions.coverage = [[[lat, lng ],[lat,lng]]];
-     $scope.mapOptions.geojson = "geojson";
-
+     if (sighting.links && sighting.links !== null) {
      $scope.links = sighting.links.filter(l => (l.rel !== "alternate" && l.rel !== "edit") && l.rel !== "data");
      $scope.data = sighting.links.filter(l => l.rel === "data");
-
       // or in files
-
-      $scope.alternate = sighting.links.filter(l => ((l.rel === "alternate") || l.rel === "edit")).concat({
+     $scope.alternate = sighting.links.filter(l => ((l.rel === "alternate") || l.rel === "edit")).concat({
         href: `https://api.npolar.no/sighting/?q=&filter-id=${sighting.id}&format=json`,
         title: "DCAT (JSON-LD)",
         type: "application/ld+json"
       });
-
+   }
 
 
       $scope.uri = uri(sighting);
-
 
 
     });

@@ -54,7 +54,36 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
     return field.path.match(/^#\/activity\/\d+\/.+/);
   }, format: '{date}'});
 
-   $scope.edit();
+
+ function initFileUpload(formula) {
+
+    let server = `${NpolarApiSecurity.canonicalUri($scope.resource.path)}/:id/_file`;
+
+    fileFunnelService.fileUploader({
+      match(field) {
+        return field.id === "files";
+      },
+      server,
+      multiple: true,
+       restricted: function () {
+        return formula.getModel().restricted;
+      },
+   //   restricted: function () {
+   //     return !formula.getModel().license;
+   //   },
+      fileToValueMapper: Sighting.fileObject,
+      valueToFileMapper: Sighting.hashiObject,
+      fields: [] // 'type', 'hash'
+    }, formula);
+  }
+
+  try {
+    initFileUpload($scope.formula);
+    // edit (or new) action
+    $scope.edit();
+  } catch (e) {
+    NpolarMessage.error(e);
+}
 };
 
 module.exports = SightingEditController;

@@ -125,9 +125,28 @@
                 }
             ]
         },
-     {
-    "title": "image upload",
-    "fields": ["files"]
+{
+    "title": "Photo upload",
+    "fields": [{
+      "id": "files",
+      "title":"upload photos",
+      "items": {
+        "fields": [
+           "id",
+           "filename",
+           "uri",
+           "title",
+           "thumb_href",
+           "filename",
+           "length",
+           "type",
+           "hash",
+           "photographer",
+           "comments",
+           "other_info"
+          ]
+        }
+      }]
 },
  {
             "title": "Assessment",

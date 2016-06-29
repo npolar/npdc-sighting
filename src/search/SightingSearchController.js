@@ -14,7 +14,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
        let eventDateText = NpolarTranslate.translate('Event date');
       let e =  eventDateText +":";
 
-     if (entry.updated !== null && entry.event_date !== null) {
+     if (entry.event_date && entry.event_date !== null) {
          return  e+` ${(entry.event_date.split('T')[0])}` + r+` ${(entry.updated.split('T')[0])}`;
      } else {
         return 'No dates';
