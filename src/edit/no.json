@@ -23,17 +23,17 @@
           "title": "platform",
           "description": "båt, ski, kajakk, scooter, fly etc",
           "values": [
-          "ukjent",
-        "skip",
-        "båt",
-        "fly",
-        "helikopter",
-        "ski",
-        "kajakk",
-        "til fots",
-        "scooter",
-        "beltevogn",
-        "annet"]
+              "ukjent",
+              "skip",
+              "båt",
+              "fly",
+              "helikopter",
+              "ski",
+              "kajakk",
+              "til fots",
+              "scooter",
+              "beltevogn",
+              "annet"]
       },
       "platform_comment":{
          "title":"kommentar til platform - navn på skip etc",
@@ -105,12 +105,25 @@
       },
       "bear_cubs": {
             "title": "hvor gamle var isbjørnungene?",
-            "description": "ettåring, to-åring etc"
+            "description": "ettåring, to-åring etc",
+            "values":[
+            "passer ikke/ukjent",
+            "nyfødt/årets kull",
+            "ettåring",
+            "toåring"
+            ]
       },
       "polar_bear_condition": {
             "title": "i hvilken kondisjon var isbjørnen(e)?",
-            "description": "beskriv hvor feite isbjørnene var - 1 en veldig tynn, 5 er feit"
-      },
+            "description": "beskriv hvor feite isbjørnene var - 1 en veldig tynn, 5 er feit",
+            "values": [
+                "passer ikke/ukjent",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"]
+       },
       "polar_bear_den":{
             "title": "så du et isbjørnhi?",
             "description": "så du et isbjørnhi?",
