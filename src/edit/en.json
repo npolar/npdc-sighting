@@ -1,9 +1,11 @@
 {
   "fields": {
     "species": {
-       "title": "species",
-       "values": ["unknown",
-       "polar bear",
+      "title": "species 2",
+      "description": "species",
+      "values": [
+        "unknown",
+        "polar bear",
         "walrus",
         "bearded seal",
         "harbor seal",
@@ -27,8 +29,8 @@
         "seal (unspecified)",
         "polar bear den",
         "other species"
-       ]
-     },
+      ]
+},
      "bear_cubs":{
        "title": "bear cubs",
        "values": [

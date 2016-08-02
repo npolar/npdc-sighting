@@ -10,9 +10,9 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
 
    npdcAppConfig.search.local.results.detail = (entry) => {
      let updatedText = NpolarTranslate.translate('Last updated');
-      let r = "  " + updatedText +":";
-       let eventDateText = NpolarTranslate.translate('Event date');
-      let e =  eventDateText +":";
+     let r = "  " + updatedText +":";
+     let eventDateText = NpolarTranslate.translate('Event date');
+     let e =  eventDateText +":";
 
      if (entry.event_date && entry.event_date !== null) {
          return  e+` ${(entry.event_date.split('T')[0])}` + r+` ${(entry.updated.split('T')[0])}`;

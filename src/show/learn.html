@@ -1,0 +1,16 @@
+<h1><b> Species <b></h1>
+
+<div class="no-touch">
+<div class="wrap">
+<div ng-repeat="species in species">
+<div class="box">
+<div class="boxInner">
+
+<a href="{{species.link}}"><img ng-src="{{species.image}}" alt="{{species.name}}-{{species.rights}}" title="{{species.eng}}-{{species.name}}-{{species.family}}" /></a>
+<div class="titleBox">{{species.eng}} ({{species.name}})</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>

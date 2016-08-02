@@ -5,6 +5,9 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
   NpolarApiSecurity, npolarCountryService, NpolarMessage) {
   'ngInject';
 
+
+  function init() {
+
   // EditController -> NpolarEditController
   $controller('NpolarEditController', {
     $scope: $scope
@@ -14,29 +17,42 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
   $scope.resource = Sighting;
 
 
-   let templates = [
-    {
-      match: "locations_item",
-      template: "<inventory:coverage></inventory:coverage>"
-    }
-];
+    let formulaOptions = {
+      schema: '//api.npolar.no/schema/sighting',
+      form: 'edit/formula.json',
+      language: NpolarLang.getLang(),
+      templates: npdcAppConfig.formula.templates.concat([{
+        match(field) {
+          if (field.id === 'links_item') {
+            let match;
 
-  let i18n = [{
-      map: require('./en.json'),
-      code: 'en'
-    },
+          // Hide data links and system links for the ordinary links block (defined in formula as instance === 'links')
+            match = ["data", "alternate", "edit", "via"].includes(field.value.rel) && field.parents[field.parents.length-1].instance === 'links';
+          //  console.log(match, field.id, field.path, 'value', field.value, 'instance', field.parents[field.parents.length-1].instance);
+            return match;
+          }
+        },
+        hidden: true
+      },  {
+        match: "locations_item",
+        template: "<inventory:coverage></inventory:coverage>"
+      },
     {
-      map: require('./no.json'),
-      code: 'nb_NO',
-    }];
+        match: "placenames_item",
+        template: '<npdc:formula-placename></npdc:formula-placename>'
+      }
+    ]),
+      languages: npdcAppConfig.formula.languages.concat([{
+        map: require('./en.json'),
+        code: 'en'
+      }, {
+        map: require('./no.json'),
+        code: 'nb_NO',
+      }])
+  };
 
-  $scope.formula = formula.getInstance({
-    schema: '//api.npolar.no/schema/sighting',
-    form: 'edit/formula.json',
-    language: NpolarLang.getLang(),
-    templates: npdcAppConfig.formula.templates.concat(templates),
-    languages: npdcAppConfig.formula.languages.concat(i18n)
-   });
+  $scope.formula = formula.getInstance(formulaOptions);
+  initFileUpload($scope.formula);
 
    formulaAutoCompleteService.autocomplete({
     match: "@placename",
@@ -53,6 +69,8 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
   chronopicService.defineOptions({ match(field) {
     return field.path.match(/^#\/activity\/\d+\/.+/);
   }, format: '{date}'});
+
+}
 
 
  function initFileUpload(formula) {
@@ -78,7 +96,7 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
   }
 
   try {
-    initFileUpload($scope.formula);
+    init();
     // edit (or new) action
     $scope.edit();
   } catch (e) {

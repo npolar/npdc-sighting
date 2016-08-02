@@ -10,8 +10,10 @@ var npdcSightingApp = angular.module('npdcSightingApp', ['npdcCommon','leaflet']
 npdcSightingApp.controller('SightingShowController', require('./show/SightingShowController'));
 npdcSightingApp.controller('SightingSearchController', require('./search/SightingSearchController'));
 npdcSightingApp.controller('SightingEditController', require('./edit/SightingEditController'));
+npdcSightingApp.controller('SightingController', require('./info/SightingController'));
 npdcSightingApp.directive('sightingCoverage', require('./edit/coverage/coverageDirective'));
 npdcSightingApp.factory('Sighting', require('./edit/Sighting'));
+npdcSightingApp.constant('SPECIES', require('./info/SpeciesGallery'));
 
 
 // Bootstrap ngResource models using NpolarApiResource
@@ -33,7 +35,7 @@ resources.forEach(service => {
 npdcSightingApp.config(require('./router'));
 
 npdcSightingApp.config(($httpProvider, npolarApiConfig) => {
-  var autoconfig = new AutoConfig("test");
+  var autoconfig = new AutoConfig("production");
   angular.extend(npolarApiConfig, autoconfig, { resources });
   //console.debug("npolarApiConfig", npolarApiConfig);
 
