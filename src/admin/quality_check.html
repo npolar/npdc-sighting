@@ -1,0 +1,42 @@
+
+
+<h1><b> Quality check new observations<b></h1>
+<p></p>
+<p></p>
+
+<div ng-show="isAdmin">
+
+<p></p>
+ <div ng-controller="QualityCtrl as entry">
+  <table class="layout1" st-table="displayedCollection" st-safe-src="full.feed.entries">
+    <thead>
+        <th>Date</th><th>Species</th><th>Location</th><th>Latitude</th><th>Longitude</th><th></th><th></th>
+    </thead>
+
+    <tbody>
+    <tr ng-repeat="entry in displayedCollection"> <td>{{ (entry.event_date).substring(0,10) }}&nbsp;</td>
+        <td>{{ entry.species}}&nbsp;</td>
+        <td>{{ entry.locality }}&nbsp;</td>
+        <td>{{ entry.latitude }}&nbsp;</td>
+        <td>{{ entry.longitude }}&nbsp;</td>
+        <td><a href="observations/{{entry.id}}/editadmin">Edit</a></td>
+        <td><a href="observations/{{entry.id}}/deleteadmin">Delete</a></td>
+   </tr>
+   </tbody>
+   <tfoot>
+      <tr >
+        <td colspan="5" class="text-center">
+          <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+        </td>
+      </tr>
+</tfoot>
+</table>
+</div>
+</div>
+
+
+<div ng-show="!isAdmin">
+
+      <p>Please <a href="/sighting">log in</a> with your admin account in order to view this page.</p>
+</div>
+

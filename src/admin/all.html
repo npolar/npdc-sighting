@@ -1,0 +1,131 @@
+<article class="np-padding np-doc" layout>
+  <h1 class="">Map search</h1>
+</article>
+
+
+ <!--<div ng-show="isAdmin"> -->
+
+<article><a href="quality_check">Quality check</a>&nbsp;&nbsp;
+<a href="upload">Upload Excelsheet</a>&nbsp;&nbsp;
+<a href="/sighting">Back</a>
+</article>
+
+ <form id="submit" ng-submit="submit()" class="pure-form pure-form-stacked">
+
+<!-- View map -->
+ <leaflet center="center" defaults="layers" markers="markers" controls="controls" height="400px" width="100%"></leaflet>
+
+
+  <p >Select an area on the map by dragging/dropping</p>
+
+  <br />
+  <!-- Search ------>
+
+
+<label for="search">General search:&nbsp;</label><input type="text" placeholder="Search Svalbard Sightings.." ng-model="search" />
+
+
+<legend>or field search:</legend>
+
+<div class="pure-g">
+<div class="pure-u-1 pure-u-md-1-1">
+<label for="species">Species: </label>
+     <select ng-model="species" ng-options="item as item.eng + ' (' + item.name + ')' for item in items">
+      <option value=""> Undefined </option></select>
+</div>
+
+<div class="pure-u-1 pure-u-md-1-2">
+ <label for="edate1">Event date start:</label> <input type="datetime" lang="en" ng-model="edate1">
+</div>
+
+<div class="pure-u-1 pure-u-md-1-2">
+ <label for="edate2">Event date end:</label> <input type="datetime" lang="en" ng-model="edate2">
+</div>
+
+
+<div class="pure-u-1 pure-u-md-1-2">
+ <label for="lat1">Latitude start:</label> <input type="text" ng-model="lat1" size="5" >
+</div>
+
+<div class="pure-u-1 pure-u-md-1-2">
+ <label for="lat2">Latitude end:</label> <input type="text" ng-model="lat2" size="5" >
+</div>
+
+<div class="pure-u-1 pure-u-md-1-2">
+  <label for="lng1">Longitude start:</label><input type="text" ng-model="lng1" size="5">
+</div>
+
+<div class="pure-u-1 pure-u-md-1-2">
+   <label for="lng2">Longitude end:</label><input type="text" ng-model="lng2" size="5" >
+</div>
+
+
+<div class="pure-u-1 pure-u-md-1-1">
+<input type="submit" id="submit" value="Search" />
+</div>
+</div>
+
+<div ng-if="dataLoading">
+    Loading...
+</div>
+
+<p></p>
+
+<!-- Create CSV -->
+ <a href="csv">Create CSV</a><br /><br />
+
+<!--Table listing part -->
+
+  <table class="layout1" st-table="displayedCollection" st-safe-src="entries">
+    <thead>
+ <th>Count</th><th>Date</th><th>Species</th><th>Location</th><th>Assessment</th><th>Excelfile</th><th>View</th><th>Edit</th><th>Delete</th>
+    </thead>
+    <tbody>
+   <tr ng-repeat="entry in displayedCollection" ng-cloak>
+        <td>{{entry.count}}</td>
+        <td>{{ (entry.event_date).substring(0,10) }}&nbsp;</td>
+        <td>{{ entry.species }}&nbsp;</td>
+        <td>{{ entry.locality }}&nbsp;</td>
+        <td>{{ entry.editor_assessment }}&nbsp;</td>
+        <td><a href="http://{{hostname}}/{{entry.excelfile.filename}}">{{ entry.excelfile.filename }}&nbsp;</td>
+        <td><a href="observations/{{entry.id}}">View&nbsp;</a></td>
+         <td><a href="observations/{{entry.id}}/editadmin">Edit&nbsp;</a></td>
+        <td><a href="observations/{{entry.id}}/deleteadmin">Delete</a></td>
+  </tr>
+</tbody>
+<tfoot>
+      <tr >
+        <td colspan="5" class="text-center">
+          <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="20"></div>
+        Total: {{ total }}</td>
+      </tr>
+</tfoot>
+</table>
+ </form>
+
+<!-- </div> -->  <!-- ng-show -->
+
+
+
+
+<!--<div ng-show="!isAdmin">
+
+      <p>Please <a href="/sighting">log in</a> with your admin account in order to view this page.</p>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

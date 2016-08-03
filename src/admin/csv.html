@@ -1,0 +1,35 @@
+
+
+
+<h1><b>CSV <b></h1>
+
+<div ng-show="isAdmin">
+
+<div ng-controller="CSVCtrl">
+Id | Date | Latitude | Longitude | Location | Location comment | Species | Adult M | Adult F | Adult | Subadult | Polar bear condition | Cub/calf/pup | Bear cubs | Unidentified | Total | Habitat | Occurrence remark | Excel filename | Expedition name | Expedition contact info | Expedition organisation | Platform | Platform comment  <br />
+
+<p ng-repeat="entry in entries">
+{{ entry.id }} | {{ (entry.event_date).substring(0,10) }} | {{ entry.latitude }} |
+{{ entry.longitude }} | {{ entry.locality }} |{{ entry.location_comment }} |
+{{ entry.species }} | {{entry.adult_m }} | {{ entry.adult_f }} | {{ entry.adult }} |
+ {{ entry.subadult }} | {{ entry.polar_bear_condition }} | {{ entry.cub_calf_pup}} |
+ {{ entry.bear_cubs }} | {{ entry.unidentified }} | {{ entry.total }} | {{ entry.habitat }} | {{ entry.occurrence_remark }} | {{entry.excelfile.filename}} | {{entry.expedition.name}} | {{entry.expedition.contact_info}} | {{entry.expedition.organisation}} | {{entry.expedition.platform}} |
+ {{entry.expedition.platform_comment}} | {{ ((entry.expedition.start_date).substring(0,10)) }} | {{ ((entry.expedition.end_date).substring(0,10)) }}
+</p>
+
+
+</div>
+</div>
+
+<div ng-show="!isAdmin">
+      <p>Please <a href="/sighting">log in</a> with your admin account in order to view this page.</p>
+</div>
+
+
+
+
+
+
+
+
+

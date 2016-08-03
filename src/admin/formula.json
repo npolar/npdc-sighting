@@ -1,0 +1,9 @@
+{
+    "fieldsets": [{
+            "fields": [
+                        "name",
+                        "contact_info"
+                    ]
+        }
+    ]
+}

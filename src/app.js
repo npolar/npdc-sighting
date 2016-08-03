@@ -11,6 +11,10 @@ npdcSightingApp.controller('SightingShowController', require('./sighting-db/show
 npdcSightingApp.controller('SightingSearchController', require('./sighting-db/search/SightingSearchController'));
 npdcSightingApp.controller('SightingEditController', require('./sighting-db/edit/SightingEditController'));
 npdcSightingApp.controller('SightingController', require('./info/SightingController'));
+npdcSightingApp.controller('AdminObservationsController', require('./admin/AdminObservationsController'));
+npdcSightingApp.controller('QualityController', require('./admin/QualityController'));
+npdcSightingApp.controller('UploadObservationsController', require('./admin/UploadObservationsController'));
+npdcSightingApp.controller('DeleteAdminObservationController', require('./admin/DeleteAdminObservationController'));
 npdcSightingApp.directive('sightingCoverage', require('./sighting-db/edit/coverage/coverageDirective'));
 npdcSightingApp.factory('Sighting', require('./sighting-db/edit/Sighting'));
 npdcSightingApp.constant('SPECIES', require('./info/SpeciesGallery'));

@@ -1,5 +1,15 @@
 var gulp = require('gulp');
 var npdcGulp = require('npdc-gulp');
 var config = npdcGulp.baseConfig;
-config.COMMON_VERSION = '4';
-npdcGulp.loadAppTasks(gulp, config);
+npdcGulp.loadAppTasks(gulp, {
+  'COMMON_VERSION': '4',
+  'deps': {
+    'assets': [
+                'node_modules/leaflet-draw/dist/**/*',
+                'node_modules/xlsx/dist/*',
+                'node_modules/leaflet/dist/*',
+                'node_modules/angular-leaflet-directive/dist/*',
+                'node_modules/leaflet-draw/dist/*',
+                'node_modules/angular-smart-table/dist/smart-table.min.js']
+}});
+
