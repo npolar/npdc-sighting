@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<npdc:edit-button class="np-primary-control"></npdc:edit-button>
+<!-- <npdc:edit-button class="np-primary-control"></npdc:edit-button> -->
+
+<span class="np-primary-control">
+  <md-button class="md-fab" ng-if="security.isAuthorized('update', resource.path)" ng-href="db/{{ resource.editHref(document.id) }}">
+  <md-tooltip md-direction="top">Edit</md-tooltip>
+  <md-icon>edit</md-icon>
+  </md-button>
+</span>
+
 <npdc:loader ng-if="!document"></npdc:loader>
 <leaflet ng-if="document && mapOptions.coverage" options="mapOptions" class="coverage-map"></leaflet>
 <div class="np-padding">

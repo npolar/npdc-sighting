@@ -8,7 +8,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
   $scope.resource = Sighting;
 
 
-   npdcAppConfig.search.local.results.detail = (entry) => {
+  /* npdcAppConfig.search.local.results.detail = (entry) => {
      let updatedText = NpolarTranslate.translate('Last updated');
      let r = "  " + updatedText +":";
      let eventDateText = NpolarTranslate.translate('Event date');
@@ -26,7 +26,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
 
   //Get title and subtitle
   npdcAppConfig.search.local.results.title = "title";
-  npdcAppConfig.search.local.results.subtitle = "species";
+  npdcAppConfig.search.local.results.subtitle = "species"; */
 
 
   let query = function() {
