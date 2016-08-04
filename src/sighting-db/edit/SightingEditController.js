@@ -19,7 +19,7 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
 
     let formulaOptions = {
       schema: '//api.npolar.no/schema/sighting',
-      form: 'edit/formula.json',
+      form: 'sighting-db/edit/formula.json',
       language: NpolarLang.getLang(),
       templates: npdcAppConfig.formula.templates.concat([{
         match(field) {
