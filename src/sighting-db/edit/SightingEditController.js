@@ -1,6 +1,6 @@
 'use strict';
 
-var SightingEditController = function($scope, $controller, $routeParams, Sighting, formula,
+var SightingEditController = function($scope, $controller, $routeParams, Sighting, $http, $timeout, formula,
   formulaAutoCompleteService, npdcAppConfig, chronopicService, fileFunnelService, NpolarLang, npolarApiConfig,
   NpolarApiSecurity, npolarCountryService, NpolarMessage) {
   'ngInject';
@@ -47,7 +47,7 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
         code: 'en'
       }, {
         map: require('./no.json'),
-        code: 'nb_NO',
+        code: 'nb_NO'
       }])
   };
 
@@ -61,8 +61,8 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
     value: 'ident'
 }, $scope.formula);
 
-  let autocompleteFacets = ["organisation"];
-  formulaAutoCompleteService.autocompleteFacets(autocompleteFacets, Sighting, $scope.formula);
+
+ //formulaAutoCompleteService.autocompleteFacets(['organisation'], Sighting, $scope.formula);
 
 
   chronopicService.defineOptions({ match: 'released', format: '{date}'});

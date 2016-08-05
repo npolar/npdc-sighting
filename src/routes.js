@@ -17,7 +17,7 @@ var router = function($routeProvider, $locationProvider) {
   }).when('/observe', {
     templateUrl: 'info/observe.html',
     controller: 'SightingController'
-  }).when('/admin', {
+  }).when('/administrators', {
      templateUrl: 'admin/all.html',
      controller: 'AdminObservationsController'
   }).when('/upload', {
@@ -26,9 +26,6 @@ var router = function($routeProvider, $locationProvider) {
   }).when('/quality_check', {
      templateUrl: 'admin/quality_check.html',
      controller: 'QualityController'
-  }).when('/sighting/admin', {
-     templateUrl: './all.html',
-     controller: 'SightingController'
   }).when('/db', {
     templateUrl: 'sighting-db/search/search.html',
     controller: 'SightingSearchController',

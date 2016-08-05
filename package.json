@@ -12,7 +12,7 @@
   "repository": "https://github.com/npolar/npdc-station-booking",
   "dependencies": {
     "angular": "^1.4.9",
-    "npdc-common": "npolar/npdc-common",
+    "npdc-common": "npolar/npdc-common#v4.2.1",
     "leaflet": "^0.7.3",
     "leaflet-draw": "^0.2.3",
     "angular-leaflet-directive": "^0.7.11",
