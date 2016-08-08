@@ -4,18 +4,17 @@
 // Respond to search to get relevant entries
 // First respond to squares drawn
 // @ngInject
-var AdminObservationsController = function($scope, $http, leafletData, SPECIES, CSVService, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig, IsAdmin) {
+var AdminObservationsController = function($scope, $http, leafletData, SPECIES, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig) {
 
   //Do not show "loading.."
   $scope.dataLoading = false;
 
-
   //Fetch previous search if existing
-  $scope.entries = CSVService.entryObject;
+  // $scope.entries = CSVService.entryObject;
   //Remove empty entry from table
-  if ($scope.entries.data === null) {
-    $scope.entries = undefined;
-  }
+  //if ($scope.entries.data === null) {
+  // $scope.entries = undefined;
+  // }
 
   $scope.edate1 = undefined;
   $scope.edate2 = undefined;
@@ -32,7 +31,7 @@ var AdminObservationsController = function($scope, $http, leafletData, SPECIES, 
  var displayedCollection = [];
 
  //Access to page or not?
- $scope.isAdmin = IsAdmin.entryObject.data;
+ //$scope.isAdmin = IsAdmin.entryObject.data;
 
  //select -get species
  $scope.items = SPECIES;

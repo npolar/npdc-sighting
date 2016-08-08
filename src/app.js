@@ -5,7 +5,14 @@ var AutoConfig = npdcCommon.AutoConfig;
 var angular = require('angular');
 require('npdc-common/src/wrappers/leaflet');
 
-var npdcSightingApp = angular.module('npdcSightingApp', ['npdcCommon','leaflet']);
+//Loading leaflet
+var L = require('leaflet');
+L.Icon.Default.imagePath = 'node_modules/leaflet/dist/images/';
+
+require('angular-leaflet-directive');
+
+
+var npdcSightingApp = angular.module('npdcSightingApp', ['npdcCommon', 'leaflet', 'leaflet-directive']);
 
 npdcSightingApp.controller('SightingShowController', require('./sighting-db/show/SightingShowController'));
 npdcSightingApp.controller('SightingSearchController', require('./sighting-db/search/SightingSearchController'));
@@ -18,7 +25,8 @@ npdcSightingApp.controller('DeleteAdminObservationController', require('./admin/
 npdcSightingApp.directive('sightingCoverage', require('./sighting-db/edit/coverage/coverageDirective'));
 npdcSightingApp.factory('Sighting', require('./sighting-db/Sighting'));
 npdcSightingApp.constant('SPECIES', require('./info/SpeciesGallery'));
-
+npdcSightingApp.service('SightingDBSearch', require('./admin/SightingDBSearch'));
+npdcSightingApp.directive('map', require('./admin/mapdraw'));
 
 
 // Bootstrap ngResource models using NpolarApiResource
