@@ -1,4 +1,4 @@
-/*Photogallery using pure*/
+/*Photogallery*/
 
    div.no-touch {
       margin: 0;
@@ -74,13 +74,4 @@
         padding-bottom: 20%;
       }
     }
-  </style>
-  <!-- Enable media queries for old IE -->
-  <!--[if lt IE 9]>
-	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-  <![endif]-->
-
-    Status API Training Shop Blog About
-
-    © 2016 GitHub, Inc. Terms Privacy Security Contact Help
 
