@@ -20,6 +20,20 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
   console.log($scope.opt);
   console.log("AdminObservationsController");
+
+
+  $scope.edate1 = undefined;
+  $scope.edate2 = undefined;
+
+  //using chronopic to show dates
+  new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
+  new Chronopic('input[type="date"][lang="en"]', { locale: 'en_US' });
+
+  //pagination
+ $scope.itemsByPage=10;
+ var displayedCollection = [];
+
+
 };
 
 

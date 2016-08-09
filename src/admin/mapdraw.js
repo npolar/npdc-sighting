@@ -1,14 +1,14 @@
 'use strict';
 
 
-var mapdraw = function () {
+let mapdraw = function () {
     'ngInject';
     var L = require('leaflet');
     L.Icon.Default.imagePath = '../node_modules/leaflet/dist/images/';
 
     return {
       restrict: 'AE',
-      template: '<div id="map2"></div><p>hei</p>',
+      template: '<div id="map2"></div>',
       scope: {
          opt: '='
       }, //isolate the scope
@@ -54,10 +54,10 @@ var mapdraw = function () {
         draw: {
           position: 'topleft',
           polygon: scope.opt.edits[0],
-          polyline: scope.opt.edits[1],
+          polyline: false, //scope.opt.edits[1],
           rectangle: scope.opt.edits[2],
-          circle: scope.opt.edits[3],
-          marker: marker1
+          circle: false, //scope.opt.edits[3],
+          marker: false //marker1
         },
         edit: edit1
       });
@@ -137,8 +137,6 @@ var mapdraw = function () {
         console.log("coord");
         console.log(coord);
   });
-
-
 
 }
 }
