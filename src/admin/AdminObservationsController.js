@@ -20,6 +20,9 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     $scope.itemsByPage=10;
     var displayedCollection = [];
 
+    //select -get species
+    $scope.items = SPECIES;
+
     //Set base map, center
     //Loading leaflet
     var L = require('leaflet');
