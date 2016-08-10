@@ -77,15 +77,15 @@
     </thead>
     <tbody>
    <tr ng-repeat="entry in displayedCollection" ng-cloak>
-        <td>{{entry.count}}</td>
-        <td>{{ (entry.event_date).substring(0,10) }}&nbsp;</td>
-        <td>{{ entry.species }}&nbsp;</td>
-        <td>{{ entry.locality }}&nbsp;</td>
-        <td>{{ entry.editor_assessment }}&nbsp;</td>
-        <td><a href="http://{{hostname}}/{{entry.excelfile.filename}}">{{ entry.excelfile.filename }}&nbsp;</td>
-        <td><a href="observations/{{entry.id}}">View&nbsp;</a></td>
-         <td><a href="observations/{{entry.id}}/editadmin">Edit&nbsp;</a></td>
-        <td><a href="observations/{{entry.id}}/deleteadmin">Delete</a></td>
+        <td>{{entry[0].count}}</td>
+        <td>{{ (entry[0].event_date).substring(0,10) }}&nbsp;</td>
+        <td>{{ entry[0].species }}&nbsp;</td>
+        <td>{{ entry[0].locality }}&nbsp;</td>
+        <td>{{ entry[0].editor_assessment }}&nbsp;</td>
+        <td><a href="http://{{hostname}}/{{entry.excelfile.filename}}">{{ entry[0].excelfile.filename }}&nbsp;</td>
+        <td><a href="db/{{entry[0].id}}">View&nbsp;</a></td>
+         <td><a href="db/{{entry[0].id}}/edit">Edit&nbsp;</a></td>
+        <td><a href="db/{{entry[0].id}}/deleteadmin">Delete</a></td>
   </tr>
 </tbody>
 <tfoot>

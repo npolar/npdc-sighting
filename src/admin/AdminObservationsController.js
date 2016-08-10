@@ -8,8 +8,14 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 //var AdminObservationsController = function($scope, $http, leafletData, SPECIES, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig) {
 //Input attributes
 
+   //Do not show "loading.."
+$scope.dataLoading = false;
+
+
+
     $scope.edate1 = undefined;
     $scope.edate2 = undefined;
+    var markers = [];
 
     //using chronopic to show dates
     new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
@@ -228,6 +234,8 @@ expedition.organisation,expedition.platform,expedition.platform_comment,expediti
     //Pagination
     displayedCollection.push(full.feed.entries);
     $scope.displayedCollection = displayedCollection;
+    console.log(displayedCollection[0][0].species);
+    console.log("displyecolection");
     $scope.entries = full.feed.entries;
 
 
