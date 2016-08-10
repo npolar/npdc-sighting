@@ -6,7 +6,6 @@ let coverageDirective = function () {
   return {
     template: require('./coverage.html'),
     controller($scope, $timeout) {
-      "ngInject";
 
       let rectLayer;
       let changesDueToMapSelect = 0;
