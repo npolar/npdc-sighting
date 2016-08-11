@@ -73,19 +73,19 @@
 
   <table class="layout1" st-table="displayedCollection" st-safe-src="entries">
     <thead>
- <th>Count</th><th>Date</th><th>Species</th><th>Location</th><th>Assessment</th><th>Excelfile</th><th>View</th><th>Edit</th><th>Delete</th>
+ <th>Date</th><th>Species</th><th>Total</th><th>Location</th><th>Assessment</th><th>Excelfile</th><th>View</th><th>Edit</th><th>Delete</th>
     </thead>
     <tbody>
    <tr ng-repeat="entry in displayedCollection" ng-cloak>
-        <td>{{entry[0].count}}</td>
+        <td>{{entry[0].total}}</td>
         <td>{{ (entry[0].event_date).substring(0,10) }}&nbsp;</td>
         <td>{{ entry[0].species }}&nbsp;</td>
         <td>{{ entry[0].locality }}&nbsp;</td>
         <td>{{ entry[0].editor_assessment }}&nbsp;</td>
-        <td><a href="http://{{hostname}}/{{entry.excelfile.filename}}">{{ entry[0].excelfile.filename }}&nbsp;</td>
-        <td><a href="db/{{entry[0].id}}">View&nbsp;</a></td>
-         <td><a href="db/{{entry[0].id}}/edit">Edit&nbsp;</a></td>
-        <td><a href="db/{{entry[0].id}}/deleteadmin">Delete</a></td>
+        <td><a href="http://{{hostname}}/{{entry[0].excelfile.filename}}">{{ entry[0].excelfile.filename }}&nbsp;</td>
+        <td><a href="db/{{entry[0].id}}" target="_blank">View&nbsp;</a></td>
+         <td><a href="db/{{entry[0].id}}/edit" target="_blank">Edit&nbsp;</a></td>
+        <td><a href="db/{{entry[0].id}}/delete" target="_blank">Delete</a></td>
   </tr>
 </tbody>
 <tfoot>

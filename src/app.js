@@ -15,11 +15,12 @@ npdcSightingApp.controller('SightingController', require('./info/SightingControl
 npdcSightingApp.controller('AdminObservationsController', require('./admin/AdminObservationsController'));
 npdcSightingApp.controller('QualityController', require('./admin/QualityController'));
 npdcSightingApp.controller('UploadObservationsController', require('./admin/UploadObservationsController'));
-npdcSightingApp.controller('DeleteAdminObservationController', require('./admin/DeleteAdminObservationController'));
+npdcSightingApp.controller('SightingDeleteController', require('./admin/SightingDeleteController'));
 npdcSightingApp.directive('sightingCoverage', require('./sighting-db/edit/coverage/coverageDirective'));
 npdcSightingApp.factory('Sighting', require('./sighting-db/Sighting'));
 npdcSightingApp.constant('SPECIES', require('./info/SpeciesGallery'));
 npdcSightingApp.service('SightingDBSearch', require('./admin/SightingDBSearch'));
+npdcSightingApp.service('SightingDBGet', require('./admin/SightingDBGet'));
 
 
 // Bootstrap ngResource models using NpolarApiResource

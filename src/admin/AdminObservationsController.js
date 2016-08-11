@@ -107,12 +107,8 @@ $scope.dataLoading = false;
   });
 
 
-
  // Execute this function when advanced search button is pressed
  $scope.submit = function() {
-
-    console.log($scope);
-    console.log("get scope...");
 
     //show loading..
     $scope.dataLoading = true;
@@ -183,18 +179,13 @@ $scope.dataLoading = false;
        sok = sok+lat+lng+edate;
     }
 
-   // console.log(sok);
-   // console.log("cccccc");
-
    //Prune search - transfer as little data as possible to save time
-   var fields = '&fields=id,event_date,latitude,longitude,locality,location_comment,species,adult_m,adult_f,adult,subadult,polar_bear_condition,\
-cub_calf_pup,bear_cubs,unidentified,total,habitat,occurrence_remark,excelfile.filename,expedition.name,expedition.contact_info,\
-expedition.organisation,expedition.platform,expedition.platform_comment,expedition.start_date,expedition.end_date';
+   var fields = '&fields=id,event_date,locality,location_comment,species,editor_assessment,total,excelfile.filename';
 
    var full = SightingDBSearch.get({search:sok+fields}, function(){
 
     var redIcon = {
-    iconUrl: 'img/icons/reddot.png',
+    iconUrl: 'admin/img/reddot.png',
     iconSize:     [8, 8] // size of the icon
     };
 
@@ -206,6 +197,7 @@ expedition.organisation,expedition.platform,expedition.platform_comment,expediti
     // Fetch the lat/lon entries. Have to switch lat/lon for display
     while (len--) {
 
+      console.log("got here");
       full.feed.entries[len].count = len;
 
       if (full.feed.entries[len].latitude && full.feed.entries[len].longitude){
@@ -234,8 +226,6 @@ expedition.organisation,expedition.platform,expedition.platform_comment,expediti
     //Pagination
     displayedCollection.push(full.feed.entries);
     $scope.displayedCollection = displayedCollection;
-    console.log(displayedCollection[0][0].species);
-    console.log("displyecolection");
     $scope.entries = full.feed.entries;
 
 

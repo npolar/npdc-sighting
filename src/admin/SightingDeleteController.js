@@ -1,13 +1,14 @@
 'use strict';
 //Delete entry here by updating so entry is still available
 // @ngInject
-var DeleteAdminObservationController =  function($scope, $routeParams, Sighting, SightingDBGet, IsAdmin) {
+//var DeleteAdminObservationController =  function($scope, $routeParams, Sighting, SightingDBGet, IsAdmin) {
+var DeleteAdminObservationController =  function($scope, $routeParams, Sighting, SightingDBGet) {
 
           //Get entry
           $scope.entry = SightingDBGet.get({id: $routeParams.id }, function(){
           });
 
-          $scope.isAdmin = IsAdmin.entryObject.data;
+      //    $scope.isAdmin = IsAdmin.entryObject.data;
 
      //Delete by put update, set _deleted to true
     $scope.submit = function(id) {
