@@ -2,7 +2,7 @@
 //Delete entry here by updating so entry is still available
 // @ngInject
 //var DeleteAdminObservationController =  function($scope, $routeParams, Sighting, SightingDBGet, IsAdmin) {
-var DeleteAdminObservationController =  function($scope, $routeParams, Sighting, SightingDBGet) {
+var SightingDeleteController =  function($scope, $routeParams, Sighting, SightingDBGet) {
 
           //Get entry
           $scope.entry = SightingDBGet.get({id: $routeParams.id }, function(){
@@ -20,4 +20,4 @@ var DeleteAdminObservationController =  function($scope, $routeParams, Sighting,
    };
 };
 
-module.exports = DeleteAdminObservationController;
+module.exports = SightingDeleteController;
