@@ -48,8 +48,8 @@ $scope.dataLoading = false;
     map.addLayer(drawnItems);
 
 
-  //Create a draw control
-      var drawControl = new L.Control.Draw({
+    //Create a draw control
+    var drawControl = new L.Control.Draw({
         draw: {
           position: 'topleft',
           polygon: false,
@@ -104,6 +104,34 @@ $scope.dataLoading = false;
         $scope.lng2= coord[0][2][0];
         $scope.lat2= coord[0][2][1];
 
+        console.log(map);
+        console.log("map object");
+
+  });
+
+  map.on('draw:edited', function (e) {
+
+           var layers = e.layers;
+           layers.eachLayer(function (layer) {
+             //Update lng/lat from search
+             var res = (layer.toGeoJSON()).geometry.coordinates;
+
+                //Fetch zero and second coordinate pair to get a rectangle
+                $scope.lng1= res[0][0][0];
+                $scope.lat1= res[0][0][1];
+                $scope.lng2= res[0][2][0];
+                $scope.lat2= res[0][2][1];
+               // console.log($scope);
+           });
+  });
+
+  map.on('draw:deleted', function (e) {
+
+         //Remove lat/lng from search inputs
+         $scope.lat1= $scope.lng1= $scope.lat2 = $scope.lng2 = undefined;
+
+         //Remove markers and squares
+         $scope.markers = [];
   });
 
 
@@ -146,7 +174,6 @@ $scope.dataLoading = false;
                lat = '&filter-latitude=..' + $scope.lat2;
     }
 
-
     // If lng1 exists
     if (typeof $scope.lng1 !== "undefined" && $scope.lng1 !== "") {
            lng = '&filter-longitude=' + $scope.lng1 + '..';
@@ -154,14 +181,13 @@ $scope.dataLoading = false;
            //If both exists
            if (typeof $scope.lng2 !== "undefined" && $scope.lng2 !== "") {
                lng = lng + $scope.lng2;
-
            }
+
     //Else if lng2 exists
     } else if (typeof $scope.lng2 !== "undefined" && $scope.lng2 !== "") {
                lng = '&filter-longitude=..' + $scope.lng2;
 
     }
-
 
     //Include species search if it exists
     if ((typeof $scope.species !== "undefined") && ($scope.species !== null) && ($scope.species !== '' )) {
@@ -184,10 +210,13 @@ $scope.dataLoading = false;
 
    var full = SightingDBSearch.get({search:sok+fields}, function(){
 
-    var redIcon = {
-    iconUrl: 'admin/img/reddot.png',
-    iconSize:     [8, 8] // size of the icon
-    };
+     var redIcon = L.Icon.extend({
+          options: {
+            iconUrl:  'admin/img/reddot.png',
+            iconSize: [8, 8]
+          }
+    });
+
 
     var len = full.feed.entries.length;
     $scope.total = len;
@@ -205,20 +234,20 @@ $scope.dataLoading = false;
        //Get id to create link on the map to edit an entry
        //Useful when whales are tagged with land GPS coord..
        var id = full.feed.entries[len].id;
+       var lat = parseFloat(full.feed.entries[len].latitude);
+       var lng = parseFloat(full.feed.entries[len].longitude);
 
-       markers.push({
-                lng: parseFloat(full.feed.entries[len].longitude),
-                lat: parseFloat(full.feed.entries[len].latitude),
-                focus: true,
-                draggable: false,
-                message: "<a href='http://localhost:3000/sighting/observations/" + id + "/edit'>" + full.feed.entries[len].locality + "</a>",
-                icon: redIcon
-       });
+       var  redIcon2 = new redIcon();
+       L.marker([lat,lng],{icon: redIcon2}).addTo(map).bindPopup("<a href='http://localhost:3000/sighting/db/" + id + "/edit'>" + full.feed.entries[len].locality + "</a>").openPopup();
+
+      }
      }
-    }
+
 
     //Display markers on map
     $scope.markers = markers;
+    console.log(markers);
+    console.log("got markers");
 
     //Reset for next search
     markers = [];
