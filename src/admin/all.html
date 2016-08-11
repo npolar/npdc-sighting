@@ -20,48 +20,47 @@
 <!-- Search ------>
 
 
-<label for="search">General search:&nbsp;</label><input type="text" placeholder="Search Svalbard Sightings.." ng-model="search" />
-
-
-<legend>or field search:</legend>
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-1">
-<label for="species">Species: </label>
+<label for="species">&nbsp;&nbsp;Species: </label>
      <select ng-model="species" ng-options="item as item.eng + ' (' + item.name + ')' for item in items">
       <option value=""> Undefined </option></select>
 </div>
 
 <div class="pure-u-1 pure-u-md-1-2">
- <label for="edate1">Event date start:</label> <input type="datetime" lang="en" ng-model="edate1">
+ <label for="edate1">&nbsp;&nbsp;Event date start:</label> <input type="datetime" lang="en" ng-model="edate1">
 </div>
 
 <div class="pure-u-1 pure-u-md-1-2">
- <label for="edate2">Event date end:</label> <input type="datetime" lang="en" ng-model="edate2">
+ <label for="edate2">&nbsp;&nbsp;Event date end:&nbsp;</label> <input type="datetime" lang="en" ng-model="edate2">
 </div>
 
 
 <div class="pure-u-1 pure-u-md-1-2">
- <label for="lat1">Latitude start:</label> <input type="text" ng-model="lat1" size="5" >
+ <label for="lat1">&nbsp;&nbsp;Latitude start:</label> <input type="text" ng-model="lat1" size="7" >
 </div>
 
 <div class="pure-u-1 pure-u-md-1-2">
- <label for="lat2">Latitude end:</label> <input type="text" ng-model="lat2" size="5" >
+ <label for="lat2">&nbsp;&nbsp;Latitude end:&nbsp;&nbsp;</label> <input type="text" ng-model="lat2" size="7" >
 </div>
 
 <div class="pure-u-1 pure-u-md-1-2">
-  <label for="lng1">Longitude start:</label><input type="text" ng-model="lng1" size="5">
+  <label for="lng1">&nbsp;&nbsp;Longitude start:</label><input type="text" ng-model="lng1" size="7">
 </div>
 
 <div class="pure-u-1 pure-u-md-1-2">
-   <label for="lng2">Longitude end:</label><input type="text" ng-model="lng2" size="5" >
+   <label for="lng2">&nbsp;&nbsp;Longitude end:&nbsp;</label><input type="text" ng-model="lng2" size="7" >
 </div>
 
 
 <div class="pure-u-1 pure-u-md-1-1">
-<input type="submit" id="submit" value="Search" />
+&nbsp;&nbsp;<input type="submit" id="submit" value="Search" />
 </div>
 </div>
+
+
+
 
 <div ng-if="dataLoading">
     Loading...
