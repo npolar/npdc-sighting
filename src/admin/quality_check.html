@@ -1,13 +1,11 @@
-
-
 <h1><b> Quality check new observations<b></h1>
 <p></p>
 <p></p>
 
-<div ng-show="isAdmin">
+<!-- <div ng-show="isAdmin"> -->
 
 <p></p>
- <div ng-controller="QualityCtrl as entry">
+ <div ng-controller="QualityController as entry">
   <table class="layout1" st-table="displayedCollection" st-safe-src="full.feed.entries">
     <thead>
         <th>Date</th><th>Species</th><th>Location</th><th>Latitude</th><th>Longitude</th><th></th><th></th>
@@ -35,8 +33,7 @@
 </div>
 
 
-<div ng-show="!isAdmin">
+<!-- <div ng-show="!isAdmin">
 
       <p>Please <a href="/sighting">log in</a> with your admin account in order to view this page.</p>
-</div>
-
+</div> -->

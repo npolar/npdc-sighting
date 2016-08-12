@@ -1,8 +1,8 @@
 'use strict';
 
 // @ngInject
-var QualityController = function($scope, $http, Sighting, npolarApiConfig, SightingDBSearch, IsAdmin) {
-
+//var QualityController = function($scope, $http, Sighting, npolarApiConfig, SightingDBSearch, IsAdmin) {
+var QualityController = function($scope, $http, Sighting, npolarApiConfig, SightingDBSearch) {
   //pagination
   $scope.itemsByPage=15;
   var displayedCollection = [];
@@ -10,13 +10,13 @@ var QualityController = function($scope, $http, Sighting, npolarApiConfig, Sight
   //editor_assessment=unknown means new entries
   $scope.full = SightingDBSearch.get({search:"&filter-editor_assessment=unknown"}, function(){
 
-  	 //For pagination - a copy is needed for display aka displayedCollection
+     //For pagination - a copy is needed for display aka displayedCollection
      displayedCollection.push($scope.full.feed.entries);
      $scope.displayedCollection = displayedCollection;
    });
 
   //Admin logon?
-  $scope.isAdmin = IsAdmin.entryObject.data;
+  //$scope.isAdmin = IsAdmin.entryObject.data;
 
 };
 

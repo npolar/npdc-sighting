@@ -8,14 +8,13 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 //var AdminObservationsController = function($scope, $http, leafletData, SPECIES, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig) {
 //Input attributes
 
-   //Do not show "loading.."
-$scope.dataLoading = false;
-
-
+    //Do not show "loading.."
+    $scope.dataLoading = false;
 
     $scope.edate1 = undefined;
     $scope.edate2 = undefined;
     var markers = [];
+    //var createLayer =
 
     //using chronopic to show dates
     new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
@@ -63,6 +62,7 @@ $scope.dataLoading = false;
 
       map.addControl(drawControl);
 
+
         //When finishing the drawing catch event
       map.on('draw:created', function (e) {
         var type = e.layerType,
@@ -104,8 +104,9 @@ $scope.dataLoading = false;
         $scope.lng2= coord[0][2][0];
         $scope.lat2= coord[0][2][1];
 
-        console.log(map);
+        console.log(createLayer);
         console.log("map object");
+        drawnItems.removeLayer(createLayer);
 
   });
 
@@ -131,11 +132,20 @@ $scope.dataLoading = false;
          $scope.lat1= $scope.lng1= $scope.lat2 = $scope.lng2 = undefined;
 
          //Remove markers and squares
-         $scope.markers = [];
+         markers = [];
   });
 
+ // Execute this function when reset button is pressed
+ $scope.reset = function() {
+    //Wipe out all markes
+    for(var i=0;i<markers.length;i++) {
+      map.removeLayer(markers[i]);
+    }
+    //Remove any annotations as well
 
- // Execute this function when advanced search button is pressed
+ };
+
+ // Execute this function when search button is pressed
  $scope.submit = function() {
 
     //show loading..
@@ -219,11 +229,9 @@ $scope.dataLoading = false;
 
 
     var len = full.feed.entries.length;
+    var total = len;
     $scope.total = len;
-    console.log($scope);
-    console.log("getting scope");
 
-    // Fetch the lat/lon entries. Have to switch lat/lon for display
     while (len--) {
 
       console.log("got here");
@@ -238,19 +246,18 @@ $scope.dataLoading = false;
        var lng = parseFloat(full.feed.entries[len].longitude);
 
        var  redIcon2 = new redIcon();
-       L.marker([lat,lng],{icon: redIcon2}).addTo(map).bindPopup("<a href='http://localhost:3000/sighting/db/" + id + "/edit'>" + full.feed.entries[len].locality + "</a>").openPopup();
+       var mark = L.marker([lat,lng],{icon: redIcon2}).addTo(map).bindPopup("<a href='http://localhost:3000/sighting/db/" + id + "/edit'>" + full.feed.entries[len].locality + "</a>").openPopup();
+
+
+       //Add mark to markers
+       markers.push(mark);
 
       }
      }
 
-
-    //Display markers on map
-    $scope.markers = markers;
-    console.log(markers);
-    console.log("got markers");
-
     //Reset for next search
-    markers = [];
+    var markerGroup = L.layerGroup(markers);
+    markerGroup.addTo(map);
 
     //Pagination
     displayedCollection.push(full.feed.entries);
