@@ -14,7 +14,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     $scope.edate1 = undefined;
     $scope.edate2 = undefined;
     var markers = [];
-    //var createLayer =
+    var layerSquare;
 
     //using chronopic to show dates
     new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
@@ -65,6 +65,11 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
         //When finishing the drawing catch event
       map.on('draw:created', function (e) {
+        //Wipe out all markes
+        for(var i=0;i<markers.length;i++) {
+          map.removeLayer(markers[i]);
+        }
+
         var type = e.layerType,
         layer = e.layer;
 
@@ -86,11 +91,11 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
                 weight: 3
            });
 
-           layer = rectangle1.addTo(map);
+           layerSquare = rectangle1.addTo(map);
 
         }
 
-        var createLayer = drawnItems.addLayer(layer);
+        var createLayer = drawnItems.addLayer(layerSquare);
 
         //The id is the last property of createLayer._layers object
         //We need this id if object is edited
@@ -103,11 +108,6 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
         $scope.lat1= coord[0][0][1];
         $scope.lng2= coord[0][2][0];
         $scope.lat2= coord[0][2][1];
-
-        console.log(createLayer);
-        console.log("map object");
-        drawnItems.removeLayer(createLayer);
-
   });
 
   map.on('draw:edited', function (e) {
@@ -132,7 +132,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
          $scope.lat1= $scope.lng1= $scope.lat2 = $scope.lng2 = undefined;
 
          //Remove markers and squares
-         markers = [];
+         markers = []
   });
 
  // Execute this function when reset button is pressed
@@ -142,7 +142,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
       map.removeLayer(markers[i]);
     }
     //Remove any annotations as well
-
+    map.removeLayer(layerSquare);
  };
 
  // Execute this function when search button is pressed
@@ -232,9 +232,11 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     var total = len;
     $scope.total = len;
 
+    //Remove any annotations now
+    map.removeLayer(layerSquare);
+
     while (len--) {
 
-      console.log("got here");
       full.feed.entries[len].count = len;
 
       if (full.feed.entries[len].latitude && full.feed.entries[len].longitude){
