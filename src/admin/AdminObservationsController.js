@@ -10,7 +10,6 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
     //Do not show "loading.."
     $scope.dataLoading = false;
-
     $scope.edate1 = undefined;
     $scope.edate2 = undefined;
     var markers = [];
@@ -81,7 +80,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
            //last point is already reversed by Leaflet -thus lenght-1
            res = (layer.toGeoJSON()).geometry.coordinates;
 
-           for (var i=0;i<(res[0].length-1);i++) {
+           for (i=0;i<(res[0].length-1);i++) {
                res[0][i] = res[0][i].reverse();
            }
 
@@ -99,15 +98,15 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
         //The id is the last property of createLayer._layers object
         //We need this id if object is edited
-        var lastProp = (Object.keys(createLayer._layers).length)-1;
+       // var lastProp = (Object.keys(createLayer._layers).length)-1;
         //var id = Object.keys(createLayer._layers)[lastProp];
 
         //convert coord to geoJson obj and add to Mapservice obj
         var coord = (layer.toGeoJSON()).geometry.coordinates;
-        $scope.lng1= coord[0][0][0];
-        $scope.lat1= coord[0][0][1];
-        $scope.lng2= coord[0][2][0];
-        $scope.lat2= coord[0][2][1];
+        $scope.lng1= parseFloat(coord[0][0][0]).toFixed(6);
+        $scope.lat1= parseFloat(coord[0][0][1]).toFixed(6);
+        $scope.lng2= parseFloat(coord[0][2][0]).toFixed(6);
+        $scope.lat2= parseFloat(coord[0][2][1]).toFixed(6);
   });
 
   map.on('draw:edited', function (e) {
@@ -132,7 +131,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
          $scope.lat1= $scope.lng1= $scope.lat2 = $scope.lng2 = undefined;
 
          //Remove markers and squares
-         markers = []
+         markers = [];
   });
 
  // Execute this function when reset button is pressed
@@ -227,7 +226,6 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
           }
     });
 
-
     var len = full.feed.entries.length;
     var total = len;
     $scope.total = len;
@@ -261,10 +259,16 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     var markerGroup = L.layerGroup(markers);
     markerGroup.addTo(map);
 
-    //Pagination
-    displayedCollection.push(full.feed.entries);
+   // var entries = full.feed.entries;
+    var displayedCollction = [];
+
+    for(var j=0;j<full.feed.entries.length;j++) {
+      displayedCollection.push(full.feed.entries[j]);
+    }
+
+    console.log(displayedCollection);
     $scope.displayedCollection = displayedCollection;
-    $scope.entries = full.feed.entries;
+
 
 
     //Get hostname
