@@ -142,6 +142,15 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     }
     //Remove any annotations as well
     map.removeLayer(layerSquare);
+    markers = [];
+
+    //Remove previous table info
+    $scope.displayedCollection = [];
+
+    //Remove info from search input fields
+    // $scope.lng1= $scope.lat1= $scope.lng2 = $scope.lat2 = null;
+
+
  };
 
  // Execute this function when search button is pressed
@@ -217,6 +226,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
    //Prune search - transfer as little data as possible to save time
    var fields = '&fields=id,event_date,locality,location_comment,species,editor_assessment,total,excelfile.filename';
 
+
    var full = SightingDBSearch.get({search:sok+fields}, function(){
 
      var redIcon = L.Icon.extend({
@@ -232,6 +242,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
     //Remove any annotations now
     map.removeLayer(layerSquare);
+    markers = [];
 
     while (len--) {
 
@@ -258,17 +269,14 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     //Reset for next search
     var markerGroup = L.layerGroup(markers);
     markerGroup.addTo(map);
+    displayedCollection = [];
 
    // var entries = full.feed.entries;
-    var displayedCollction = [];
-
     for(var j=0;j<full.feed.entries.length;j++) {
       displayedCollection.push(full.feed.entries[j]);
     }
 
-    console.log(displayedCollection);
     $scope.displayedCollection = displayedCollection;
-
 
 
     //Get hostname

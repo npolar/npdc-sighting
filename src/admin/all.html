@@ -68,8 +68,6 @@
 </div>
 
 
-
-
 <div ng-if="dataLoading">
     Loading...
 </div>
@@ -80,16 +78,16 @@
 
   <table class="layout1" st-table="displayedCollection" st-safe-src="entries">
     <thead>
- <th>Total</th><th>Date</th><th>Species</th><th>Location</th><th>Assessment</th><th>Excelfile</th><th>View</th><th>Edit</th><th>Delete</th>
+ <th>Date</th><th>Species</th><th>Total</th><th>Location</th><th>Assessment</th><th>Excelfile</th><th>View</th><th>Edit</th><th>Delete</th>
     </thead>
     <tbody>
    <tr ng-repeat="entry in displayedCollection" ng-cloak>
-        <td>{{entry.total}}</td>
         <td>{{ (entry.event_date).substring(0,10) }}&nbsp;</td>
         <td>{{ entry.species }}&nbsp;</td>
+        <td>{{entry.total}}&nbsp;</td>
         <td>{{ entry.locality }}&nbsp;</td>
         <td>{{ entry.editor_assessment }}&nbsp;</td>
-        <td><a href="http://{{hostname}}/{{entry[0].excelfile.filename}}">{{ entry.excelfile.filename }}&nbsp;</td>
+        <td><a href="http://{{hostname}}/{{entry.excelfile.filename}}">{{ entry.excelfile.filename }}&nbsp;</td>
         <td><a href="db/{{entry.id}}" target="_blank">View&nbsp;</a></td>
          <td><a href="db/{{entry.id}}/edit" target="_blank">Edit&nbsp;</a></td>
         <td><a href="db/{{entry.id}}/delete" target="_blank">Delete</a></td>
