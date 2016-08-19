@@ -1,10 +1,8 @@
 #!/usr/bin/env ruby
-# Fetch MMS Excel files from disk, create metadata to store in the sighting-excel database,
-# and thereafter move file to server disk. Create an UUID for each file.
+# Fetch MMS Excel files from disk, create metadata to store in the sighting-excel database.
+# Create an UUID for each file and move file to server disk.
 #
 # Author: srldl
-#
-#
 #
 ########################################
 
@@ -25,7 +23,7 @@ require 'simple-spreadsheet'
 
 module Couch
 
-  class sightingExcel
+  class SightingExcel
 
     #Get hold of UUID for database storage
     def self.getUUID(server)
@@ -52,12 +50,14 @@ module Couch
        password = Couch::Config::PASSWORD1
 
          # do work on files ending in .xls in the desired directory
-    Dir.glob('./excel_download/sheets/*.xls*') do |excel_file|
+    Dir.glob('./excel_download/forms/*.xls*') do |excel_file|
 
      puts excel_file
+     puts "got excelfile"
 
      #Get filename -last part of array (path is the first)
-     filename =  excel_file[18..-1]
+     filename =  excel_file[23..-1]
+     puts filename
 
      #get UUID
       #Get ready to put into database
@@ -83,7 +83,10 @@ module Couch
        dt = DateTime.new(c[0].to_i, c[1].to_i, c[2].to_i, 12, 0, 0, 0)
        timestamp = dt.to_time.utc.iso8601
 
-      #Create shema
+       #Extract the MD5 checksum from reply
+       md5excel = Digest::MD5.hexdigest(filename)
+
+       #Create shema
        @entry = {
             :id => uuid,
             :_id => uuid,
@@ -93,12 +96,11 @@ module Couch
             :language => 'en',  #converted to eng for the database
             :draft => 'no',
             :rights => 'No licence announced on web site',
-            :uri =>  XXXXX,
+            :uri =>  "https://api.npolar.no/sighting-excel/" + uuid + "/_file/" + filename,
             :filename => filename,
-            :length => XXX,
-            :type => XXX,
-            :hash => XXX,
-            :comments => XXXX,
+            :type => "application/vnd.ms-excel", #last digits
+            :length => (File.size(excel_file)).to_s, #size
+            :hash => md5excel,
             :created => timestamp,
             :updated => timestamp,
             :created_by => user,
@@ -116,22 +118,37 @@ module Couch
     #Post coursetype
     doc = @entry.to_json
 
-   # puts doc
-   # puts "doc------------"
+    puts doc
 
-    res = server.post("/"+ Couch::Config::COUCH_DB_NAME + "/", doc, user, password)
+
+    res = server.post("/"+ Couch::Config::COUCH_DB_EXCEL + "/", doc, user, password)
+
+    puts "res - push doc to server"
+    puts res
+
+    #Create thumbnail and image on apptest
+    # Net::SSH.start(host, user, :password => password) do |ssh|
+    Net::SSH.start(Couch::Config::HOST1, Couch::Config::USER2, :password => Couch::Config::PASSWORD1) do |ssh|
+      ssh.exec "mkdir -p /srv/hashi/storage/sighting-excel/restricted/" + uuid
+    end
 
 
      #Send schema to sighting-excel database
-
     Net::SCP.start(Couch::Config::HOST1, Couch::Config::USER2, :password => Couch::Config::PASSWORD1 ) do |scp|
     #Create a remote directory
 
+    puts "push to remote dir"
+
     # puts "SCP started"
-    scp.upload!("/home/siri/projects/ruby_scripts/images/" + uuid + "/" + pic[2], "/srv/hashi/storage/sighting/restricted/" + uuid + "/", :recursive => true)
-    # puts "scp started2"
-    scp.upload!("/home/siri/projects/ruby_scripts/thumbnails/" + uuid + "/" + pic[2], "/srv/hashi/storage/sighting/restricted/" + uuid +"/thumb_" + pic[2], :recursive => true)
-    end
+    scp.upload!("/home/siri/projects/ruby_scripts/excel_download/forms/"+ filename, "/srv/hashi/storage/sighting-excel/restricted/" + uuid + "/" + filename, :recursive => true)
+     end
+
+
+    #Finally write the uuid and the filename to the file excel_uuid
+    text = uuid.to_s + ' | ' + filename + ' : '
+    inputfile = 'excel_uuid.txt'
+    File.open(inputfile, 'a') { |f| f.write(text) }
+
 
   end
 
