@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # Fetch MMS Excel files from disk, create metadata to store in the sighting-excel database.
-# Create an UUID for each file and move file to server disk.
+# Create an UUID for each file and move file to server disk. Send the link between file and uuid
+# to a file "excel_uuid.txt". Use file to get the uuids for filenames when you read from the
+# old Oracle database.
 #
 # Author: srldl
 #
@@ -52,8 +54,8 @@ module Couch
          # do work on files ending in .xls in the desired directory
     Dir.glob('./excel_download/forms/*.xls*') do |excel_file|
 
-     puts excel_file
-     puts "got excelfile"
+    # puts excel_file
+    # puts "got excelfile"
 
      #Get filename -last part of array (path is the first)
      filename =  excel_file[23..-1]
@@ -115,16 +117,14 @@ module Couch
         end
     end
 
-    #Post coursetype
+    #Convert to json
     doc = @entry.to_json
 
-    puts doc
+    #puts doc
 
-
+    #post to server
     res = server.post("/"+ Couch::Config::COUCH_DB_EXCEL + "/", doc, user, password)
 
-    puts "res - push doc to server"
-    puts res
 
     #Create thumbnail and image on apptest
     # Net::SSH.start(host, user, :password => password) do |ssh|
@@ -135,11 +135,8 @@ module Couch
 
      #Send schema to sighting-excel database
     Net::SCP.start(Couch::Config::HOST1, Couch::Config::USER2, :password => Couch::Config::PASSWORD1 ) do |scp|
+
     #Create a remote directory
-
-    puts "push to remote dir"
-
-    # puts "SCP started"
     scp.upload!("/home/siri/projects/ruby_scripts/excel_download/forms/"+ filename, "/srv/hashi/storage/sighting-excel/restricted/" + uuid + "/" + filename, :recursive => true)
      end
 
