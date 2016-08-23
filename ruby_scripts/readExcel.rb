@@ -79,10 +79,10 @@ module Couch
     end
 
      #Set server
-       host = Couch::Config::HOST1
-       port = Couch::Config::PORT1
-       user = Couch::Config::USER1
-       password = Couch::Config::PASSWORD1
+    host = Couch::Config::HOST1
+    port = Couch::Config::PORT1
+    user = Couch::Config::USER1
+    password = Couch::Config::PASSWORD1
 
 
     species = {'polar bear' => 'ursus maritimus',
@@ -199,16 +199,6 @@ module Couch
                 :draft => 'no'
             }
 
-            #Add to occurrence remark - seals - whales -uncommon species
-=begin           alt = ['atlantic white-sided dolphin', 'harbour porpoise', 'whale', 'seal']
-            #first check if species exist at all
-            if ((s.cell(line,5))) != nil && ((s.cell(line,5))) != ''
-                elem = (s.cell(line,5)).downcase
-              if alt.include?(elem)
-               @entry[:occurrence_remarks] += (s.cell(line,5))
-              end
-            end
-=end
 
              #Extract expedition info
             @expedition = Object.new
@@ -225,12 +215,36 @@ module Couch
             #Extract excelfile info
             @excelfile = Object.new
             filename2 = filename.split("/");
+
+            #open excel_uuid file and fetch excel uuid
+            readtext = File.read("./excel_uuid.txt")
+            uuidexcel = ""
+            uuids = readtext.split('|')
+            puts uuids
+            puts "uuids"
+
+            #Find excelname in uuids array
+            for index in 0 ... uuids.size
+                if uuids[index].include? filename2[1].to_s
+                    uuidarr =  uuids[index].split(':')
+                    uuidexcel = uuidarr[0].gsub(/\s+/, "")
+                    puts uuidexcel
+                end
+            end
+
+            #Extract the MD5 checksum from reply
+            filenameExcel = filename2[1].to_s
+            md5excel = Digest::MD5.hexdigest(filenameExcel)
+
+
             @excelfile = {
                  :items => {
-                  :uri => "https://api.npolar.no/sighting/" + uuid + "/_file/",
+                  :uri => "https://api.npolar.no/sighting-excel/" + uuidexcel + "/_file/",
                   :filename => filename2[1],
                   :type => "application/vnd.ms-excel", #last digits
-                  :length => (File.size(excel_file)).to_s } #, #size
+                  :length => (File.size(excel_file)).to_s
+                  },
+                  :hash => md5excel
             } #Excelfile
 
 
@@ -249,7 +263,7 @@ module Couch
             end
 
 
-            puts @entry
+            #puts @entry
 
 
             #save entry in database

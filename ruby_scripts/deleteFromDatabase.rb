@@ -14,9 +14,9 @@ module Couchdb
 
   class DeleteEntries
 
-    host = "dbtest.data.npolar.no"
+    host = "dbmaster.data.npolar.no"
     port  = "5984"
-    database = "sighting"
+    database = "sighting-excel"  #"sighting-excel"
 
     #Get ready to put into database
     server = Couch::Server.new(host, port)

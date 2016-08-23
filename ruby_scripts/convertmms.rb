@@ -25,10 +25,10 @@ module Couch
   class Convertmms
 
     #Set server
-    host = Couch::Config::HOST2
-    port = Couch::Config::PORT2
-    password = Couch::Config::PASSWORD2
-    user = Couch::Config::USER2
+    host = Couch::Config::HOST1
+    port = Couch::Config::PORT1
+    password = Couch::Config::PASSWORD1
+    user = Couch::Config::USER1
 
 
     #Convert to iso8601
@@ -80,12 +80,8 @@ module Couch
 
 
     #Fetch observation info
-   # oci.exec('select * from mms.observations where id>4953 and id<4955') do |obs|
-   #  oci.exec('select * from mms.observations where id>4954') do |obs|
-
-  #  oci.exec("select * from mms.observations where (duplicate is NULL) and (id>16264 and id<16272)") do |obs|
-  #   oci.exec("select * from mms.observations where (duplicate is NULL) and (id>1589 and id<1592)") do |obs|
-       oci.exec("select * from mms.observations where (duplicate is NULL)") do |obs|
+     oci.exec("select * from mms.observations where (duplicate is NULL) and (id>6327 and id<6330)") do |obs|
+  #   oci.exec("select * from mms.observations where (duplicate is NULL)") do |obs|
 
        #Get ready to put into database
        server = Couch::Server.new(host, port)
@@ -233,8 +229,8 @@ module Couch
 
             #Create thumbnail and image on apptest
            # Net::SSH.start(host, user, :password => password) do |ssh|
-         #   Net::SSH.start(Couch::Config::HOST1, Couch::Config::USER2, :password => Couch::Config::PASSWORD1) do |ssh|
-            Net::SSH.start(Couch::Config::HOST2, Couch::Config::USER2, :password => Couch::Config::PASSWORD2) do |ssh|
+            Net::SSH.start(Couch::Config::HOST1, Couch::Config::USER2, :password => Couch::Config::PASSWORD1) do |ssh|
+          #  Net::SSH.start(Couch::Config::HOST2, Couch::Config::USER2, :password => Couch::Config::PASSWORD2) do |ssh|
               ssh.exec "mkdir -p /srv/hashi/storage/sighting/restricted/" + uuid
             end
 
@@ -292,8 +288,8 @@ module Couch
           #Upload from ruby_scripts to remote server
         #  Net::SCP.upload!("dbmaster.data.npolar.no", "siri","/local/path", "/remote/path", :ssh => { :password => "password" })
 
-          Net::SCP.start(Couch::Config::HOST2, Couch::Config::USER2, :password => Couch::Config::PASSWORD2 ) do |scp|
-        #  Net::SCP.start(Couch::Config::HOST1, Couch::Config::USER2, :password => Couch::Config::PASSWORD1 ) do |scp|
+        #  Net::SCP.start(Couch::Config::HOST2, Couch::Config::USER2, :password => Couch::Config::PASSWORD2 ) do |scp|
+          Net::SCP.start(Couch::Config::HOST1, Couch::Config::USER2, :password => Couch::Config::PASSWORD1 ) do |scp|
           #Create a remote directory
 
           # puts "SCP started"
@@ -357,11 +353,11 @@ module Couch
                       #open file and get uuid
                       readtext = File.read("./excel_uuid.txt")
                       uuidexcel = ""
-                      uuids = readtext.split(':')
+                      uuids = readtext.split('|')
                       #Find excelname in uuids array
                       for index in 0 ... uuids.size
                           if uuids[index].include? ofile[1].to_s
-                             uuidarr =  uuids[index].split('|')
+                             uuidarr =  uuids[index].split(':')
                              uuidexcel = uuidarr[0].gsub(/\s+/, "")
                           end
                       end
@@ -391,7 +387,7 @@ module Couch
 
                       @excelfile = {
                         :items => {
-                         :uri => "https://api.npolar.no/sighting-excel/" + uuidexcel + "/_file/" + ofile[1].to_s,
+                         :uri => "https://api.npolar.no/sighting-excel/" + uuidexcel + "/_file/",
                          :filename => ofile[1].to_s,
                          :type => ofile[9].to_s,
                          :length => ofile[10].to_s
