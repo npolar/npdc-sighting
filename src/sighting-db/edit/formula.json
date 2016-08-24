@@ -32,8 +32,8 @@
                             "title": "link to NPI's expedition database (NPI staff only)"
 
       }]
-},
-                    {
+  },
+   {
             "title": "Observation",
             "fields": [
                 {
@@ -96,8 +96,8 @@
                     "title": "total count"
                 }
             ]
-        },
-        {
+  },
+  {
             "title": "Time/Location",
             "fields": [
                  {
@@ -124,7 +124,7 @@
                     "description": "place comment"
                 }
             ]
-        },
+},
 {
     "title": "Photo upload",
     "fields": [{

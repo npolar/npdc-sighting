@@ -8,12 +8,16 @@
   </md-button>
 </span>
 
+
+
 <npdc:loader ng-if="!document"></npdc:loader>
 <leaflet ng-if="document && mapOptions.coverage" options="mapOptions" class="coverage-map"></leaflet>
+
+
 <div class="np-padding">
   <div ng-if="document" class="np-doc">
 
-    <h3>{{ 'Marine mammal sightings' | t }}</h3>
+   <h3>  {{ 'Marine mammal sightings' | t }} &nbsp;&nbsp;&nbsp;<a href="/sighting/db/">[Back]</a></h3>
 
  <h1>
   <span class="md-display-2">{{ document.species | t }} </span><span style={font-size:15%}>

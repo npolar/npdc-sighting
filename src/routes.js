@@ -5,6 +5,7 @@ var router = function($routeProvider, $locationProvider) {
 
   $locationProvider.html5Mode(true).hashPrefix('!');
 
+
   $routeProvider.when('/', {
     templateUrl: 'info/learn.html',
     controller: 'SightingController'
@@ -33,6 +34,9 @@ var router = function($routeProvider, $locationProvider) {
     templateUrl: 'sighting-db/search/search.html',
     controller: 'SightingSearchController',
     reloadOnSearch: false
+  }).when('/:id', {
+    templateUrl: 'sighting-db/show/show-sighting.html',
+    controller: 'SightingShowController'
   });
 };
 
