@@ -61,7 +61,7 @@ module Couch
     #Does not handle day in the middle, such as 04/23/2014 etc
     def self.iso8601time(inputdate)
        a = (inputdate).to_s
-       puts "a " + a
+       #puts "a " + a
 
        #Delimiter space, -, .,/
        b = a.split(/\.|\s|\/|-/)
@@ -89,6 +89,7 @@ module Couch
               'polar bear den' => 'polar bear den',
               'walrus' => 'odobenus rosmarus',
               'ringed seal' => 'pusa hispida',
+              'phoca hispida' => 'pusa hispida',
               'bearded seal' => 'erignathus barbatus',
               'harbour seal' => 'phoca vitulina',
               'harp seal' => 'phoca groenlandica',
@@ -115,7 +116,7 @@ module Couch
     # do work on files ending in .xls in the desired directory
     Dir.glob('./excel_download/start/*.xls*') do |excel_file|
 
-     puts excel_file
+     #puts start excel_file
 
      #Get filename -last part of array (path is the first)
      filename =  excel_file[18..-1]
@@ -151,6 +152,30 @@ module Couch
 
               #Get uuid
               uuid = getUUID(server)
+
+               #Extract excelfile info
+           # @excelfile = Object.new
+            filename2 = filename.split("/");
+
+            #open excel_uuid file and fetch excel uuid
+            readtext = File.read("./excel_uuid.txt")
+            uuidexcel = ""
+            uuids = readtext.split('|')
+          #  puts uuids
+          #  puts "uuids"
+
+            #Find excelname in uuids array
+            for index in 0 ... uuids.size
+                if uuids[index].include? filename2[1].to_s
+                    uuidarr =  uuids[index].split(':')
+                    uuidexcel = uuidarr[0].gsub(/\s+/, "")
+                    puts uuidexcel
+                end
+            end
+
+            #Extract the MD5 checksum from reply
+            filenameExcel = filename2[1].to_s
+            md5excel = Digest::MD5.hexdigest(filenameExcel)
 
 
               #Create the json structure object
@@ -190,17 +215,31 @@ module Couch
                 :recorded_by => s.cell(3,11),
                 :recorded_by_name => s.cell(2,11),
                 :editor_assessment => 'green',
-                :excelfile => Object.new,
-                :expedition => Object.new,
+              #  :excelfile => Object.new,
+              #  :expedition => Object.new,
                 :created => timestamp,
                 :updated => timestamp,
                 :created_by => user,
                 :updated_by => user,
-                :draft => 'no'
-            }
+                :draft => 'no',
+                :excel_uri => "https://api.npolar.no/sighting-excel/" + uuidexcel + "/_file/",
+                :excel_filename => filename2[1],
+                :excel_type => "application/vnd.ms-excel",
+                :excel_length => (File.size(excel_file)).to_s,
+                :title => s.cell(2,11),
+                :start_date => (if s.cell(5,11) then iso8601time(s.cell(5,11)) end),
+                :end_date => (if s.cell(6,11) then iso8601time(s.cell(6,11)) end),
+                :contact_info => s.cell(3,11),
+                :organisation => s.cell(4,11),
+                :platform => "",
+                :platform_comment => s.cell(7,11),
+                :info_comment => unless (s.cell(line,5)) == nil then \
+                    (s.cell(line,5)) == "(select species)"? "": (species[(s.cell(line,5)).downcase]) \
+                  end
+              }
 
 
-             #Extract expedition info
+=begin             #Extract expedition info
             @expedition = Object.new
             @expedition = {
                 :name => s.cell(2,11),
@@ -249,8 +288,8 @@ module Couch
 
 
             #Add expedition and excelfile objects to entry object
-            defined?(@expedition[:name]).nil? ? @entry[:expedition] = nil : @entry[:expedition] = @expedition
-            defined?(@excelfile[:filename]).nil? ?  @entry[:excelfile] = nil : @entry[:excelfile] = @excelfile
+          #  defined?(@expedition[:name]).nil? ? @entry[:expedition] = nil : @entry[:expedition] = @expedition
+          #  defined?(@excelfile[:filename]).nil? ?  @entry[:excelfile] = nil : @entry[:excelfile] = @excelfile
 
 
 
@@ -262,13 +301,17 @@ module Couch
               end
             end
 
-
-            #puts @entry
+=end
 
 
             #save entry in database
+
             doc = @entry.to_json
             res = server.post("/"+ Couch::Config::COUCH_DB_NAME + "/", doc, user, password)
+
+            text = (@entry[:excel_filename]).to_s + "   "  + @entry[:id]
+              inputfile = 'output.txt'
+              File.open(inputfile, 'a') { |f| f.write(text) }
 
 
 

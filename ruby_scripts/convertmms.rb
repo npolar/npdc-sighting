@@ -46,6 +46,7 @@ module Couch
               'polar bear den' => 'polar bear den',
               'odobenus rosmarus' => 'odobenus rosmarus',
               'pusa hispida' => 'pusa hispida',
+              'phoca hispida' => 'pusa hispida',
               'erignathus barbatus' => 'erignathus barbatus',
               'phoca vitulina' => 'phoca vitulina',
               'phoca groenlandica' => 'phoca groenlandica',
@@ -66,7 +67,7 @@ module Couch
               'globicephala melas' => 'globicephala melas',
               'lagenorhynchus albirostris' => 'lagenorhynchus albirostris',
               'lagenorhynchus acutus' => 'lagenorhynchus acutus',
-              'lagenorhynchus spp.' => 'other species', #
+              'lagenorhynchus spp.' => 'other species',
               'phocoena phocoena' => 'phocoena phocoena',
               'pinnipedia' => 'pinnipedia',
               'other species' =>'other species'}
@@ -80,8 +81,8 @@ module Couch
 
 
     #Fetch observation info
-     oci.exec("select * from mms.observations where (duplicate is NULL) and (id>6327 and id<6330)") do |obs|
-  #   oci.exec("select * from mms.observations where (duplicate is NULL)") do |obs|
+    # oci.exec("select * from mms.observations where (duplicate is NULL) and (id>5000 and id<5030)") do |obs|
+     oci.exec("select * from mms.observations where (duplicate is NULL)") do |obs|
 
        #Get ready to put into database
        server = Couch::Server.new(host, port)
@@ -146,6 +147,7 @@ module Couch
             :adult_f => '',
             :adult => '',
             :sub_adult => '',
+            :other_species => '',
             :polar_bear_condition => '',
             :cub_calf_pup => '',
             :bear_cubs => '',
@@ -156,15 +158,22 @@ module Couch
             :total => obs[7].to_s,
             :habitat => obs[9],
             :occurrence_remarks => obs[18] == nil ? "": obs[18],
-            :info_comment => info_comment1 +  info_comment2 + info_comment3,
+            :info_comment => info_comment1 +  info_comment2 + info_comment3 + ' Species: ' + obs[4].downcase,
             :recorded_by_name => obs[11],
-            :identified_by => '',
-            :date_identified => '',
+            :recorded_by => '',
             :editor_assessment => 'green',
             :editor_comment => 'not available',
-            :excelfile => Object.new,
-            :expedition => Object.new,
-            :pictures => Array.new,
+            :excel_uri => '',
+            :excel_filename => '',
+            :excel_type => '',
+            :excel_length => '',
+            :title => '',
+            :contact_info => '',
+            :organisation => '',
+            :platform => '',
+            :platform_comment => '',
+            :other_info =>  '',
+            :files => Array.new,
             :created => timestamp,
             :updated => timestamp,
             :created_by => user,
@@ -178,9 +187,11 @@ module Couch
             if (obs[4] != nil) && (obs[4] != '')
                 elem = obs[4]
              #   puts @entry[:occurrence_remarks]
-              if alt.include?(elem)
-               @entry[:occurrence_remarks] += " " + elem
+              if (elem != nil) && (alt.include?(elem))
+                puts elem
+               @entry[:other_species] += " " + elem.downcase
               end
+
             end
 
 
@@ -238,7 +249,7 @@ module Couch
           end
 
           #Avoid cluttering up next info with old image infos from "last round".
-          @pictures = Object.new
+          @files = Object.new
 
           #Extract the MD5 checksum from reply
           filenameImg = pic[2]
@@ -248,7 +259,7 @@ module Couch
           filenameThumb = 'thumb_' + pic[2]
           md5thumb = Digest::MD5.hexdigest(filenameThumb)
 
-          @pictures = {
+          @files = {
             :items => {
             :uri => "https://api.npolar.no/sighting/" + uuid +"/_file/" + md5img,
             :thumb_uri => "https://api.npolar.no/sighting/" + uuid + "/_file/" + md5thumb,
@@ -262,7 +273,7 @@ module Couch
             :other_info => 'Created at: ' + pic[5].to_s + ', updated at: ' + pic[6].to_s
           }
 
-          @entry[:pictures] << @pictures
+          @entry[:files] << @files
 
           #Save the image aka blob to disk
           #Need the new id here
@@ -302,7 +313,7 @@ module Couch
 
 
        #Removed empty array
-       if  @entry[:pictures] == [] then  @entry[:pictures] = nil end
+       if  @entry[:files] == [] then  @entry[:files] = nil end
 
 
        @expedition = Object.new
@@ -315,14 +326,14 @@ module Couch
               #  puts "Field: " + field[0].to_s
 
                 @expedition = {
-                :name => field[1],
+                #:name => field[1],
                 :contact_info => field[3],
                 :organisation => field[2],
                 :platform => field[6],
                 :platform_comment => field[7], # obs[3],
                 :start_date => unless (field[8] == nil) then  iso8601time(field[8]) end,  #iso8601time(field[8]),
                 :end_date => unless (field[9] == nil) then  iso8601time(field[9]) end, #iso8601time(field[9]),
-                :other_info => 'Contact person: ' + field[4] + ', email: ' + field[5]   \
+                :other_info =>   'Contact person: ' + field[4] + ', email: ' + field[5]   \
                          + ', created_at: ' + field[12].to_s + ', updated_at: ' + field[13].to_s \
                          + ', created_by_dn: ' + field[10].to_s  + ', updated_by_dn: ' + field[11].to_s
                 }  #end exped object
@@ -334,6 +345,29 @@ module Couch
                           @expedition.delete(key)
                     end
                 end
+
+                 #Add LDAP temp variables
+                 temp_expedition_created = field[10].to_s
+                 temp_expedition_updated = field[11].to_s
+
+        end
+
+       sel = 'select * from mms.field_activities where mms.field_activities.id =
+       (select mms.observations.field_activity_id from mms.observations
+       where mms.observations.id =' + obs[0].to_s + ')'
+       oci.exec(sel) do |field|
+
+                @entry[:title] = field[1]
+                @entry[:contact_info] = field[3]
+                @entry[:organisation] = field[2]
+                @entry[:platform] = ((field[6]).to_s).downcase,
+                @entry[:platform_comment] = field[7], # obs[3],
+                unless (field[8] == nil) then @entry[:start_date] = iso8601time(field[8]) end  #iso8601time(field[8]),
+                unless (field[9] == nil) then @entry[:end_date] = iso8601time(field[9]) end #iso8601time(field[9]),
+                @entry[:other_info] =   'Contact person: ' + field[4] + ', email: ' + field[5]   \
+                         + ', created_at: ' + field[12].to_s + ', updated_at: ' + field[13].to_s \
+                         + ', created_by_dn: ' + field[10].to_s  + ', updated_by_dn: ' + field[11].to_s
+
 
                  #Add LDAP temp variables
                  temp_expedition_created = field[10].to_s
@@ -362,20 +396,6 @@ module Couch
                           end
                       end
 
-                     # puts uuidexcel + "uuidexcel"
-
-                      #Fetch an thumbnail UUID from courchdb
-                      # res4 = server.get("/_uuids")
-
-
-                      #Extract the UUID from reply
-                     # uuidexcel = (res4.body).split('"')[3]
-
-                      #Convert UUID to RFC UUID
-                     # uuidexcel.insert 8, "-"
-                     # uuidexcel.insert 13, "-"
-                     # uuidexcel.insert 18, "-"
-                     # uuidexcel.insert 23, "-"
 
                       other_info1 = 'Status ' + ofile[2].to_s + ', processed_at: ' + ofile[4].to_s
                       other_info2 = ', Created at: ' + ofile[5].to_s + ', Updated at: ' + ofile[6].to_s
@@ -387,7 +407,7 @@ module Couch
 
                       @excelfile = {
                         :items => {
-                         :uri => "https://api.npolar.no/sighting-excel/" + uuidexcel + "/_file/",
+                         :uri => "https://api.npolar.no/sighting-excel/" + uuidexcel + "/_file",
                          :filename => ofile[1].to_s,
                          :type => ofile[9].to_s,
                          :length => ofile[10].to_s
@@ -395,18 +415,6 @@ module Couch
                          :hash => md5excel,
                          :other_info => other_info1 + other_info2 + other_info3
                        }
-
-                       #Don't add excelfile if it does not exist
-                       #puts @excelfile
-                       puts "file"
-
-                      #if  uuidexcel  === ""
-                      #     puts "uuidexcel = null"
-                        #   @excelfile = NULL
-                      # end
-
-                        # :timestamp =>  ""      #timestamp
-                       #Excelfile
 
                       #Add LDAP temp variables
                       temp_excelfile = ofile[3].to_s
@@ -441,6 +449,8 @@ module Couch
               # puts ldap_entry.mail
                 e0 = (ldap_entry.cn.first.to_s).force_encoding('iso-8859-1').encode('utf-8')
                @entry[:info_comment ] << ', created_by_dn: ' + e0 + ', ' + (ldap_entry.mail).first.to_s
+               @entry[:recorded_by] = (ldap_entry.mail).first.to_s
+
           end
 
           #Expedition - add from LDAP search
@@ -468,32 +478,32 @@ module Couch
           end
     end
 
+    unless (defined?(@excelfile[:items])).nil?
+    @entry[:excel_uri] = (@excelfile[:items][:uri]).to_s
+    @entry[:excel_filename] = (@excelfile[:items][:filename]).to_s
+    @entry[:excel_type] = (@excelfile[:items][:type]).to_s
+    @entry[:excel_length] = (@excelfile[:items][:length]).to_s
+  end
 
-    #Add expedition and excelfile objects to entry object
-    defined?(@expedition[:other_info]).nil? ? @entry[:expedition] = nil : @entry[:expedition] = @expedition
-    defined?(@excelfile[:file_name]).nil? ?  @entry[:excelfile] = nil : @entry[:excelfile] = @excelfile
+  unless (defined?(@expedition[:items])).nil?
+    @entry[:title] = (@expedition[:title]).to_s
+    @entry[:contact_info] = (@expedition[:contact_info]).to_s
+    @entry[:organisation] = (@expedition[:organisation]).to_s
+    @entry[:platform] = (@expedition[:platform]).to_s.downcase
+    @entry[:platform_comment] = (@expedition[:platform_comment]).to_s
 
-    #Traverse @entry and remove all empty entries
-    @entry.each do | key, val |
-        if  val == "" || val == "" || val == nil
-              #  puts key
-                @entry.delete(key)
-        end
-    end
+    @entry[:other_info] += (@expedition[:other_info]).to_s
+  end
+
+  #If there are no species mentioned or other species
+  if (@entry[:species] == nil)
+    @entry[:species] = 'other species'
+  end
 
     #Post coursetype
     doc = @entry.to_json
 
-   # puts doc
-   # puts "doc------------"
-
     res = server.post("/"+ Couch::Config::COUCH_DB_NAME + "/", doc, user, password)
-
-
-     #Load only the x first entries
-   #  x += 1
-   #  if x==2 then break end;
-
 
 
  end #observation -need to keep the object until stored
