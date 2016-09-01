@@ -92,6 +92,8 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
            layerSquare = rectangle1.addTo(map);
 
+           console.log(map);
+
         }
 
         var createLayer = drawnItems.addLayer(layerSquare);
@@ -141,11 +143,15 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
       map.removeLayer(markers[i]);
     }
     //Remove any annotations as well
-    map.removeLayer(layerSquare);
+    if (map.hasLayer(layerSquare)) {
+       map.removeLayer(layerSquare);
+    };
+
     markers = [];
 
     //Remove previous table info
     $scope.displayedCollection = [];
+
 
     //Remove info from search input fields
     // $scope.lng1= $scope.lat1= $scope.lng2 = $scope.lat2 = null;
@@ -241,7 +247,10 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     $scope.total = len;
 
     //Remove any annotations now
-    map.removeLayer(layerSquare);
+    console.log(map);
+    if (map.hasLayer(layerSquare)) {
+       map.removeLayer(layerSquare);
+    };
     markers = [];
 
     while (len--) {
@@ -258,7 +267,6 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
        var  redIcon2 = new redIcon();
        var mark = L.marker([lat,lng],{icon: redIcon2}).addTo(map).bindPopup("<a href='http://localhost:3000/sighting/db/" + id + "/edit'>" + full.feed.entries[len].locality + "</a>").openPopup();
-
 
        //Add mark to markers
        markers.push(mark);
