@@ -27,6 +27,8 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
   //Creating intial coord for disply map
   $scope.mapOptions = {};
   $scope.mapOptions.initcoord = [79.004959, 17.666016];
+  $scope.mapOptions.color = "#ff0000";
+  $scope.mapOptions.weight = 10;
 
   let show = function() {
 
@@ -50,9 +52,7 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
       });
    }
 
-
       $scope.uri = uri(sighting);
-
 
     });
 

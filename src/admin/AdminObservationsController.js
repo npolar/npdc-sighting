@@ -92,8 +92,6 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
            layerSquare = rectangle1.addTo(map);
 
-           console.log(map);
-
         }
 
         var createLayer = drawnItems.addLayer(layerSquare);
@@ -145,7 +143,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     //Remove any annotations as well
     if (map.hasLayer(layerSquare)) {
        map.removeLayer(layerSquare);
-    };
+    }
 
     markers = [];
 
@@ -164,6 +162,8 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
     //show loading..
     $scope.dataLoading = true;
+
+    console.log($scope);
 
     // First find out which paramaters are not empty
     var sok = ''; var lat = ''; var lng = ''; var edate = '';
@@ -215,25 +215,37 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
     //Include species search if it exists
     if ((typeof $scope.species !== "undefined") && ($scope.species !== null) && ($scope.species !== '' )) {
+          console.log("got here");
            sok = sok + '&filter-species=' + ($scope.species.family).toLowerCase();
             //Add + instead of space
            sok = sok.replace(/ /g,"+");
+           console.log(sok);
     }
 
     //Sum up the query
     if ($scope.search) {
-       sok = $scope.search;
+       sok = $scope.search + sok;
        //Add + instead of space
        sok = sok.replace(/ /g,"+");
-    }else {
+   // }else {
        sok = sok+lat+lng+edate;
     }
 
+
    //Prune search - transfer as little data as possible to save time
-   var fields = '&fields=id,event_date,locality,location_comment,species,editor_assessment,total,excelfile.filename';
+   var fields = '&fields=id,event_date,species,excel_filename,"@placename",species,editor_assessment,total';
 
 
-   var full = SightingDBSearch.get({search:sok+fields}, function(){
+
+   var res = encodeURI(sok+fields);
+
+   console.log(res);
+   console.log("input---------------");
+
+  // var res = "&filter-species=ursus+maritimus";
+
+
+   var full = SightingDBSearch.get({search:res}, function(){
 
      var redIcon = L.Icon.extend({
           options: {
@@ -250,7 +262,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     console.log(map);
     if (map.hasLayer(layerSquare)) {
        map.removeLayer(layerSquare);
-    };
+    }
     markers = [];
 
     while (len--) {
@@ -262,6 +274,8 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
        //Get id to create link on the map to edit an entry
        //Useful when whales are tagged with land GPS coord..
        var id = full.feed.entries[len].id;
+
+       full.feed.entries[len].locality  = full.feed.entries[len]['@placename'];
        var lat = parseFloat(full.feed.entries[len].latitude);
        var lng = parseFloat(full.feed.entries[len].longitude);
 
