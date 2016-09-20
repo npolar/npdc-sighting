@@ -76,8 +76,11 @@
         "hval (uspesifisert)",
         "sel (uspesifisert)",
         "isbjørnhi",
-        "andre arter"
+        "annen art"
        ]
+      },
+      "other_species":{
+         "title":"hvis 'annen art' er valgt, si noe om art"
       },
       "habitat":{
           "title": "habitat",

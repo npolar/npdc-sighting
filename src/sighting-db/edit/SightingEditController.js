@@ -51,6 +51,9 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
       }])
   };
 
+  console.log(npdcAppConfig.formula.languages, formulaOptions);
+
+
   $scope.formula = formula.getInstance(formulaOptions);
   initFileUpload($scope.formula);
 
