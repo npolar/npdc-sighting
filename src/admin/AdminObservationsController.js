@@ -4,8 +4,7 @@
 // Respond to search to get relevant entries
 // First respond to squares drawn
 // @ngInject
-var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig) {
-//var AdminObservationsController = function($scope, $http, leafletData, SPECIES, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig) {
+var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig, SightingExcelDBGet) {
 //Input attributes
 
     //Do not show "loading.."
@@ -218,8 +217,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
           console.log("got here");
            sok = sok + '&filter-species=' + ($scope.species.family).toLowerCase();
             //Add + instead of space
-           sok = sok.replace(/ /g,"+");
-           console.log(sok);
+        //   sok = sok.replace(/ /g,"+");
     }
 
     //Sum up the query
@@ -279,12 +277,20 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
        var lat = parseFloat(full.feed.entries[len].latitude);
        var lng = parseFloat(full.feed.entries[len].longitude);
 
+       //Need to find the id to link back to excel file
+      // if (full.feed.entries[len].excel_filename) {
+       //   var res2 = encodeURI("&filter-filename=" + full.feed.entries[len].excel_filename+"&fields=url");
+       //   console.log(res2);
+       //   var excel_search = SightingExcelDBGet.get({search:res2}, function(){
+       //       console.log(excel_search);
+       //   });
+       //};
+
        var  redIcon2 = new redIcon();
        var mark = L.marker([lat,lng],{icon: redIcon2}).addTo(map).bindPopup("<a href='http://localhost:3000/sighting/db/" + id + "/edit'>" + full.feed.entries[len].locality + "</a>").openPopup();
 
        //Add mark to markers
        markers.push(mark);
-
       }
      }
 

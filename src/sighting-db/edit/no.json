@@ -4,7 +4,8 @@
     "Observasjon",
     "Tid/lokasjon",
     "Bildeopplasting",
-    "vurdering"
+    "Excelfil",
+    "Vurdering"
   ],
   "fields": {
     "title": {
@@ -16,8 +17,8 @@
          "description": "kontaktinformasjon - adresse, epost etc"
     },
     "organisation": {
-        "title": "organisasjon",
-        "description": "organisasjon"
+        "title": "observatørs navn eller organisasjon",
+        "description": "observatørs navn eller organisasjon"
     },
     "platform": {
           "title": "platform",
@@ -51,6 +52,7 @@
       "species":{
         "title": "art",
         "values": [
+        "",
         "isbjørn",
         "hvalross",
         "storkobbe",
@@ -169,9 +171,22 @@
               "title": "kommentar til sted",
               "description": "kommentar til sted"
       },
+      "files": {
+      "title": "last opp bilde(r)",
+      "description": "Opplasting av observasjonsbilder"
+      },
+      "excel_filename":{
+          "title": "excel filnavn"
+      },
+      "excel_length":{
+          "title": "filstørrelse i bytes"
+      },
       "date_identified":{
                     "title": "vurderingsdato",
                     "description": "dato da redaktør vurderte observasjonen"
+      },
+      "draft":{
+            "title": "send inn observasjon (sett til ja hvis skjema er ferdig utfylt)"
       },
       "editor_assessment":{
                     "title": "redaktørens vurdering",

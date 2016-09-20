@@ -21,6 +21,7 @@ npdcSightingApp.factory('Sighting', require('./sighting-db/Sighting'));
 npdcSightingApp.constant('SPECIES', require('./info/SpeciesGallery'));
 npdcSightingApp.service('SightingDBSearch', require('./admin/SightingDBSearch'));
 npdcSightingApp.service('SightingDBGet', require('./admin/SightingDBGet'));
+npdcSightingApp.service('SightingExcelDBGet', require('./admin/SightingExcelDBGet'));
 
 
 // Bootstrap ngResource models using NpolarApiResource
@@ -51,8 +52,8 @@ npdcSightingApp.config(($httpProvider) => {
 });
 
 npdcSightingApp.run(($http, npolarApiConfig, npdcAppConfig, NpolarTranslate, NpolarLang) => {
+  //var environment = "production";
   var environment = "test";
- // var environment = "test";
   var autoconfig = new AutoConfig(environment);
 
   Object.assign(npolarApiConfig, autoconfig, { resources, formula : { template : 'default' } });

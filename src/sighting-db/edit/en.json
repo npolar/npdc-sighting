@@ -40,10 +40,10 @@
          "description": "kommentar til platform - navn på skip etc"
       },
       "start_date":{
-         "title": "startdato"
+         "title": "start date"
       },
       "end_date":{
-         "title": "sluttdato"
+         "title": "end date"
       },
        "href":{
          "title": "lenke til NPs ekspedisjonsdatabase (fylles ut av NP ansatte)"
@@ -51,9 +51,9 @@
       "species":{
         "title": "art",
         "values": [
-        "ukjent",
-        "isbjørn",
-        "hvalross",
+        "",
+        "polar bear",
+        "walrus",
         "storkobbe",
         "steinkobbe",
         "grønlandssel",

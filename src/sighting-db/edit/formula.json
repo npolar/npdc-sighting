@@ -1,16 +1,14 @@
 {
     "fieldsets": [{
             "title": "Travel/Trip",
-            "fields": [
-                         {
-                            "id": "title",
-                            "title": "name travel/trip/expedition"
+            "fields": [ {
+                            "id": "organisation",
+                            "title": "observer's name or organisation"
                         },
                         {
                             "id": "contact_info",
                             "title": "contact information - addess, additional email etc"
                         },
-                        "organisation",
                         {
                             "id": "platform",
                             "title": "platform - boat, skis, kayak, scooter, plane etc"
@@ -39,6 +37,11 @@
                 {
                     "id": "species",
                     "description": "what kind of animal did you see?"
+                },
+                 {
+                    "id": "other_species",
+                    "title":"if 'other species' is selected, please specify",
+                    "description": "if not a species on the list, please specify"
                 },
                  {
                     "id": "habitat",
@@ -94,7 +97,12 @@
                 {
                     "id": "total",
                     "title": "total count"
+                },
+                {
+                    "id": "occurrence_remarks",
+                    "title": "observation comment"
                 }
+
             ]
   },
   {
@@ -126,21 +134,19 @@
             ]
 },
 {
-    "title": "Photo upload",
+    "title": "Upload photo",
     "fields": [{
       "id": "files",
       "title":"upload photos",
       "items": {
         "fields": [
-           "id",
            "filename",
            "uri",
-           "title",
-           "thumb_href",
-           "filename",
+           "thumb_uri",
            "length",
            "type",
-           "hash",
+           "!hash",
+           "!thumb_hash",
            "photographer",
            "comments",
            "other_info"
@@ -148,9 +154,28 @@
         }
       }]
 },
+{
+            "title": "Excelfile",
+            "fields": [
+                 {
+                    "id": "excel_filename",
+                    "title": "Excel filename",
+                    "disabled": true
+                },
+                {
+                    "id": "excel_length",
+                    "description": "Size of excel file in bytes",
+                    "disabled": true
+                }
+            ]
+},
  {
             "title": "Assessment",
             "fields": [
+                {
+                    "id": "draft",
+                    "title": "submit the observation (set to 'yes' when schema is completed)"
+                },
                 {
                     "id": "date_identified",
                     "title": "date handled by editor",
@@ -165,7 +190,7 @@
                 {
                     "id": "editor_comment",
                     "title": "editor's comment",
-                    "description": "editor's comment on the observation"
+                    "description": "editor's observation comment"
                 }
             ]
         }
