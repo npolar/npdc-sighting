@@ -189,7 +189,10 @@
                     "description": "dato da redaktør vurderte observasjonen"
       },
       "draft":{
-            "title": "send inn observasjon (sett til ja hvis skjema er ferdig utfylt)"
+            "title": "send inn observasjon (sett til ja hvis skjema er ferdig utfylt)",
+             "values": [
+                    "nei",
+                    "ja"]
       },
       "editor_assessment":{
                     "title": "redaktørens vurdering",

@@ -25,9 +25,8 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
     return Object.assign({}, defaults, invariants);
   };
 
-  var pp = $scope.search(query());
-  console.log(pp);
-  console.log("---------");
+  $scope.search(query());
+
 
   $scope.$on('$locationChangeSuccess', (event, data) => {
     $scope.search(query());
