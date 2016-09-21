@@ -21,7 +21,7 @@
         "description": "observatørs navn eller organisasjon"
     },
     "platform": {
-          "title": "platform",
+          "title": "plattform",
           "description": "båt, ski, kajakk, scooter, fly etc",
           "values": [
               "ukjent",

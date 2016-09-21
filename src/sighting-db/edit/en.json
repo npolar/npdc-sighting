@@ -54,7 +54,7 @@
                     "description": "editor's assessment - how likely is the observation based on knowledge about the species' habitat",
                     "values":  [
                         "not yet assessed",
-                        "likely / well codumented observation",
+                        "likely / well documented observation",
               "unusual observation / missing information",
               "very unusual observation / information missing / has an error occurred?"
                     ]

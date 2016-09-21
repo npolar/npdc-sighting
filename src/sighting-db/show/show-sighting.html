@@ -17,7 +17,7 @@
 <div class="np-padding">
   <div ng-if="document" class="np-doc">
 
-   <h3>  {{ 'Marine mammal sightings' | t }} &nbsp;&nbsp;&nbsp;<a href="/sighting/db/">[Back]</a></h3>
+   <h3>  {{ 'Marine mammal sightings' | t }} &nbsp;&nbsp;&nbsp;<a href="/sighting/db/">[{{ 'Back' | t }}]</a></h3>
 
  <h1>
   <span class="md-display-2">{{ document.species | t }} </span><span style={font-size:15%}>
@@ -25,10 +25,9 @@
 
 
       <section>
-      <p ng-if="document.created_by"><md-icon class="md-avatar-icon">person</md-icon> {{ 'Observer' | t }}: {{document.created_by}}</p>
-      <p ng-if="document.organisation"><md-icon>business</md-icon> {{ 'Organisation' | t }}: {{document.organisation}}</p>
-      <p ng-if="document.title">{{ 'Name travel/trip/expedition' | t }}: {{document.title}}</p>
-      <p ng-if="document.platform">Platform:  {{ document.platform | t }}</p>
+      <p ng-if="document.organisation"><md-icon class="md-avatar-icon">person</md-icon> {{ "Observer's name or organisation" | t }}: {{document.organisation}}</p>
+      <p ng-if="document.contact_info"><md-icon>business</md-icon> {{ 'Contact information - addess, email etc' | t }}: {{document.contact_info}}</p>
+      <p ng-if="document.platform">{{ 'Platforms' | t }}:  {{ document.platform | t }}</p>
       <p ng-if="document.platform_comment">{{ 'Platform comment' | t }}: {{document.platform_comment}}</p>
       <p ng-if="document.start_date" || "document.end_date">{{ 'Dates' | t }}: {{(document.start_date).split('T')[0]}} - {{(document.end_date).split('T')[0]}}</p>
       <p ng-if="document.href"><a ng-href="{{document.href}}"> {{ 'Link to expedition' | t }}</a></p><br />

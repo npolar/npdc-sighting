@@ -1,6 +1,6 @@
 'use strict';
 
-var SightingShowController = function($controller, $routeParams, $scope, $q, Sighting, Expedition, npdcAppConfig) {
+var SightingShowController = function($controller, $routeParams, $scope, $q, Sighting, Expedition, npdcAppConfig, NpolarTranslate) {
     'ngInject';
 
 

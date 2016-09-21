@@ -7,11 +7,11 @@
                         },
                         {
                             "id": "contact_info",
-                            "title": "contact information - addess, additional email etc"
+                            "title": "contact information - addess, email etc"
                         },
                         {
                             "id": "platform",
-                            "title": "platform - boat, skis, kayak, scooter, plane etc"
+                            "title": "platforms - boat, skis, kayak, scooter, plane etc"
                         },
                         {
                             "id": "platform_comment",

@@ -9,11 +9,6 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
 
 
 
-  //Get title and subtitle
-  //npdcAppConfig.search.local.results.title = "species";
-  //npdcAppConfig.search.local.results.subtitle = "@placename";
-
-
   let query = function() {
     let defaults = {
       limit: "50",
