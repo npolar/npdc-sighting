@@ -155,7 +155,7 @@
       }]
 },
 {
-            "title": "Excelfile",
+            "title": "excelfile",
             "fields": [
                  {
                     "id": "excel_filename",
