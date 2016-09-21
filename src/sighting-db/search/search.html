@@ -1,25 +1,24 @@
 
 <!DOCTYPE html>
-<span class="np-primary-control">
 
- <md-button class="md-fab" ng-if="security.isAuthorized('create', resource.path)" ng-href="db/{{ resource.newHref() }}">
-  <md-tooltip md-direction="top">New</md-tooltip>
-  <md-icon>add</md-icon>
-</md-button>
-
-</span>
 <npdc:search-input feed="feed"></npdc:search-input>
-<!-- <npdc:search feed="feed"></npdc:search> -->
-
-
- <!-- <npdc:create-button class="np-primary-control"></npdc:create-button> -->
-
 
 
 <article>
 <br />
 &nbsp;&nbsp;&nbsp;<a href="/sighting">[Back]</a>
 </article>
+
+
+
+  <!-- <npdc:search feed="feed"></npdc:search>  -->
+<div class="np-primary-control">
+<md-button  class="md-fab" ng-if="security.isAuthorized('create', resource.path)" ng-href="db/{{ resource.newHref() }}">
+  <md-tooltip md-direction="top">New</md-tooltip>
+  <md-icon>add</md-icon>
+</md-button>
+</div>
+
 
 <div class="npdc-search">
   <md-content>
@@ -37,12 +36,10 @@
 
             <div class="md-list-item-text">
               <h3 class="md-headline">
-                <span md-highlight-text="q()" md-highlight-flags="ig">{{e.species}}</span>
-                 <em ng-if="e.@placename">
-                  「{{ e.@placename }}」
-                </em>
+             <!--   <span md-highlight-text="q()" md-highlight-flags="ig">{{e.title}}</span> -->
+             <h3 ng-if="e.species">{{ e.species }} <em ng-if="e.habitat">「{{ e.habitat }}」</em></h3>
               </h3>
-              <h4>{{ e.event_date }}</h4>
+              <h4>{{ (e.event_date).substring(0,10) }}</h4>
             </div>
 
           </md-list-item>
@@ -65,7 +62,10 @@
   </md-content>
 </div>
 
-<npdc:search feed="feed"></npdc:search>
+
+
+
+
 
 
 

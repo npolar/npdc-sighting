@@ -10,8 +10,8 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
 
 
   //Get title and subtitle
-  npdcAppConfig.search.local.results.title = "species";
-  npdcAppConfig.search.local.results.subtitle = "@placename";
+  //npdcAppConfig.search.local.results.title = "species";
+  //npdcAppConfig.search.local.results.subtitle = "@placename";
 
 
   let query = function() {
@@ -25,7 +25,9 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
     return Object.assign({}, defaults, invariants);
   };
 
-  $scope.search(query());
+  var pp = $scope.search(query());
+  console.log(pp);
+  console.log("---------");
 
   $scope.$on('$locationChangeSuccess', (event, data) => {
     $scope.search(query());
