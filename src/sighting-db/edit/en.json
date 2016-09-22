@@ -13,7 +13,7 @@
         "title": "species",
         "values": [
         "",
-         "polar bear",
+        "polar bear",
         "walrus",
         "bearded seal",
         "harbor seal",
@@ -56,7 +56,7 @@
                         "not yet assessed",
                         "likely / well documented observation",
               "unusual observation / missing information",
-              "very unusual observation / information missing / has an error occurred?"
+              "highly unusual observation / information missing / has an error occurred?"
                     ]
       },
       "draft": {

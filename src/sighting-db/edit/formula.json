@@ -2,12 +2,20 @@
     "fieldsets": [{
             "title": "Travel/Trip",
             "fields": [ {
+                             "id": "recorded_by_name",
+                            "title": "observer's name"
+                         },
+                        {
                             "id": "organisation",
-                            "title": "observer's name or organisation"
+                            "title": "observer's organisation"
                         },
                         {
                             "id": "contact_info",
                             "title": "contact information - addess, email etc"
+                        },
+                        {
+                              "id": "recorded_by",
+                            "title": "email of the person reporting observation"
                         },
                         {
                             "id": "platform",
@@ -159,7 +167,7 @@
             "fields": [
                  {
                     "id": "excel_filename",
-                    "title": "Excel filename",
+                    "title": "excel filename",
                     "disabled": true
                 },
                 {
@@ -179,8 +187,7 @@
                 {
                     "id": "date_identified",
                     "title": "date handled by editor",
-                    "description": "date handled by editor",
-                    "disabled": true
+                    "description": "date handled by editor"
                 },
                 {
                     "id": "editor_assessment",

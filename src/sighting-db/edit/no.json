@@ -8,17 +8,19 @@
     "Vurdering"
   ],
   "fields": {
-    "title": {
-         "title": "navn på reise/tur/ekspedisjon",
-         "description": "navn på reise/tur/ekspedisjon"
+    "recorded_by_name": {
+         "title": "observatørs navn"
     },
-    "contact_info": {
+     "organisation": {
+        "title": "observatørs organisasjon",
+        "description": "observatørs organisasjon"
+    },
+     "contact_info": {
          "title": "kontaktinformasjon",
          "description": "kontaktinformasjon - adresse, epost etc"
     },
-    "organisation": {
-        "title": "observatørs navn eller organisasjon",
-        "description": "observatørs navn eller organisasjon"
+    "recorded_by":{
+         "title": "epost adresse til den som rapporter hendelsen"
     },
     "platform": {
           "title": "plattform",

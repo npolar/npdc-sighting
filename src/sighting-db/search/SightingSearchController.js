@@ -13,7 +13,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
     let defaults = {
       limit: "50",
       sort: "-updated",
-      fields: 'species,event_date,updated,id,habitat,@placename',
+      fields: 'species,event_date,total,updated,id,habitat,@placename',
       facets: 'draft'};
 
     let invariants = $scope.security.isAuthenticated() ? {} : {} ;
@@ -21,7 +21,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
   };
 
   $scope.search(query());
-
+  console.log($scope.search);
 
   $scope.$on('$locationChangeSuccess', (event, data) => {
     $scope.search(query());

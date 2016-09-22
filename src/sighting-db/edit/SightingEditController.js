@@ -8,10 +8,13 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
 
   function init() {
 
+
   // EditController -> NpolarEditController
   $controller('NpolarEditController', {
     $scope: $scope
   });
+
+
 
   // StationBooking -> npolarApiResource -> ngResource
   $scope.resource = Sighting;
@@ -33,9 +36,6 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
           }
         },
         hidden: true
-      },  {
-        match: "locations_item",
-        template: "<inventory:coverage></inventory:coverage>"
       },
     {
         match: "placenames_item",
@@ -51,22 +51,24 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
       }])
   };
 
+
   console.log(npdcAppConfig.formula.languages, formulaOptions);
 
 
   $scope.formula = formula.getInstance(formulaOptions);
   initFileUpload($scope.formula);
 
+/*
    formulaAutoCompleteService.autocomplete({
     match: "@placename",
     querySource: npolarApiConfig.base + '/placename',
     label: 'title',
     value: 'ident'
 }, $scope.formula);
+*/
 
 
  //formulaAutoCompleteService.autocompleteFacets(['organisation'], Sighting, $scope.formula);
-
 
   chronopicService.defineOptions({ match: 'released', format: '{date}'});
   chronopicService.defineOptions({ match(field) {
