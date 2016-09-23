@@ -61,9 +61,9 @@
         <h3>{{ 'Time/location' | t }}</h3>
         <md-divider></md-divider>
         <p ng-if="document.event_date" >{{ 'Observation date' | t }}: {{document.event_date.split('T')[0]}}</p>
-        <p ng-if="document.@placename">{{ 'Placename' | t }}: {{document.@placename}}</p>
-        <p ng-if="document.placename_comment">{{ 'Placename comment' | t }}: {{document.placename_comment}}</p>
+        <p ng-if="document['@placename']"><md-icon>place</md-icon>{{ 'Placename' | t }}: {{document['@placename']}}</p>
         <p ng-if="document.latitude" || "document.longitude"><md-icon>place</md-icon>{{ 'Location coordinates (see map above)' | t }}: [{{document.latitude}},{{document.longitude}}]</p>
+        <p ng-if="document.placename_comment">{{ 'Placename comment' | t }}: {{document.placename_comment}}</p>
         <br />
        </section>
 
@@ -71,7 +71,7 @@
         <h3>{{ 'Photos' | t }}</h3>
           <md-divider></md-divider>
           <div ng-repeat="file in document.files">
-           <p><md-icon>file_download</md-icon> <a ng-href="{{file.uri+'?key='+key()}}">{{ file.filename}}</a> ({{ file.type }} {{ file.file_size | bytes }})</p>
+           <p><md-icon>file_download</md-icon> <a ng-href="{{file.uri+'?key='+key()}}">{{ file.filename}}</a>&nbsp; ({{ file.type }} {{ file.file_size | bytes }})</p>
           </div>
           <br />
         </section>
@@ -87,7 +87,9 @@
         <h3>{{ "Editor's feedback" | t }}</h3>
         <md-divider></md-divider>
         <p ng-if="document.date_identified">{{ "Date identified" | t }}: {{document.date_identified.split('T')[0]}}</p>
+
         <p ng-if="document.editor_assessment">{{ "Editor's assessment" | t }}: {{document.editor_assessment | t}}</p>
+
         <p ng-if="document.editor_comment">{{ "Editor's comment" | t }}: {{document.editor_comment}}</p>
         <br />
         </section>
