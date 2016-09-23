@@ -87,8 +87,10 @@
         <h3>{{ "Editor's feedback" | t }}</h3>
         <md-divider></md-divider>
         <p ng-if="document.date_identified">{{ "Date identified" | t }}: {{document.date_identified.split('T')[0]}}</p>
-
-        <p ng-if="document.editor_assessment">{{ "Editor's assessment" | t }}: {{document.editor_assessment | t}}</p>
+         <p ng-if="document.editor_assessment==='not yet assessed'">{{ "Editor's assessment" | t }}: {{ 'not yet assessed' | t}}</p>
+        <p ng-if="document.editor_assessment==='green'">{{ "Editor's assessment" | t }}: {{ 'likely / well documented observation' | t}}</p>
+        <p ng-if="document.editor_assessment==='yellow'">{{ "Editor's assessment" | t }}: {{ 'unusual observation / missing information'| t}}</p>
+        <p ng-if="document.editor_assessment==='red'">{{ "Editor's assessment" | t }}: {{ 'highly unusual observation / information missing / has an error occurred?'| t}}</p>
 
         <p ng-if="document.editor_comment">{{ "Editor's comment" | t }}: {{document.editor_comment}}</p>
         <br />
