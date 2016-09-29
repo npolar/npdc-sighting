@@ -242,22 +242,23 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
   // var res = "&filter-species=ursus+maritimus";
 
-
-   var full = SightingDBSearch.get({search:res}, function(){
-
-     var redIcon = L.Icon.extend({
+   var redIcon = L.Icon.extend({
           options: {
             iconUrl:  'admin/img/reddot.png',
             iconSize: [8, 8]
           }
     });
 
+
+   var full = SightingDBSearch.get({search:res}, function(){
+
+
+
     var len = full.feed.entries.length;
     var total = len;
     $scope.total = len;
 
     //Remove any annotations now
-    console.log(map);
     if (map.hasLayer(layerSquare)) {
        map.removeLayer(layerSquare);
     }
@@ -286,8 +287,8 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
        //   });
        //};
 
-       var  redIcon2 = new redIcon();
-       var mark = L.marker([lat,lng],{icon: redIcon2}).addTo(map).bindPopup("<a href='http://localhost:3000/sighting/db/" + id + "/edit'>" + full.feed.entries[len].locality + "</a>").openPopup();
+      // var  redIcon2 = new redIcon();
+       var mark = L.marker([lat,lng],{icon: new redIcon() }).addTo(map).bindPopup("<a href='http://localhost:3000/sighting/db/" + id + "/edit'>" + full.feed.entries[len].locality + "</a>").openPopup();
 
        //Add mark to markers
        markers.push(mark);
