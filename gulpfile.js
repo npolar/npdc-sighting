@@ -11,6 +11,6 @@ npdcGulp.loadAppTasks(gulp, {
                 'node_modules/angular-leaflet-directive/dist/*',
                 'node_modules/leaflet-draw/dist/*',
                 'node_modules/angular-smart-table/dist/smart-table.min.js',
-                'node_modules/leafletMap.js']
+                'node_modules/leafletdir/*']
 }});
 

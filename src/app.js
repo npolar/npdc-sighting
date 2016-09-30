@@ -3,11 +3,14 @@ var npdcCommon = require('npdc-common');
 var AutoConfig = npdcCommon.AutoConfig;
 
 var angular = require('angular');
-require('npdc-common/src/wrappers/leaflet');
-var leafletMap = require('../node_modules/leafletMap');
+
+var leafletMap = require('../node_modules/leafletdir/leafletMap');
+var leaflet = require('../node_modules/leaflet');
+var leaflet_draw = require('../node_modules/leaflet-draw/dist/leaflet.draw');
+var leaflet_fullscreen = require('../node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen');
 
 
-var npdcSightingApp = angular.module('npdcSightingApp', ['npdcCommon', 'leaflet']);
+var npdcSightingApp = angular.module('npdcSightingApp', ['npdcCommon']);
 
 npdcSightingApp.controller('SightingShowController', require('./sighting-db/show/SightingShowController'));
 npdcSightingApp.controller('SightingSearchController', require('./sighting-db/search/SightingSearchController'));

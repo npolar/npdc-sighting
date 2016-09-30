@@ -3,7 +3,6 @@
 var SightingShowController = function($controller, $routeParams, $scope, $q, Sighting, Expedition, npdcAppConfig, NpolarTranslate) {
     'ngInject';
 
-
   $controller('NpolarBaseController', {
     $scope: $scope
   });
@@ -34,12 +33,41 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
 
     $scope.show().$promise.then((sighting) => {
 
+
+     var lat, lng, placename;
+
      if (typeof $scope.document.latitude !== 'undefined' && typeof $scope.document.longitude !== 'undefined') {
-            var lat = $scope.document.latitude;
-            var lng = $scope.document.longitude;
+            lat = $scope.document.latitude;
+            lng = $scope.document.longitude;
+            placename = $scope.document["@placename"];
             $scope.mapOptions.coverage = [[[lat, lng],[lat,lng]]];
             $scope.mapOptions.geojson = "geojson";
      }
+
+     var geojsonObj = [{
+        "type": "Feature",
+        "properties": {
+            "locality": placename
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [lat,lng]
+        }
+     }];
+
+      //Create map
+      var inputParams = {
+        lat: 78.000,
+        lng: 16.000,
+        zoom: 4,
+        cssmark:'mapid2',
+        marker:'redIcon', //"redIcon","default"
+        editable: 'n', //yes means editable
+        edit :[],
+        geoJson: geojsonObj
+      };
+
+      leafletMap.createmap(inputParams);
 
      if (sighting.links && sighting.links !== null) {
      $scope.links = sighting.links.filter(l => (l.rel !== "alternate" && l.rel !== "edit") && l.rel !== "data");

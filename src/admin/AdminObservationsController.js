@@ -26,7 +26,24 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     //select -get species
     $scope.items = SPECIES;
 
-   var inputParams = {
+
+
+//var ret = leafletMap.createmap(inputParams);
+
+
+console.log("hei");
+
+
+//mapCallback(foo);
+var res = mapCallback(leafletMap.createmap);
+console.log(res);
+
+};
+
+function mapCallback(callback) {
+    // Call the callback
+    //callback('stuff', 'goes', 'here');
+    var inputParams = {
     lat: 78.000,
     lng: 16.000,
     zoom: 4,
@@ -38,13 +55,14 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     ],
     geoJson: []
 }
+   return callback(inputParams);
 
-var ret = leafletMap.createmap(inputParams);
+}
 
-
-};
-
-
+//function foo(a, b, c) {
+    // I'm the callback
+  //  alert(a + " " + b + " " + c);
+//}
 
 
 
