@@ -4,6 +4,7 @@ var AutoConfig = npdcCommon.AutoConfig;
 
 var angular = require('angular');
 require('npdc-common/src/wrappers/leaflet');
+var leafletMap = require('../node_modules/leafletMap');
 
 
 var npdcSightingApp = angular.module('npdcSightingApp', ['npdcCommon', 'leaflet']);
