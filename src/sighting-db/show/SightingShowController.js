@@ -33,41 +33,30 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
 
     $scope.show().$promise.then((sighting) => {
 
+       //Loading leaflet
+    var L = require('leaflet');
+   // L.Icon.Default.imagePath = 'node_modules/leaflet/dist/images';
+    var map2 = L.map('mapid2', {
+      fullscreenControl: true,
+      fullscreenControlOptions: {
+      position: 'topleft'
+      }}).setView([78.000, 16.000], 4);
 
-     var lat, lng, placename;
 
-     if (typeof $scope.document.latitude !== 'undefined' && typeof $scope.document.longitude !== 'undefined') {
-            lat = $scope.document.latitude;
-            lng = $scope.document.longitude;
-            placename = $scope.document["@placename"];
-            $scope.mapOptions.coverage = [[[lat, lng],[lat,lng]]];
-            $scope.mapOptions.geojson = "geojson";
-     }
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'mapbox.streets'
+    }).addTo(map2);
 
-     var geojsonObj = [{
-        "type": "Feature",
-        "properties": {
-            "locality": placename
-        },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [lat,lng]
-        }
-     }];
+     var lat = $scope.document.latitude;
+     var lng = $scope.document.longitude;
 
-      //Create map
-      var inputParams = {
-        lat: 78.000,
-        lng: 16.000,
-        zoom: 4,
-        cssmark:'mapid2',
-        marker:'redIcon', //"redIcon","default"
-        editable: 'n', //yes means editable
-        edit :[],
-        geoJson: geojsonObj
-      };
+    var marker = L.marker([lat, lng]).addTo(map2);
+    marker.bindPopup($scope.document['@placename']).openPopup();
 
-      leafletMap.createmap(inputParams);
 
      if (sighting.links && sighting.links !== null) {
      $scope.links = sighting.links.filter(l => (l.rel !== "alternate" && l.rel !== "edit") && l.rel !== "data");

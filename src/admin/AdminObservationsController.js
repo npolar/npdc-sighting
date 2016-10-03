@@ -15,8 +15,8 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     var layerSquare;
 
     //using chronopic to show dates
-    new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
-    new Chronopic('input[type="date"][lang="en"]', { locale: 'en_US' });
+  //  new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
+  //  new Chronopic('input[type="date"][lang="en"]', { locale: 'en_US' });
 
 
     //pagination
