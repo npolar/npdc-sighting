@@ -19,7 +19,6 @@ npdcSightingApp.controller('SightingController', require('./info/SightingControl
 npdcSightingApp.controller('AdminObservationsController', require('./admin/AdminObservationsController'));
 npdcSightingApp.controller('QualityController', require('./admin/QualityController'));
 npdcSightingApp.controller('UploadObservationsController', require('./admin/UploadObservationsController'));
-npdcSightingApp.controller('SightingDeleteController', require('./admin/SightingDeleteController'));
 npdcSightingApp.controller('CSVController', require('./admin/CSVController'));
 npdcSightingApp.directive('sightingCoverage', require('./sighting-db/edit/coverage/coverageDirective'));
 npdcSightingApp.factory('Sighting', require('./sighting-db/Sighting'));

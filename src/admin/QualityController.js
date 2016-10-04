@@ -13,7 +13,6 @@ var QualityController = function($scope, $http, Sighting, npolarApiConfig, Sight
 
      //For pagination - a copy is needed for display aka displayedCollection
      displayedCollection.push($scope.full.feed.entries);
-     console.log(displayedCollection);
 
    });
 

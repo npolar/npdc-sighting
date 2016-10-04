@@ -18,9 +18,6 @@ var router = function($routeProvider, $locationProvider) {
   }).when('/db/:id/edit', {
     template: '<npdc:formula></npdc:formula>',
     controller: 'SightingEditController'
-   }).when('/db/:id/delete', {
-    templateUrl: 'admin/delete.html',
-    controller: 'SightingDeleteController'
   }).when('/observe', {
     templateUrl: 'info/observe.html',
     controller: 'SightingController'
