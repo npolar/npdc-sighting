@@ -219,10 +219,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
     //Include species search if it exists
     if ((typeof $scope.species !== "undefined") && ($scope.species !== null) && ($scope.species !== '' )) {
-          console.log("got here");
            sok = sok + '&filter-species=' + ($scope.species.family).toLowerCase();
-            //Add + instead of space
-        //   sok = sok.replace(/ /g,"+");
     }
 
     //Sum up the query
@@ -236,11 +233,12 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
 
    //Prune search - transfer as little data as possible to save time
-   var fields = '&fields=id,event_date,species,excel_filename,"@placename",species,editor_assessment,total';
+  // var fields = '&fields=id,event_date,species,excel_filename,"@placename",species,editor_assessment,total';
 
 
 
-   var res = encodeURI(sok+fields);
+  // var res = encodeURI(sok+fields);
+   var res = sok.replace(/ /g,"+");
 
    console.log(res);
    console.log("input---------------");
