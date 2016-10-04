@@ -43,10 +43,10 @@
          "description": "kommentar til platform - navn på skip etc"
       },
       "start_date":{
-         "title": "startdato"
+         "title": "startdato, tur/ekspedisjon"
       },
       "end_date":{
-         "title": "sluttdato"
+         "title": "sluttdato, tur/ekspedisjon"
       },
        "href":{
          "title": "lenke til NPs ekspedisjonsdatabase (fylles ut av NP ansatte)"

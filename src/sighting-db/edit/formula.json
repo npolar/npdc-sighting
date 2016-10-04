@@ -27,11 +27,11 @@
                         },
                         {
                             "id": "start_date",
-                            "title": "start date"
+                            "title": "start date, trip/expedition"
                         },
                         {
                             "id": "end_date",
-                            "title": "end date"
+                            "title": "end date, trip/expedition"
                         },
                         {
                             "id": "href",
