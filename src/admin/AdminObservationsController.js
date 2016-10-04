@@ -4,7 +4,7 @@
 // Respond to search to get relevant entries
 // First respond to squares drawn
 // @ngInject
-var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig, SightingExcelDBGet) {
+var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig, SightingExcelDBGet, CSVService) {
 //Input attributes
 
     //Do not show "loading.."
@@ -14,9 +14,12 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     var markers = [];
     var layerSquare;
 
+    //Fetch previous search if existing
+    $scope.entries = CSVService.entryObject;
+
     //using chronopic to show dates
-  //  new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
-  //  new Chronopic('input[type="date"][lang="en"]', { locale: 'en_US' });
+    new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
+    new Chronopic('input[type="date"][lang="en"]', { locale: 'en_US' });
 
 
     //pagination
@@ -310,6 +313,9 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
     $scope.displayedCollection = displayedCollection;
 
+    //Transfer info to CSV file via service
+    console.log(full.feed.entries);
+    CSVService.entryObject = full.feed.entries;
 
     //Get hostname
     $scope.hostname = location.host;

@@ -30,6 +30,9 @@ var router = function($routeProvider, $locationProvider) {
   }).when('/upload', {
      templateUrl: 'admin/upload.html',
      controller: 'UploadObservationsController'
+  }).when('/csv', {
+     templateUrl: 'admin/csv.html',
+     controller: 'CSVController'
   }).when('/quality_check', {
      templateUrl: 'admin/quality_check.html',
      controller: 'QualityController'

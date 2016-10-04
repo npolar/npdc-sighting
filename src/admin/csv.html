@@ -2,10 +2,11 @@
 
 
 <h1><b>CSV <b></h1>
+<p><a href="/sighting/administrators">Back</a></p>
 
-<div ng-show="isAdmin">
+<!--<div ng-show="isAdmin"> --> <div>
 
-<div ng-controller="CSVCtrl">
+<div ng-controller="CSVController">
 Id | Date | Latitude | Longitude | Location | Location comment | Species | Adult M | Adult F | Adult | Subadult | Polar bear condition | Cub/calf/pup | Bear cubs | Unidentified | Total | Habitat | Occurrence remark | Excel filename | Expedition name | Expedition contact info | Expedition organisation | Platform | Platform comment  <br />
 
 <p ng-repeat="entry in entries">
@@ -21,9 +22,9 @@ Id | Date | Latitude | Longitude | Location | Location comment | Species | Adult
 </div>
 </div>
 
-<div ng-show="!isAdmin">
+<!--<div ng-show="!isAdmin">
       <p>Please <a href="/sighting">log in</a> with your admin account in order to view this page.</p>
-</div>
+</div> -->
 
 
 
