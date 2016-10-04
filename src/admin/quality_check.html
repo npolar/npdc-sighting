@@ -8,17 +8,18 @@
  <div ng-controller="QualityController as entry">
   <table class="layout1" st-table="displayedCollection" st-safe-src="full.feed.entries">
     <thead>
-        <th>Date</th><th>Species</th><th>Location</th><th>Latitude</th><th>Longitude</th><th></th><th></th>
+        <th>Date</th><th>Species</th><th>Location</th><th>Latitude</th><th>Longitude</th><th>Assessment</th><th>Edit</th><th>Delete</th><th></th><th></th>
     </thead>
 
     <tbody>
-    <tr ng-repeat="entry in displayedCollection"> <td>{{ (entry.event_date).substring(0,10) }}&nbsp;</td>
+    <tr ng-repeat="entry in full.feed.entries"> <td>{{ (entry.event_date).substring(0,10) }}&nbsp;</td>
         <td>{{ entry.species}}&nbsp;</td>
-        <td>{{ entry.locality }}&nbsp;</td>
+        <td>{{ entry['@placename'] }}&nbsp;</td>
         <td>{{ entry.latitude }}&nbsp;</td>
         <td>{{ entry.longitude }}&nbsp;</td>
-        <td><a href="observations/{{entry.id}}/editadmin">Edit</a></td>
-        <td><a href="observations/{{entry.id}}/deleteadmin">Delete</a></td>
+        <td>{{ entry.editor_assessment }}&nbsp;</td>
+        <td><a href="db/{{entry.id}}/edit">Edit</a></td>
+        <td><a href="db/{{entry.id}}/delete">Delete</a></td>
    </tr>
    </tbody>
    <tfoot>

@@ -7,12 +7,14 @@ var QualityController = function($scope, $http, Sighting, npolarApiConfig, Sight
   $scope.itemsByPage=15;
   var displayedCollection = [];
 
+
   //editor_assessment=unknown means new entries
-  $scope.full = SightingDBSearch.get({search:"&filter-editor_assessment=unknown"}, function(){
+  $scope.full = SightingDBSearch.get({search:"&filter-editor_assessment=not+assigned|yellow|red"}, function(){
 
      //For pagination - a copy is needed for display aka displayedCollection
      displayedCollection.push($scope.full.feed.entries);
-     $scope.displayedCollection = displayedCollection;
+     console.log(displayedCollection);
+
    });
 
   //Admin logon?
