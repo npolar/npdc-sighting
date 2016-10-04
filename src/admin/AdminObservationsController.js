@@ -234,7 +234,6 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
        sok = sok+lat+lng+edate;
     }
 
-
    //Prune search - transfer as little data as possible to save time
   // var fields = '&fields=id,event_date,species,excel_filename,"@placename",species,editor_assessment,total';
 
@@ -244,8 +243,6 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
    var res = sok.replace(/ /g,"+");
 
    console.log(res);
-   console.log("input---------------");
-
   // var res = "&filter-species=ursus+maritimus";
 
    var redIcon = L.Icon.extend({
