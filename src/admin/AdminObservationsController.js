@@ -175,7 +175,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
 
     // First find out which paramaters are not empty
-    var sok = ''; var lat = ''; var lng = ''; var edate = '';
+    var sok = ''; var lat = ''; var lng = ''; var edate = ''; var species ='';
 
     // If event_date exists
     if (typeof $scope.edate1 !== "undefined" && $scope.edate1 !== "") {
@@ -185,15 +185,11 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
            if (typeof $scope.edate2 !== "undefined" && $scope.edate2 !== "") {
                //Transform edate to correct format
                edate = edate + convertDate($scope.edate2);
-               console.log(edate);
-
            }
     //Else if lat2 exists
     } else if (typeof $scope.edate2 !== "undefined" && $scope.edate2 !== "") {
                //Transform edate to correct format
                edate = '&filter-event_date=..' + convertDate($scope.edate2);
-               console.log(edate);
-               console.log("edate1---------");
     }
 
 
@@ -227,19 +223,23 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
     //Include species search if it exists
     if ((typeof $scope.species !== "undefined") && ($scope.species !== null) && ($scope.species !== '' )) {
-           sok = sok + '&filter-species=' + ($scope.species.family).toLowerCase();
+           species = '&filter-species=' + ($scope.species.family).toLowerCase();
+           species = species.replace(/ /g,"+");
     }
 
     //Sum up the query
     if ($scope.search) {
-       sok = $scope.search + sok;
+       sok = ($scope.search).replace(/ /g,"+");
        //Add + instead of space
-       sok = sok.replace(/ /g,"+");
     }
 
    //Prune search - transfer as little data as possible to save time
   // var fields = '&fields=id,event_date,species,excel_filename,"@placename",species,editor_assessment,total';
-   sok = sok+lat+lng+edate;
+   var res = species+lat+lng+edate;
+
+
+   //"&limit=all&locales=utf-8"
+   console.log(res);
    console.log(sok);
    console.log("sok------");
 
@@ -254,7 +254,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     });
 
 
-   var full = SightingDBSearch.get({search:sok}, function(){
+   var full = SightingDBSearch.get({search:res, search2:sok}, function(){
 
 
 

@@ -21,13 +21,11 @@
 
 
 
-
+<label for="search">&nbsp;&nbsp;General search:&nbsp;&nbsp;</label><input type="text" placeholder="Search Svalbard Sightings.." ng-model="search" /> OR <br />
 
 <label for="species">&nbsp;&nbsp;Species: </label>
      <select ng-model="species" ng-options="item as item.eng + ' (' + item.name + ')' for item in items">
       <option value=""> Undefined </option></select><br />
-
-<label for="search">&nbsp;&nbsp;General search:&nbsp;&nbsp;</label><input type="text" placeholder="Search Svalbard Sightings.." ng-model="search" />
 
 <div>
 <label for="pro.edate1">&nbsp;&nbsp;Event date start:</label> <input type="datetime"  ng-model="pro.edate1">
