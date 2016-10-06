@@ -9,8 +9,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
 
     //Do not show "loading.."
     $scope.dataLoading = false;
-    $scope.edate1 = undefined;
-    $scope.edate2 = undefined;
+
     var markers = [];
     var layerSquare;
 
@@ -114,6 +113,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
         $scope.lat1= parseFloat(coord[0][0][1]).toFixed(6);
         $scope.lng2= parseFloat(coord[0][2][0]).toFixed(6);
         $scope.lat2= parseFloat(coord[0][2][1]).toFixed(6);
+        $scope.$apply();
   });
 
   map.on('draw:edited', function (e) {
@@ -128,7 +128,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
                 $scope.lat1= res[0][0][1];
                 $scope.lng2= res[0][2][0];
                 $scope.lat2= res[0][2][1];
-               // console.log($scope);
+                $scope.$apply();
            });
   });
 
@@ -171,6 +171,8 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     $scope.dataLoading = true;
 
     console.log($scope);
+    console.log("---------------");
+
 
     // First find out which paramaters are not empty
     var sok = ''; var lat = ''; var lng = ''; var edate = '';
@@ -183,12 +185,15 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
            if (typeof $scope.edate2 !== "undefined" && $scope.edate2 !== "") {
                //Transform edate to correct format
                edate = edate + convertDate($scope.edate2);
+               console.log(edate);
 
            }
     //Else if lat2 exists
     } else if (typeof $scope.edate2 !== "undefined" && $scope.edate2 !== "") {
                //Transform edate to correct format
                edate = '&filter-event_date=..' + convertDate($scope.edate2);
+               console.log(edate);
+               console.log("edate1---------");
     }
 
 
@@ -230,20 +235,16 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
        sok = $scope.search + sok;
        //Add + instead of space
        sok = sok.replace(/ /g,"+");
-   // }else {
-       sok = sok+lat+lng+edate;
     }
 
    //Prune search - transfer as little data as possible to save time
   // var fields = '&fields=id,event_date,species,excel_filename,"@placename",species,editor_assessment,total';
-
-
+   sok = sok+lat+lng+edate;
+   console.log(sok);
+   console.log("sok------");
 
   // var res = encodeURI(sok+fields);
-   var res = sok.replace(/ /g,"+");
-
-   console.log(res);
-  // var res = "&filter-species=ursus+maritimus";
+  // var res = sok.replace(/ /g,"+");
 
    var redIcon = L.Icon.extend({
           options: {
@@ -253,7 +254,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     });
 
 
-   var full = SightingDBSearch.get({search:res}, function(){
+   var full = SightingDBSearch.get({search:sok}, function(){
 
 
 

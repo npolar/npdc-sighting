@@ -7,6 +7,7 @@ var angular = require('angular');
 //var leafletMap = require('../node_modules/leafletdir/leafletMap');
 var leaflet = require('../node_modules/leaflet');
 var leaflet_draw = require('../node_modules/leaflet-draw/dist/leaflet.draw');
+//var leaflet_directive = require('../node_modules/angular-leaflet-directive/dist/angular-leaflet-directive');
 var leaflet_fullscreen = require('../node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen');
 
 
