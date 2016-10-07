@@ -1,18 +1,18 @@
 <article class="np-padding np-doc" layout>
-  <h1 class="">Map search</h1>
+  <h1 class="">{{ 'Map search' | t }}</h1>
 </article>
 
 
  <!--<div ng-show="isAdmin"> -->
 
-<article>&nbsp;&nbsp;<a href="quality_check">Quality check</a>&nbsp;&nbsp;
+<article>&nbsp;&nbsp;<a href="quality_check">{{'Quality check' | t }}</a>&nbsp;&nbsp;
 <!-- <a href="upload">Upload Excelsheet</a>&nbsp;&nbsp; -->
-<a href="/sighting">Back</a>
+<a href="/sighting">{{ 'Back' | t }}</a>
 </article>
 
 <form id="submit" ng-submit="submit()">
 
-<p>&nbsp;&nbsp;Select an area on the map by dragging/dropping</p>
+<p>&nbsp;&nbsp;{{'Select an area on the map by dragging/dropping' | t }}</p>
 
 <div id="mapid" style="height: 400px"></div>
 <br />
@@ -21,47 +21,47 @@
 
 
 
-<label for="search">&nbsp;&nbsp;General search:&nbsp;&nbsp;</label><input type="text" placeholder="Search Svalbard Sightings.." ng-model="search" /> OR <br />
+<label for="search">&nbsp;&nbsp;{{'General search' | t }}:&nbsp;&nbsp;</label><input type="text"  ng-model="search" /> {{ 'OR' | t }} <br />
 
-<label for="species">&nbsp;&nbsp;Species: </label>
+<label for="species">&nbsp;&nbsp;{{'Species' | t }}: </label>
      <select ng-model="species" ng-options="item as item.eng + ' (' + item.name + ')' for item in items">
-      <option value=""> Undefined </option></select><br />
+      <option value="">{{ 'Undefined' | t }} </option></select><br />
 
 <div>
-<label for="edate1">&nbsp;&nbsp;Event date start:</label> <input type="datetime" lang="en" ng-model="edate1">
+<label for="edate1">&nbsp;&nbsp;{{'Event date start' | t}}:</label> <input type="datetime" lang="en" ng-model="edate1">
 </div>
 <div>
- <label for="edate2">&nbsp;&nbsp;Event date end:&nbsp;</label> <input type="datetime" lang="en" ng-model="edate2">
+ <label for="edate2">&nbsp;&nbsp;{{'Event date end' | t}}:&nbsp;</label> <input type="datetime" lang="en" ng-model="edate2">
 </div>
 
 
 
-<label for="lat1">&nbsp;&nbsp;Latitude start:</label> <input type="text" ng-model="lat1" size="9" >
+<label for="lat1">&nbsp;&nbsp;{{'Latitude start' | t}}:</label> <input type="text" ng-model="lat1" size="9" >
 <br />
 
-<label for="lat2">&nbsp;&nbsp;Latitude end:&nbsp;&nbsp;</label> <input type="text" ng-model="lat2" size="9" >
+<label for="lat2">&nbsp;&nbsp;{{'Latitude end' | t }}:&nbsp;&nbsp;</label> <input type="text" ng-model="lat2" size="9" >
 <br />
 
-<label for="lng1">&nbsp;&nbsp;Longitude start:</label><input type="text" ng-model="lng1" size="9">
+<label for="lng1">&nbsp;&nbsp;{{'Longitude start' | t }}:</label><input type="text" ng-model="lng1" size="9">
 <br />
 
-<label for="lng2">&nbsp;&nbsp;Longitude end:&nbsp;</label><input type="text" ng-model="lng2" size="9" >
+<label for="lng2">&nbsp;&nbsp;{{'Longitude end' | t }}:&nbsp;</label><input type="text" ng-model="lng2" size="9" >
 <br />
 
 
 
 
-&nbsp;&nbsp;<input type="submit" id="submit" value="Search" />
+&nbsp;&nbsp;<input type="submit" id="submit" value="{{ 'Search' | t }}" />
 
 
 &nbsp;&nbsp;<input type="reset" id="reset" value="Reset" ng-click="reset()"/>
 <!-- Create CSV -->
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="csv">Create CSV</a><br /><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="csv">{{ 'Create CSV' | t }}</a><br /><br />
 
 
 
 <div ng-if="dataLoading">
-    Loading...
+    {{ 'Loading...' | t }}
 </div>
 
 <p></p>
@@ -70,7 +70,7 @@
 
   <table class="layout1" st-table="displayedCollection" st-safe-src="entries">
     <thead>
- <th>Date</th><th>Species</th><th>Total</th><th>Location</th><th>Assessment</th><th>Excelfile</th><th>View</th><th>Edit</th>
+ <th>{{'Date' | t}}</th><th>{{'Species' | t }}</th><th>{{ 'Total' | t }}</th><th>{{ 'Location' | t }}</th><th>{{'Assessment' | t }}</th><th>{{'Excelfile' | t }}</th><th>{{ 'View' | t }}</th><th>{{'Edit' | t }}</th>
     </thead>
     <tbody>
    <tr ng-repeat="entry in displayedCollection" ng-cloak>
@@ -88,7 +88,7 @@
       <tr >
         <td colspan="5" class="text-center">
           <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="20"></div>
-        Total: {{ total }}</td>
+        {{'Total' | t }}: {{ total }}</td>
       </tr>
 </tfoot>
 </table>

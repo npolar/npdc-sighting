@@ -1,4 +1,4 @@
-<h1><b> Quality check new observations<b></h1>
+<h1><b> {{ 'Quality check new observations' | t }}<b></h1>
 <p></p>
 <p></p>
 
@@ -8,7 +8,7 @@
  <div ng-controller="QualityController as entry">
   <table class="layout1" st-table="displayedCollection" st-safe-src="full.feed.entries">
     <thead>
-        <th>Date</th><th>Species</th><th>Location</th><th>Latitude</th><th>Longitude</th><th>Assessment</th><th>Edit</th><th></th><th></th>
+        <th>{{ 'Date' | t }}</th><th>{{ 'Species' | t }}</th><th>{{ 'Location' | t }}</th><th>{{ 'Latitude' | t }}</th><th>{{ 'Longitude' | t }}</th><th>{{ 'Assessment' | t }}</th><th>{{ 'Edit' | t }}</th><th></th><th></th>
     </thead>
 
     <tbody>
