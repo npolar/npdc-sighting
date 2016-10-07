@@ -4,7 +4,7 @@
 // Respond to search to get relevant entries
 // First respond to squares drawn
 // @ngInject
-var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig, SightingExcelDBGet, CSVService) {
+var AdminObservationsController = function(chronopicService, $scope, $http, SPECIES, NpolarApiSecurity, Sighting, SightingDBSearch, npolarApiConfig, SightingExcelDBGet, CSVService) {
 //Input attributes
 
     //Do not show "loading.."
@@ -17,8 +17,14 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     $scope.entries = CSVService.entryObject;
 
     //using chronopic to show dates
-    new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
-    new Chronopic('input[type="date"][lang="en"]', { locale: 'en_US' });
+    //new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
+   // new Chronopic('input[type="date"][lang="en"]', { locale: 'en_US' });
+
+   //Set chronopic view format (this does not change the internal value, i.e. ISO string date)
+   chronopicService.defineOptions({ match(field) {
+       return field.path.match(/_date$/);
+     }, format: '{date}'});
+
 
 
     //pagination
@@ -167,12 +173,17 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
  // Execute this function when search button is pressed
  $scope.submit = function() {
 
+     //Wipe out all previous markes
+    for(var i=0;i<markers.length;i++) {
+      map.removeLayer(markers[i]);
+    }
+     //Remove any annotations now
+    if (map.hasLayer(layerSquare)) {
+       map.removeLayer(layerSquare);
+    }
+
     //show loading..
     $scope.dataLoading = true;
-
-    console.log($scope);
-    console.log("---------------");
-
 
     // First find out which paramaters are not empty
     var sok = ''; var lat = ''; var lng = ''; var edate = ''; var species ='';
@@ -237,15 +248,6 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
   // var fields = '&fields=id,event_date,species,excel_filename,"@placename",species,editor_assessment,total';
    var res = species+lat+lng+edate;
 
-
-   //"&limit=all&locales=utf-8"
-   console.log(res);
-   console.log(sok);
-   console.log("sok------");
-
-  // var res = encodeURI(sok+fields);
-  // var res = sok.replace(/ /g,"+");
-
    var redIcon = L.Icon.extend({
           options: {
             iconUrl:  'admin/img/reddot.png',
@@ -262,10 +264,7 @@ var AdminObservationsController = function($scope, $http, SPECIES, NpolarApiSecu
     var total = len;
     $scope.total = len;
 
-    //Remove any annotations now
-    if (map.hasLayer(layerSquare)) {
-       map.removeLayer(layerSquare);
-    }
+
     markers = [];
 
     while (len--) {

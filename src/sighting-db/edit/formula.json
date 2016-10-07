@@ -36,7 +36,6 @@
                         {
                             "id": "href",
                             "title": "link to NPI's expedition database (NPI staff only)"
-
       }]
   },
    {
@@ -145,21 +144,7 @@
     "title": "Upload photo",
     "fields": [{
       "id": "files",
-      "title":"upload photos",
-      "items": {
-        "fields": [
-           "filename",
-           "uri",
-           "thumb_uri",
-           "length",
-           "type",
-           "!hash",
-           "!thumb_hash",
-           "photographer",
-           "comments",
-           "other_info"
-          ]
-        }
+      "title":"upload photos"
       }]
 },
 {

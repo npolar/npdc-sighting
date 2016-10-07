@@ -28,10 +28,10 @@
       <option value=""> Undefined </option></select><br />
 
 <div>
-<label for="pro.edate1">&nbsp;&nbsp;Event date start:</label> <input type="datetime"  ng-model="pro.edate1">
+<label for="edate1">&nbsp;&nbsp;Event date start:</label> <input type="datetime" lang="en" ng-model="edate1">
 </div>
 <div>
- <label for="pro.edate2">&nbsp;&nbsp;Event date end:&nbsp;</label> <input type="datetime" lang="en" ng-model="pro.edate2">
+ <label for="edate2">&nbsp;&nbsp;Event date end:&nbsp;</label> <input type="datetime" lang="en" ng-model="edate2">
 </div>
 
 
@@ -70,7 +70,7 @@
 
   <table class="layout1" st-table="displayedCollection" st-safe-src="entries">
     <thead>
- <th>Date</th><th>Species</th><th>Total</th><th>Location</th><th>Assessment</th><th>Excelfile</th><th>View</th><th>Edit</th><th>Delete</th>
+ <th>Date</th><th>Species</th><th>Total</th><th>Location</th><th>Assessment</th><th>Excelfile</th><th>View</th><th>Edit</th>
     </thead>
     <tbody>
    <tr ng-repeat="entry in displayedCollection" ng-cloak>
@@ -79,10 +79,9 @@
         <td>{{entry.total}}&nbsp;</td>
         <td>{{ entry.locality }}&nbsp;</td>
         <td>{{ entry.editor_assessment }}&nbsp;</td>
-        <td><a href="http://{{hostname}}/{{entry.excel_filename}}">{{ entry.excel_filename }}&nbsp;</td>
+        <td>{{ entry.excel_filename }}&nbsp;</td>
         <td><a href="db/{{entry.id}}" target="_blank">View&nbsp;</a></td>
          <td><a href="db/{{entry.id}}/edit" target="_blank">Edit&nbsp;</a></td>
-        <td><a href="db/{{entry.id}}/delete" target="_blank">Delete</a></td>
   </tr>
 </tbody>
 <tfoot>
