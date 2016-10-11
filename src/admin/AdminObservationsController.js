@@ -51,6 +51,7 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
     //Set base map, center
     //Loading leaflet
     var L = require('leaflet');
+
     L.Icon.Default.imagePath = 'node_modules/leaflet/dist/images/';
     var map = L.map('mapid', {
       fullscreenControl: true,
@@ -58,6 +59,10 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
       position: 'topleft'
       }}).setView([78.000, 16.000], 4);
 
+    map.invalidateSize();
+
+    var pp = map.getSize();
+    console.log(pp);
 
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
       maxZoom: 18,
@@ -71,6 +76,10 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
     var drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
+    //Leaflet have problems with finding the map size
+    //invalidateSize checks if the map container size has changed and updates map.
+    //Since map resizing is done by css, need to delay the invalidateSize check.
+    setTimeout(function(){ map.invalidateSize()}, 20);
 
     //Create a draw control
     var drawControl = new L.Control.Draw({
@@ -257,7 +266,7 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
 
     //Sum up the query
     if ($scope.search) {
-       sok = ($scope.search).replace(/ /g,"+");
+       sok = ($scope.search)  //.replace(/ /g,"+");
        //Add + instead of space
     }
 
@@ -265,7 +274,8 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
   // var fields = '&fields=id,event_date,species,excel_filename,"@placename",species,editor_assessment,total';
    var res = species+lat+lng+edate;
 
-   console.log(res);
+   console.log(sok);
+   console.log("res");
 
    var redIcon = L.Icon.extend({
           options: {
