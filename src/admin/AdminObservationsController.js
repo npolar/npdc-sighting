@@ -17,8 +17,22 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
     $scope.entries = CSVService.entryObject;
 
     //using chronopic to show dates
-    //new Chronopic('input[type="datetime"]', { date: new Date(), format: "{YYYY}-{MM}-{DD}" });
-   // new Chronopic('input[type="date"][lang="en"]', { locale: 'en_US' });
+   new Chronopic('input[type="datetime"]', {
+    date: null,
+    min: { year: 1995 },   //start year
+    format: "{YYYY}-{MM}-{DD}",
+    onChange: function(elem, date) {
+      var scopeVar = elem.getAttribute("scopeVar");
+      if(scopeVar) {
+        $scope[scopeVar] = date.toISOString();
+      }
+    }
+  });
+
+
+   new Chronopic('input[type="date"][lang="en"]', {
+    locale: 'en_US'
+  });
 
    //Set chronopic view format (this does not change the internal value, i.e. ISO string date)
    chronopicService.defineOptions({ match(field) {
@@ -191,16 +205,19 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
     // If event_date exists
     if (typeof $scope.edate1 !== "undefined" && $scope.edate1 !== "") {
            //Remember to transform into the correct format
+           console.log($scope.edate1);
            edate = '&filter-event_date=' + convertDate($scope.edate1) + '..';
 
            if (typeof $scope.edate2 !== "undefined" && $scope.edate2 !== "") {
                //Transform edate to correct format
                edate = edate + convertDate($scope.edate2);
+
            }
     //Else if lat2 exists
     } else if (typeof $scope.edate2 !== "undefined" && $scope.edate2 !== "") {
                //Transform edate to correct format
                edate = '&filter-event_date=..' + convertDate($scope.edate2);
+
     }
 
 
@@ -247,6 +264,8 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
    //Prune search - transfer as little data as possible to save time
   // var fields = '&fields=id,event_date,species,excel_filename,"@placename",species,editor_assessment,total';
    var res = species+lat+lng+edate;
+
+   console.log(res);
 
    var redIcon = L.Icon.extend({
           options: {
@@ -329,7 +348,7 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
 function convertDate(idate) {
           //console.log(idate);
            var temp_date = idate.substring(0,4) + '-' + idate.substring(5,7) + '-' +idate.substring(8,10);
-           temp_date += 'T00:00:00.000';
+           temp_date += 'T12:00:00.000Z';
            //console.log(temp_date);
            return temp_date;
 }
