@@ -1,6 +1,6 @@
 'use strict';
 
-var SightingShowController = function($controller, $routeParams, $scope, $q, Sighting, Expedition, npdcAppConfig, NpolarTranslate) {
+var SightingShowController = function($controller, $routeParams, $scope, $q, Sighting, SightingExcel, NpolarApiSecurity, Expedition, npdcAppConfig, NpolarTranslate) {
     'ngInject';
 
   $controller('NpolarBaseController', {
@@ -71,6 +71,10 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
       });
    }
 
+     //Fetch the key function from the login key in order to download images and excel files
+    $scope.key = get_key(NpolarApiSecurity, Sighting.path);
+    $scope.excel_key = get_key(NpolarApiSecurity, SightingExcel.path);
+
       $scope.uri = uri(sighting);
 
     });
@@ -80,6 +84,15 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
 
   show();
 
+};
+
+//Fetch the key function from the login key in order to download images and excel files
+function get_key(NpolarApiSecurity,path) {
+      let system = NpolarApiSecurity.getSystem('read', path);
+      console.log(system.key);
+      if (system.key) {
+        return system.key;
+      }
 };
 
 /* convert from camelCase to lower case text*/

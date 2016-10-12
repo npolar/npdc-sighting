@@ -35,7 +35,9 @@ var resources = [
   {'path': '/', 'resource': 'NpolarApi'},
   {'path': '/user', 'resource': 'User'},
   {'path': '/sighting', 'resource': 'Sighting'},
-  {'path': '/expedition', 'resource': 'Expedition'}
+  {'path': '/expedition', 'resource': 'Expedition'},
+  {'path': '/sighting-excel', 'resource': 'SightingExcel'}
+
 ];
 
 resources.forEach(service => {
@@ -58,9 +60,9 @@ npdcSightingApp.config(($httpProvider) => {
 });
 
 npdcSightingApp.run(($http, npolarApiConfig, npdcAppConfig, NpolarTranslate, NpolarLang) => {
-  //var environment = "production";
+  var environment = "production";
 
-  var environment = "test";
+  //var environment = "test";
   var autoconfig = new AutoConfig(environment);
   console.log("npdcAppConfig", npdcAppConfig);
 

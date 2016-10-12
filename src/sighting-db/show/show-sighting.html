@@ -75,15 +75,16 @@
         <h3>{{ 'Photos' | t }}</h3>
           <md-divider></md-divider>
           <div ng-repeat="file in document.files">
-           <p><md-icon>file_download</md-icon> <a ng-href="{{file.uri+'?key='+key()}}">{{ file.filename}}</a>&nbsp; ({{ file.type }} {{ file.file_size | bytes }})</p>
+      <!--     <p><md-icon>file_download</md-icon> <a ng-href="{{file.uri+'?key='+key()}}">{{ file.filename}}</a>&nbsp; ({{ file.type }} {{ file.file_size | bytes }})</p>    -->
+          <p><md-icon>file_download</md-icon> <a ng-href="{{file.items.uri+'?key='+ key}}">{{ file.items.filename}}</a>&nbsp; ({{ file.items.type }} {{ file.items.file_size | bytes }})</p>
           </div>
           <br />
         </section>
 
-         <section>
+        <section>
         <h3>{{ "Excel file" | t }}</h3>
         <md-divider></md-divider>
-        <p ng-if="document.excel_filename">{{ "Excel filename" | t }}: <a href={{document.excel_uri}}>{{document.excel_filename}}({{document.excel_length}})</a> </p>
+        <p ng-if="document.excel_uri">{{ "Excel filename" | t }}: <a href="{{document.excel_uri+'/'+ document.excel_filename +'?key='+excel_key}}">{{document.excel_filename}}({{document.excel_length}})</a> </p>
         <br />
         </section>
 
