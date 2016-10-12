@@ -183,6 +183,11 @@
                     "id": "editor_comment",
                     "title": "editor's comment",
                     "description": "editor's observation comment"
+                },
+                {
+                    "id": "comment",
+                    "title": "editor's comment on major revisions done to the observation (modification coord etc)",
+                    "description": "editor's comment on major revisions done to the observation (modification coord etc)"
                 }
             ]
         }

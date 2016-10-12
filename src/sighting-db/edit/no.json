@@ -209,6 +209,10 @@
       "editor_comment":{
                     "title": "redaktørens kommentar",
                     "description": "redaktørens kommentar til observasjonen"
+      },
+       "comment":{
+                    "title": "redaktørens kommentar til større endringer gjort på observasjonen (modifikasjon av koord etc)",
+                    "description": "redaktørens kommentar til større endringer gjort på observasjonen (modifikasjon av koord etc)"
       }
 
   }

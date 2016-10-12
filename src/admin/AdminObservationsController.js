@@ -320,7 +320,10 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
        //};
 
       // var  redIcon2 = new redIcon();
-       var mark = L.marker([lat,lng],{icon: new redIcon() }).addTo(map).bindPopup("<a href='http://localhost:3000/sighting/db/" + id + "/edit'>" + full.feed.entries[len].locality + "</a>").openPopup();
+
+     // var edit_link = npolarApiConfig.base + '/sighting/db/' + id + '/edit';
+     var edit_link = 'https://apptest.data.npolar.no/sighting/db/' + id + '/edit';
+       var mark = L.marker([lat,lng],{icon: new redIcon() }).addTo(map).bindPopup("<a  href='" + edit_link + "'>" + full.feed.entries[len].locality + "</a>").openPopup();
 
        //Add mark to markers
        markers.push(mark);

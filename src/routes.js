@@ -21,6 +21,9 @@ var router = function($routeProvider, $locationProvider) {
   }).when('/observe', {
     templateUrl: 'info/observe.html',
     controller: 'SightingController'
+  }).when('/observe_no', {
+    templateUrl: 'info/observe_no.html',
+    controller: 'SightingController'
   }).when('/administrators', {
      templateUrl: 'admin/all.html',
      controller: 'AdminObservationsController'
