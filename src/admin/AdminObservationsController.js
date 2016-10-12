@@ -30,14 +30,14 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
   });
 
 
-   new Chronopic('input[type="date"][lang="en"]', {
+  new Chronopic('input[type="date"][lang="en"]', {
     locale: 'en_US'
   });
 
    //Set chronopic view format (this does not change the internal value, i.e. ISO string date)
-   chronopicService.defineOptions({ match(field) {
+  chronopicService.defineOptions({ match(field) {
        return field.path.match(/_date$/);
-     }, format: '{date}'});
+  }, format: '{date}'});
 
 
 

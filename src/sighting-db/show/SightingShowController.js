@@ -23,15 +23,13 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
     }
   };
 
-  //Creating intial coord for disply map
-  $scope.mapOptions = {};
-  $scope.mapOptions.initcoord = [79.004959, 17.666016];
-  $scope.mapOptions.color = "#ff0000";
-  $scope.mapOptions.weight = 10;
 
   let show = function() {
 
     $scope.show().$promise.then((sighting) => {
+
+      var lat = $scope.document.latitude;
+     var lng = $scope.document.longitude;
 
        //Loading leaflet
     var L = require('leaflet');
@@ -40,7 +38,7 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
       fullscreenControl: true,
       fullscreenControlOptions: {
       position: 'topleft'
-      }}).setView([78.000, 16.000], 4);
+      }}).setView([lat, lng], 4);
 
 
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
@@ -51,11 +49,15 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
       id: 'mapbox.streets'
     }).addTo(map2);
 
-     var lat = $scope.document.latitude;
-     var lng = $scope.document.longitude;
 
-    var marker = L.marker([lat, lng]).addTo(map2);
-    marker.bindPopup($scope.document['@placename']).openPopup();
+     var markerIcon = L.icon({
+      iconUrl:  'admin/img/marker2.png',
+     iconSize: [50, 50]
+    });
+
+
+    var marker2 = L.marker([lat, lng], {icon: markerIcon}).addTo(map2);
+    marker2.bindPopup($scope.document['@placename']).openPopup();
 
 
      if (sighting.links && sighting.links !== null) {
