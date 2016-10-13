@@ -1,9 +1,13 @@
 'use strict';
 
-var SightingController = function($controller, $routeParams, $scope, $q, Sighting, npdcAppConfig, $http, SPECIES, NpolarLang ) {
+var SightingController = function($controller, $routeParams, $scope, $q, Sighting, NpolarApiSecurity, npdcAppConfig, $http, SPECIES, NpolarLang ) {
     'ngInject';
 
     $scope.species = SPECIES;
+    $scope.security = NpolarApiSecurity;
+
+    // Sighting -> npolarApiResource -> ngResource
+    $scope.resource = Sighting;
 
    //Control whether to see the Norwegian or English info page
     if ((NpolarLang.getLang()) === 'en') {
@@ -11,7 +15,6 @@ var SightingController = function($controller, $routeParams, $scope, $q, Sightin
     } else {
     	$scope.check_lang = false;
     }
-
 
 };
 

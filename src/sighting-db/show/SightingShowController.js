@@ -93,10 +93,10 @@ function get_key(NpolarApiSecurity,path) {
       if (system.key) {
         return system.key;
       }
-};
+}
 
 /* convert from camelCase to lower case text*/
-function convert(str) {
+/*function convert(str) {
        var  positions = '';
 
        for(var i=0; i<(str).length; i++){
@@ -108,6 +108,6 @@ function convert(str) {
         }
       }
         return positions;
-}
+} */
 
 module.exports = SightingShowController;

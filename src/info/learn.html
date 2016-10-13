@@ -8,7 +8,7 @@
 		<li ng-if="check_lang" style="display: inline;"><a href="observe">{{ 'Introduction' | t}}</a>&nbsp;&nbsp;</li>
 		<li ng-if="!check_lang" style="display: inline;"><a href="observe_no">Introduksjon</a>&nbsp;&nbsp;</li>
 		<li style="display: inline;"><a href="db">{{ 'Add/view your observations' | t }}</a>&nbsp;&nbsp;</li>
-		<li style="display: inline;"><a href="administrators">Administrator</a></li>
+		<li ng-if="security.isAuthorized('create', resource.path + '/admin')" style="display: inline;"><a href="administrators">Administrator</a></li>
 	</ul>
 	</nav>
 

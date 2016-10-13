@@ -16,7 +16,7 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
 
 
 
-  // StationBooking -> npolarApiResource -> ngResource
+  // Sighting -> npolarApiResource -> ngResource
   $scope.resource = Sighting;
 
 
@@ -81,8 +81,6 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
     return field.path.match(/_date$/);
  }, format: '{date}'});
 }
-
-
 
 
  function initFileUpload(formula) {
