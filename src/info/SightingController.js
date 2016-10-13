@@ -9,12 +9,14 @@ var SightingController = function($controller, $routeParams, $scope, $q, Sightin
     // Sighting -> npolarApiResource -> ngResource
     $scope.resource = Sighting;
 
+    $scope.check_lang = NpolarLang.getLang() === 'en' ? true : false;
+
    //Control whether to see the Norwegian or English info page
-    if ((NpolarLang.getLang()) === 'en') {
+  /*  if ((NpolarLang.getLang()) === 'en') {
         $scope.check_lang = true;
     } else {
     	$scope.check_lang = false;
-    }
+    } */
 
 };
 
