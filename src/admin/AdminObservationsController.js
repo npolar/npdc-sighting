@@ -310,20 +310,13 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
        var lat = parseFloat(full.feed.entries[len].latitude);
        var lng = parseFloat(full.feed.entries[len].longitude);
 
-       //Need to find the id to link back to excel file
-      // if (full.feed.entries[len].excel_filename) {
-       //   var res2 = encodeURI("&filter-filename=" + full.feed.entries[len].excel_filename+"&fields=url");
-       //   console.log(res2);
-       //   var excel_search = SightingExcelDBGet.get({search:res2}, function(){
-       //       console.log(excel_search);
-       //   });
-       //};
 
-      // var  redIcon2 = new redIcon();
-
-     // var edit_link = npolarApiConfig.base + '/sighting/db/' + id + '/edit';
-     var edit_link = 'https://apptest.data.npolar.no/sighting/db/' + id + '/edit';
-       var mark = L.marker([lat,lng],{icon: new redIcon() }).addTo(map).bindPopup("<a  href='" + edit_link + "'>" + full.feed.entries[len].locality + "</a>").openPopup();
+      //Base address goes to API, need app address
+      //For test server, need to remove the port 3000 from the link
+      var base = (npolarApiConfig.base).replace(":3000","");
+      base = base.replace("api.npolar.no","data.npolar.no");
+      var edit_link = base + '/sighting/db/' + id + '/edit';
+      var mark = L.marker([lat,lng],{icon: new redIcon() }).addTo(map).bindPopup("<a  href='" + edit_link + "' target='_blank'>" + full.feed.entries[len].locality + "</a>").openPopup();
 
        //Add mark to markers
        markers.push(mark);
