@@ -186,10 +186,10 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
     //Remove previous table info
     $scope.displayedCollection = [];
 
-
-    //Remove info from search input fields
-    // $scope.lng1= $scope.lat1= $scope.lng2 = $scope.lat2 = null;
-
+    //Remove lat/lng from search inputs
+    $scope.lat1= $scope.lng1= $scope.lat2 = $scope.lng2 = undefined;
+    $scope.edate1 = $scope.edate2 = undefined;
+    $scope.total = "0";
 
  };
 
@@ -274,9 +274,6 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
   // var fields = '&fields=id,event_date,species,excel_filename,"@placename",species,editor_assessment,total';
    var res = species+lat+lng+edate;
 
-   console.log(sok);
-   console.log("res");
-
    var redIcon = L.Icon.extend({
           options: {
             iconUrl:  'admin/img/reddot.png',
@@ -286,7 +283,6 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
 
 
    var full = SightingDBSearch.get({search:res, search2:sok}, function(){
-
 
 
     var len = full.feed.entries.length;
