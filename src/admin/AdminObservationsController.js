@@ -266,7 +266,7 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
 
     //Sum up the query
     if ($scope.search) {
-       sok = ($scope.search)  //.replace(/ /g,"+");
+       sok = ($scope.search);  //.replace(/ /g,"+");
        //Add + instead of space
     }
 
@@ -290,7 +290,7 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
 
 
     var len = full.feed.entries.length;
-    var total = len;
+
     $scope.total = len;
 
 

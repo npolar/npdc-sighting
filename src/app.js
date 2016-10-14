@@ -4,10 +4,9 @@ var AutoConfig = npdcCommon.AutoConfig;
 
 var angular = require('angular');
 
-//var leafletMap = require('../node_modules/leafletdir/leafletMap');
+
 var leaflet = require('../node_modules/leaflet');
 var leaflet_draw = require('../node_modules/leaflet-draw/dist/leaflet.draw');
-//var leaflet_directive = require('../node_modules/angular-leaflet-directive/dist/angular-leaflet-directive');
 var leaflet_fullscreen = require('../node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen');
 
 
@@ -64,13 +63,13 @@ npdcSightingApp.run(($http, npolarApiConfig, npdcAppConfig, NpolarTranslate, Npo
 
   //var environment = "test";
   var autoconfig = new AutoConfig(environment);
-  console.log("npdcAppConfig", npdcAppConfig);
+ // console.log("npdcAppConfig", npdcAppConfig);
 
 
 
 
   Object.assign(npolarApiConfig, autoconfig, { resources, formula : { template : 'default' } });
-  console.log("npolarApiConfig", npolarApiConfig);
+ // console.log("npolarApiConfig", npolarApiConfig);
 
   NpolarTranslate.loadBundles('npdc-sighting');
   npdcAppConfig.toolbarTitle = 'Marine Mammal Sighting';
