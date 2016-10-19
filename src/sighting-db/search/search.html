@@ -13,7 +13,7 @@
 
   <!-- <npdc:search feed="feed"></npdc:search>  -->
 <div class="np-primary-control">
-<md-button  class="md-fab" ng-if="security.isAuthorized('create', resource.path)" ng-href="db/{{ resource.newHref() }}">
+<md-button  class="md-fab" ng-if="security.isAuthorized('create', resource.path)" ng-href="{{ resource.newHref() }}">
   <md-tooltip md-direction="top">New</md-tooltip>
   <md-icon>add</md-icon>
 </md-button>
@@ -29,7 +29,7 @@
       <div class="np-layout-list">
         <md-list>
         <!-- added ned link -->
-          <md-list-item class="md-2-line" ng-repeat="e in feed.entries" ng-href="db/{{ e.id }}">
+          <md-list-item class="md-2-line" ng-repeat="e in feed.entries" ng-href="{{ e.id }}">
 
             <img class="md-avatar" ng-src={{icon(e)}} title="ID: {{ e.id }}" >
 

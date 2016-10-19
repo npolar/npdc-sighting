@@ -19,7 +19,6 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
   // Sighting -> npolarApiResource -> ngResource
   $scope.resource = Sighting;
 
-
     let formulaOptions = {
       schema: '//api.npolar.no/schema/sighting',
       form: 'sighting-db/edit/formula.json',
@@ -52,7 +51,7 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
   };
 
 
-  console.log(npdcAppConfig.formula.languages, formulaOptions);
+ // console.log(npdcAppConfig.formula.languages, formulaOptions);
 
 
   $scope.formula = formula.getInstance(formulaOptions);

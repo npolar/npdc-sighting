@@ -1,30 +1,35 @@
 'use strict';
 
-function Sighting($q, SightingResource) {
+function Sighting(SightingResource, NpolarApiSecurity) {
   'ngInject';
 
   const schema = 'http://api.npolar.no/schema/sighting';
 
-  return Object.assign(SightingResource, { schema,
+  return Object.assign(SightingResource, {
 
-    create: function() {
+    schema,
 
-      let collection = "sighting";
-      let base = "http://api.npolar.no";
-      let rights = "NPI's own license";
-      let rights_holder = "Norwegian Polar Institute";
-      let basis_of_record = "HumanObservation";
-      let kingdom = "animalia";
+  create: function() {
 
-      let p = { schema, collection, base, rights, rights_holder, basis_of_record, kingdom };
+      let user = NpolarApiSecurity.getUser();
+      let id = user.email;
+      let email = user.email;
+      let [first_name,last_name] = user.name.split(' ');
+      let organisation = user.email.split('@')[1];
+
+      let people = [user];
+      let locations = [{ country: 'NO'}];
+
+
+      let p = { title, collection, schema, people, publication_type, topics, locations,
+        state:'published', draft:'no'
+      };
       console.debug(p);
-
       return p;
 
     },
 
-     hashiObject: function(file) {
-      console.log("hashi");
+    hashiObject: function(file) {
       return {
         url: file.uri,
         filename: file.filename,
@@ -48,4 +53,5 @@ function Sighting($q, SightingResource) {
   });
 
 }
+
 module.exports = Sighting;

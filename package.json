@@ -14,7 +14,6 @@
     "angular": "^1.4.9",
     "leaflet": "^0.7.3",
     "leaflet-draw": "^0.2.3",
-    "esri-leaflet": "1.0.4",
     "angular-leaflet-directive": "^0.7.11",
     "npdc-common": "npolar/npdc-common#v4.2.1",
     "xlsx": "git+https://github.com/SheetJS/js-xlsx.git",

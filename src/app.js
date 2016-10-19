@@ -4,7 +4,6 @@ var AutoConfig = npdcCommon.AutoConfig;
 
 var angular = require('angular');
 
-
 var leaflet = require('../node_modules/leaflet');
 var leaflet_draw = require('../node_modules/leaflet-draw/dist/leaflet.draw');
 var leaflet_fullscreen = require('../node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen');
@@ -21,7 +20,7 @@ npdcSightingApp.controller('QualityController', require('./admin/QualityControll
 npdcSightingApp.controller('UploadObservationsController', require('./admin/UploadObservationsController'));
 npdcSightingApp.controller('CSVController', require('./admin/CSVController'));
 npdcSightingApp.directive('sightingCoverage', require('./sighting-db/edit/coverage/coverageDirective'));
-npdcSightingApp.factory('Sighting', require('./sighting-db/Sighting'));
+npdcSightingApp.factory('Sighting', require('./Sighting'));
 npdcSightingApp.constant('SPECIES', require('./info/SpeciesGallery'));
 npdcSightingApp.service('SightingDBSearch', require('./admin/SightingDBSearch'));
 npdcSightingApp.service('SightingDBGet', require('./admin/SightingDBGet'));
@@ -33,7 +32,8 @@ npdcSightingApp.service('CSVService', require('./admin/CSVService'));
 var resources = [
   {'path': '/', 'resource': 'NpolarApi'},
   {'path': '/user', 'resource': 'User'},
-  {'path': '/sighting', 'resource': 'Sighting'},
+ // {'path': '/sighting', 'resource': 'Sighting'},
+  {'path': '/sighting/db', 'resource': 'SightingResource'},
   {'path': '/expedition', 'resource': 'Expedition'},
   {'path': '/sighting-excel', 'resource': 'SightingExcel'}
 
