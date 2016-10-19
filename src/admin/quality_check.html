@@ -1,8 +1,16 @@
+<div ng-if="!isAdmin()">
+      &nbsp;&nbsp;&nbsp;<p>Please log in with your admin account in order to view this page.</p>
+</div>
+
+
+<div ng-if="isAdmin()">
+
 <h1><b> {{ 'Quality check new observations' | t }}<b></h1>
-<p></p>
+<p><a href="/sighting/administrators">{{ 'Back' | t }}</a></p>
 <p></p>
 
 <!-- <div ng-show="isAdmin"> -->
+
 
 <p></p>
  <div ng-controller="QualityController as entry">
@@ -32,8 +40,4 @@
 </div>
 </div>
 
-
-<!-- <div ng-show="!isAdmin">
-
-      <p>Please <a href="/sighting">log in</a> with your admin account in order to view this page.</p>
-</div> -->
+</div>

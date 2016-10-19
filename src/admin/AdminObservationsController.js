@@ -16,6 +16,16 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
     //Fetch previous search if existing
     $scope.entries = CSVService.entryObject;
 
+   // $scope.security = NpolarApiSecurity;
+    $scope.resource = Sighting;
+    $scope.security = NpolarApiSecurity;
+
+    $scope.isAdmin = function(){
+      const base = NpolarApiSecurity.canonicalUri('/sighting/admin');
+      var ret = $scope.security.isAuthorized('create', base);
+      return (ret);
+    }
+
     //using chronopic to show dates
    new Chronopic('input[type="datetime"]', {
     date: null,

@@ -1,7 +1,11 @@
 
 <!DOCTYPE html>
 
+<div ng-if="security.isAuthorized('create', resource.path)">
+
 <npdc:search-input feed="feed"></npdc:search-input>
+
+</div>
 
 
 <article>
@@ -10,6 +14,7 @@
 </article>
 
 
+<div ng-if="security.isAuthorized('create', resource.path)">
 
   <!-- <npdc:search feed="feed"></npdc:search>  -->
 <div class="np-primary-control">
@@ -62,10 +67,13 @@
   </md-content>
 </div>
 
+</div>
 
 
-
-
+<div ng-if="!security.isAuthorized('create', resource.path)">
+  <br /><br />
+  &nbsp;&nbsp;&nbsp;Please log in to view this page.
+</div>
 
 
 

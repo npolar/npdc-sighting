@@ -7,8 +7,6 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
   $controller('NpolarBaseController', { $scope: $scope });
   $scope.resource = Sighting;
 
-
-
   let query = function() {
     let defaults = {
       limit: "50",

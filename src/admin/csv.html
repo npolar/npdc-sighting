@@ -1,4 +1,10 @@
+<div ng-if="!isAdmin()">
+      <p>&nbsp;&nbsp;&nbsp;Please log in with your admin account in order to view this page.</p>
+      <p> &nbsp;&nbsp;&nbsp;<a href="/sighting">{{ 'Back' | t }}</a></p>
+</div>
 
+
+<div ng-if="isAdmin()">
 
 
 <h1><b>CSV <b></h1>
@@ -22,9 +28,7 @@ Id | {{ 'Date' | t }} | {{ 'Latitude' | t }} | {{ 'Longitude' | t }} | {{ 'Locat
 </div>
 </div>
 
-<!--<div ng-show="!isAdmin">
-      <p>Please <a href="/sighting">log in</a> with your admin account in order to view this page.</p>
-</div> -->
+</div>
 
 
 

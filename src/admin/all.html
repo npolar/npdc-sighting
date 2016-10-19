@@ -1,3 +1,12 @@
+
+
+<div ng-if="!isAdmin()">
+      &nbsp;&nbsp;&nbsp;<p>Please log in with your admin account in order to view this page.</p>
+</div>
+
+<div ng-if="isAdmin()">
+
+
 <article class="np-padding np-doc" layout>
   <h1 class="">{{ 'Map search' | t }}</h1>
 </article>
@@ -10,6 +19,9 @@
 <a href="/sighting">{{ 'Back' | t }}</a>
 </article>
 
+</div>
+
+
 <form id="submit" ng-submit="submit()">
 
 <p>&nbsp;&nbsp;{{'Select an area on the map by dragging/dropping' | t }}</p>
@@ -18,8 +30,7 @@
 <br />
 
 <!-- Search ------>
-
-
+<div ng-if="isAdmin()">
 
 <label for="search">&nbsp;&nbsp;{{'General search' | t }}:&nbsp;&nbsp;</label><input type="text"  ng-model="search" /> {{ 'OR' | t }} <br />
 
@@ -91,14 +102,15 @@
         {{'Total' | t }}: {{ total }}</td>
       </tr>
 </tfoot>
+</div>
 </table>
  </form>
 
-<!-- </div> -->  <!-- ng-show -->
 
 
-<!--<div ng-show="!isAdmin">
-      <p>Please <a href="/sighting">log in</a> with your admin account in order to view this page.</p>
-</div> -->
+
+
+
+
 
 
