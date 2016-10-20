@@ -1,22 +1,54 @@
 'use strict';
 
 
-var SightingSearchController = function ($scope, $location, $controller, $filter, Sighting, npdcAppConfig,  NpdcSearchService, NpolarTranslate) {
+var SightingSearchController = function ($scope, $location, $controller, $filter, Sighting, npdcAppConfig,  NpolarApiSecurity, NpdcSearchService, NpolarTranslate) {
   'ngInject';
 
   $controller('NpolarBaseController', { $scope: $scope });
   $scope.resource = Sighting;
 
+  $scope.security = NpolarApiSecurity;
+  let user = NpolarApiSecurity.getUser();
+
+  $scope.base_user = NpolarApiSecurity.canonicalUri('/sighting');
+
+  //Different views depending on admin or ordinary user
+  var isAdmin = function(){
+      const base = NpolarApiSecurity.canonicalUri('/sighting/admin');
+      var ret = $scope.security.isAuthorized('create', base);
+      return (ret);
+  }
+
+  $scope.isAdmin = isAdmin();
+
+
   let query = function() {
-    let defaults = {
-      limit: "50",
-      sort: "-updated",
-      fields: 'species,event_date,total,updated,id,habitat,@placename',
-      facets: 'draft'};
+
+    let defaults;
+
+    if (isAdmin()) {
+      //Administrators should see all entries
+      defaults = {
+        limit: "50",
+        sort: "-updated",
+        fields: 'species,event_date,total,updated,id,habitat,@placename,draft,recorded_by',
+        'filter-draft':'no',
+        facets: 'draft'}
+    } else {
+       //A user should see his/hers entries
+        defaults = {
+        limit: "50",
+        sort: "-updated",
+        fields: 'species,event_date,total,updated,id,habitat,@placename,draft,recorded_by',
+        'filter-recorded_by': user.email,
+        'filter-draft':'yes',
+        facets: 'draft'};
+    };
 
     let invariants = $scope.security.isAuthenticated() ? {} : {} ;
     return Object.assign({}, defaults, invariants);
   };
+
 
   $scope.search(query());
 
