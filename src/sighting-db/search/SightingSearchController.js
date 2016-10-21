@@ -18,8 +18,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
       var ret = $scope.security.isAuthorized('create', base);
       return (ret);
   }
-
-  $scope.isAdmin = isAdmin();
+   $scope.isAdmin = isAdmin();
 
 
   let query = function() {
@@ -48,7 +47,6 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
     let invariants = $scope.security.isAuthenticated() ? {} : {} ;
     return Object.assign({}, defaults, invariants);
   };
-
 
   $scope.search(query());
 

@@ -33,7 +33,7 @@ var resources = [
   {'path': '/', 'resource': 'NpolarApi'},
   {'path': '/user', 'resource': 'User'},
  // {'path': '/sighting', 'resource': 'Sighting'},
-  {'path': '/sighting/db', 'resource': 'SightingResource'},
+  {'path': '/sighting', 'resource': 'SightingResource', 'uiBase': '/sighting/db'},
   {'path': '/expedition', 'resource': 'Expedition'},
   {'path': '/sighting-excel', 'resource': 'SightingExcel'}
 
