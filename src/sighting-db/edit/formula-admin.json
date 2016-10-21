@@ -1,7 +1,7 @@
 {
     "fieldsets": [{
             "title": "Travel/Trip",
-            "fields": [{
+            "fields": [ {
                              "id": "recorded_by_name",
                             "title": "observer's name"
 
@@ -169,6 +169,26 @@
                 {
                     "id": "draft",
                     "title": "submit the observation (set to 'yes' when schema is completed)"
+                },
+                {
+                    "id": "date_identified",
+                    "title": "date handled by editor",
+                    "description": "date handled by editor"
+                },
+                {
+                    "id": "editor_assessment",
+                    "title": "editor's assessment",
+                    "description": "editor's assessment - how likely is the observation based on submission informasjon and previous knowledge about the species' habitats"
+                },
+                {
+                    "id": "editor_comment",
+                    "title": "editor's comment",
+                    "description": "editor's observation comment"
+                },
+                {
+                    "id": "comment",
+                    "title": "editor's comment on major revisions done to the observation (modification coord etc)",
+                    "description": "editor's comment on major revisions done to the observation (modification coord etc)"
                 }
             ]
         }

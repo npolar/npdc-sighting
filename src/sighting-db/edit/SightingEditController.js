@@ -5,23 +5,34 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
   NpolarApiSecurity, npolarCountryService, NpolarMessage) {
   'ngInject';
 
+  //Different views depending on admin or ordinary user
+  var isAdmin = function(){
+      const base = NpolarApiSecurity.canonicalUri('/sighting/admin');
+      return ($scope.security.isAuthorized('create', base));
+  };
 
   function init() {
-
-
   // EditController -> NpolarEditController
   $controller('NpolarEditController', {
     $scope: $scope
   });
 
+  $scope.isAdmin = isAdmin();
+
+  var schemaChoice = function(){
+        if (isAdmin())  {
+            return 'sighting-db/edit/formula-admin.json';}
+        else {
+           return 'sighting-db/edit/formula.json';}
+  };
 
 
   // Sighting -> npolarApiResource -> ngResource
   $scope.resource = Sighting;
 
-    let formulaOptions = {
+  let formulaOptions = {
       schema: '//api.npolar.no/schema/sighting',
-      form: 'sighting-db/edit/formula.json',
+      form: schemaChoice(),
       language: NpolarLang.getLang(),
       templates: npdcAppConfig.formula.templates.concat([{
         match(field) {
@@ -56,6 +67,11 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
 
   $scope.formula = formula.getInstance(formulaOptions);
   initFileUpload($scope.formula);
+
+  //$scope.formula.getFieldByPath("#/date_identified")
+  //.then(function(field) {
+  //    console.log(field, $scope.formula);
+  //});
 
 /*
    formulaAutoCompleteService.autocomplete({
