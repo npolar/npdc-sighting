@@ -1,0 +1,97 @@
+
+Lagre:
+Ny:
+
+
+Reise/Tur
+Observatørs navn: Oppgi navn på den/de som gjorde observasjonen.
+
+Observatørs organisasjon: Organisasjonen du jobbet for da du gjorde observasjonen, ev la stå tomt hvis du gjorde observasjonen som privatperson.
+
+Kontaktinformasjon: Vi vil gjerne ha e-post adresse (alternativt telefonnr) så vi kan kontakte deg angående observasjonen.
+
+Plattform: Mange observasjoner blir gjort ifra skip, men også med andre transportmiddel.
+
+Kommentar til platform: Typisk navn på skip.
+
+Start- og sluttdato på ekspedisjonen, cruiset, turen el.l.
+
+Lenke til NPs ekspedisjonsdatabase: Fylles bare ut for ansatte fra Norsk Polarinstitutt. Ekspedisjonsdatabasen finnes under https://data.npolar.no/expedition/
+
+
+
+Observasjon
+Art: Velg blant artene fra lista. Så du en hval men ikke vet hvilken art det er, kan du velge hval(uspesifisert) eller tilsvarende sel(uspesifisert).
+Hvis du ikke vet hva du så eller det er et dyr som ikke står på lista, velg "annen art" og spesifiser i feltet under.
+
+Habitat: Hvor så du dyret - var det på land, i vannet, på is eller annet?
+
+Antall voksne hanner, hunner og voksne av ukjent kjønn - oppgi antallet så nøyaktig som mulig. Det samme for unge voksne eller antall unger. Individene skal
+kun telles en gang og er du i tvil, angir du det mest sannsynlige og utdyper i kommentar til observasjonen.
+
+Hvor gamle var isbjørnungene: Her anslår du alder på ungene. Det gir oss verdifull informasjon om ungekull som vokser opp, har overlevd osv.
+
+I hvilken kondisjon var isbjørnen(e): Oppgi et tall ifra 1 til 5, der 5 er svært feit og 1 er radmager (er dette rett eller motsatt Magnus??).
+
+Totalt antall: Her summerer du antall individer du har sett.
+
+Kommentar til observasjonen: Her kan du utdype hva du så med fritekst. Har du sett flere isbjørnbinner med unger er det fint å spesifisere hvor mange unger
+som tilhørte den enkelt binna, f.eks. "ei binne med to unger og ei med en". Det forteller oss noe om hvor store ungekullene er.
+
+
+Tid/lokasjon
+Observasjonsdato: Dagen du observerte pattedyret.
+
+Breddegrad og lengdegrad: Vi trenger disse som desimalgrader for å ha en felles refereranse for å kunne plotte lokasjonene på kart automatisk.
+Derfor ønsker vi å unngå å bruke grader, minutter og sekunder. Hvis du har data med slike målinger, håper vi at du kan konvertere målingene f.eks. vha
+oversetter (https://www.fcc.gov/media/radio/dms-decimal)
+
+Stedsnavn: Skriv inn begynnelsen på navnet så vil du få opp forslag til navn. Hvis du kan bruke noen av disse, sparer du oss for tid med å
+lokalisere stedet. Er du usikker på navnet, kan du søke på Stadnamn i norske polarområde (http://stadnamn.npolar.no/stadnamn) eller bruke
+TopoSvalbard for å finne ut hva området heter. (http://toposvalbard.npolar.no/). Har du ikke stedsnavn, er uansett gps posisjon det viktigste.
+
+Kommentar til sted: Her kan du skrive mer utfyllende om hvor det var, særlig hvis det er et større område. Om du så en hval fra land er det fint om du skriver
+at det er koord til utkikkspunkt el.l.
+
+Bildeopplasting
+Det er veldig fint med bilder, kanskje særlig hvis du har sett mange individer og har problemer med å telle eller hvis du er usikker på art/en uvanlig observasjon.
+Her kan du laste opp bilder tilknyttet observasjonen.
+
+Excelfil
+Foreløpig kan du ikke laste opp Excelfiler selv, men du kan sende disse på epost til mms@npolar.no. Har du tilbakemeldinger eller kommentarer,
+send også disse på e-post heller enn å bruke excelskjemaet. Disse leses kun maskinelt.
+
+Hvis en observasjon er hentet inn fra et excel skjema, kan du se navn på skjemaet og filstørrelse her.
+
+Send inn
+Send inn observasjonen: sett denne til ja hvis skjemaet er ferdig utfylt og kan sendes inn. Når du har gjort dette og lagret, kan du ikke lengre endre observasjonen
+(og den vil ikke lengre bli synlig i brukergrensesnittet).
+
+
+
+MMS submission
+
+To enter a new observation in the database – or to edit a draft entry – start by logging in to https://data.npolar.no/sighting. The "user menu" button is located in
+the upper right corner (se picture below). If you do not have a data.npolar.no account, choose the "user menu" icon, write your e-mail address and choose
+"email code". You will then receive a one-time password and a link to update your password. If you know your login name but have forgotten your password,
+you can also use the button "email code". To see if you are really logged in, hover the mouse over the "user menu"-icon (no 2 from top right). If you are
+logged in, you will see "<your name> user".
+
+(Bruk http://wiki.npolar.no/wiki/index.php/Publication_submission)
+
+
+To enter a new record, choose "New" - the green "+"-icon button to the right (see screenshot below).
+
+
+To edit an existing record, select the relevant item, and choose "Edit” - the green button to the right with a "pencil"-icon.
+
+
+If you do not see any green buttons to the right at all when you are logged in, you are either not logged in or something is wrong. By hovering over
+the "user menu" button, you should see your login name as a check. Try again, and if you still not succeed, contact mms@npolar.no
+
+
+
+
+
+
+
