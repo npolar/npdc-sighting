@@ -1,7 +1,7 @@
 'use strict';
 
 
-var SightingSearchController = function ($scope, $location, $controller, $filter, Sighting, npdcAppConfig,  NpolarApiSecurity, NpdcSearchService, NpolarTranslate) {
+var SightingSearchController = function ($scope, $location, $controller, $filter, Sighting, npdcAppConfig,  NpolarLang, NpolarApiSecurity, NpdcSearchService, NpolarTranslate) {
   'ngInject';
 
   $controller('NpolarBaseController', { $scope: $scope });
@@ -11,6 +11,8 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
   let user = NpolarApiSecurity.getUser();
 
   $scope.base_user = NpolarApiSecurity.canonicalUri('/sighting');
+
+  $scope.check_lang = NpolarLang.getLang() === 'en' ? true : false;
 
   //Different views depending on admin or ordinary user
   var isAdmin = function(){

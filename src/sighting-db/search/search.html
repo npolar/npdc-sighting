@@ -73,8 +73,28 @@
 
 
 <div ng-if="!security.isAuthorized('create', base_user)">
+  <div ng-if="check_lang">
   <br /><br />
-  &nbsp;&nbsp;&nbsp;Please log in to view this page.
+  <article>
+    <nav>
+  <ul style="list-style: none;">
+ Please log in to view this page.
+  Click on the user menu icon in the top right corner. Add your email address and press the "email code" button to get a login account.
+</ul>
+</nav>
+</article>
+</div>
+<div ng-if="!check_lang">
+   <br /><br />
+    <article>
+    <nav>
+  <ul style="list-style: none;">
+ Du må logge inn for å få tilgang til denne siden. Det kan du gjøre med å klikke på bruker meny ikonet
+  i øvre høyre hjørne. Legg til e-post adressen din og bruk "email code" knappen for å skaffe et engangspassord.
+  </ul>
+ </nav>
+</article>
+</div>
 </div>
 
 
