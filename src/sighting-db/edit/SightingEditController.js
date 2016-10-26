@@ -19,6 +19,7 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
 
   $scope.isAdmin = isAdmin();
 
+ //Different schemas depening on admin or ordinary user
   var schemaChoice = function(){
         if (isAdmin())  {
             return 'sighting-db/edit/formula-admin.json';}
@@ -101,19 +102,16 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
  function initFileUpload(formula) {
 
     let server = `${NpolarApiSecurity.canonicalUri($scope.resource.path)}/:id/_file`;
-
     fileFunnelService.fileUploader({
       match(field) {
         return field.id === "files";
       },
       server,
       multiple: true,
+      progress: false,
        restricted: function () {
         return formula.getModel().restricted;
       },
-   //   restricted: function () {
-   //     return !formula.getModel().license;
-   //   },
       fileToValueMapper: Sighting.fileObject,
       valueToFileMapper: Sighting.hashiObject,
       fields: [] // 'type', 'hash'

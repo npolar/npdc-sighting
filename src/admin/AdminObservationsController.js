@@ -17,9 +17,13 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
     $scope.entries = CSVService.entryObject;
 
     $scope.resource = Sighting;
-    $scope.security = NpolarApiSecurity;
+
+    //$scope.security = NpolarApiSecurity;
     //Need to create an alternative base address to
     const admin_base = NpolarApiSecurity.canonicalUri('/sighting/admin');
+
+    //Use authorized to limit access
+    $scope.authorized = NpolarApiSecurity.isAuthorized('create', admin_base + '/administrators');
 
 
     //using chronopic to show dates
@@ -59,15 +63,16 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
     var L = require('leaflet');
 
     L.Icon.Default.imagePath = 'node_modules/leaflet/dist/images/';
+
     var map = L.map('mapid', {
       fullscreenControl: true,
       fullscreenControlOptions: {
       position: 'topleft'
       }}).setView([78.000, 16.000], 4);
 
-    map.invalidateSize();
+   // map.invalidateSize();
 
-    map.getSize();
+   // map.getSize();
 
     L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}/', {
        maxZoom: 18,
@@ -86,6 +91,7 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
     // Initialise the FeatureGroup to store editable layers
     var drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
+
 
     //Leaflet have problems with finding the map size
     //invalidateSize checks if the map container size has changed and updates map.
@@ -204,8 +210,11 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
 
  };
 
+
  // Execute this function when search button is pressed
  $scope.submit = function() {
+
+     console.log('scope', $scope);
 
      //Wipe out all previous markes
     for(var i=0;i<markers.length;i++) {

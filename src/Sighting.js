@@ -10,7 +10,6 @@ function Sighting(SightingResource, NpolarApiSecurity) {
     schema,
 
   create: function() {
-
       let user = NpolarApiSecurity.getUser();
       let id = user.email;
       let email = user.email;
@@ -29,7 +28,8 @@ function Sighting(SightingResource, NpolarApiSecurity) {
 
     },
 
-    hashiObject: function(file) {
+  hashiObject: function(file) {
+       console.debug('hashiObject', file);
       return {
         url: file.uri,
         filename: file.filename,
@@ -40,7 +40,8 @@ function Sighting(SightingResource, NpolarApiSecurity) {
       };
     },
 
-    fileObject: function(hashi) {
+  fileObject: function(hashi) {
+      console.debug('hashiObject', hashi);
       return {
         uri: hashi.url,
         filename: hashi.filename,

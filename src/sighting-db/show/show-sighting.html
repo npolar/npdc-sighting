@@ -91,6 +91,7 @@
         <section>
         <h3>{{ "Editor's feedback" | t }}</h3>
         <md-divider></md-divider>
+        <p>{{ "Please note that editor's feedback usually is updated as a collective process once a year." | t }}</p>
         <p ng-if="document.date_identified">{{ "Date identified" | t }}: {{document.date_identified.split('T')[0]}}</p>
          <p ng-if="document.editor_assessment==='not yet assessed'">{{ "Editor's assessment" | t }}: {{ 'not yet assessed' | t}}</p>
         <p ng-if="document.editor_assessment==='green'">{{ "Editor's assessment" | t }}: {{ 'likely / well documented observation' | t}}</p>

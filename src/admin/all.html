@@ -1,14 +1,13 @@
 
 
-<div ng-if="!security.isAuthorized('create', resource.path + '/administrators')">
 
-      &nbsp;&nbsp;&nbsp;<p>Please log in with your admin account before searching.</p>
+
+<div ng-if=!authorized>
+
+     <p>Please log in with your admin account before searching.</p>
 </div>
 
-
-
-
-  <div ng-if="security.isAuthorized('create', resource.path + '/administrators')">
+<div ng-if=authorized>
 <article class="np-padding np-doc" layout>
   <h1 class="">{{ 'Map search' | t }}</h1>
 </article>
@@ -21,20 +20,18 @@
 <a href="/sighting">{{ 'Back' | t }}</a>
 </article>
 
+
 </div>
 
-
-<form id="submit" ng-submit="submit()">
-
-
 <p>&nbsp;&nbsp;{{'Select an area on the map by dragging/dropping' | t }}</p>
+<form id="submit" ng-submit="submit()">
 
 
 <div id="mapid" style="height: 400px; width:" + window.innerWidth + "px;" ></div>
 <br />
 
+
 <!-- Search ------>
-<div ng-if="security.isAuthorized('create', resource.path + '/administrators')">
 
 <label for="search">&nbsp;&nbsp;{{'General search' | t }}:&nbsp;&nbsp;</label><input type="text"  ng-model="search" /> {{ 'OR' | t }} <br />
 
@@ -62,8 +59,6 @@
 
 <label for="lng2">&nbsp;&nbsp;{{'Longitude end' | t }}:&nbsp;</label><input type="text" ng-model="lng2" size="9" >
 <br />
-
-
 
 
 &nbsp;&nbsp;<input type="submit" id="submit" value="{{ 'Search' | t }}" />
@@ -106,9 +101,9 @@
         {{'Total' | t }}: {{ total }}</td>
       </tr>
 </tfoot>
-</div>
 </table>
  </form>
+
 
 
 
