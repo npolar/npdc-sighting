@@ -65,5 +65,8 @@
                   "yes"
              ]
       }
+  },
+  "tv4": {
+    "FORMAT_CUSTOM": "You need to use a deta format similar to January 9, 2016"
   }
 }
