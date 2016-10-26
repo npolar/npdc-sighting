@@ -123,7 +123,8 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
     // edit (or new) action
     $scope.edit();
   } catch (e) {
-    NpolarMessage.error(e);
+  //Received error for missing title, thus muting this feedback
+  //  NpolarMessage.error(e);
 }
 };
 

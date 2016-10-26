@@ -49,7 +49,7 @@
          "title": "sluttdato, tur/ekspedisjon"
       },
        "href":{
-         "title": "lenke til NPs ekspedisjonsdatabase (fylles ut av NP ansatte)"
+         "title": "lenke til NPs ekspedisjonsdatabase (fylles ut av Norsk Polarinstitutts ansatte)(inkludere protokoll i lenken, f.eks. 'https://')"
       },
       "species":{
         "title": "art",
