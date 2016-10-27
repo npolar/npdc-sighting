@@ -10,19 +10,19 @@ function Sighting(SightingResource, NpolarApiSecurity) {
     schema,
 
   create: function() {
+
       let user = NpolarApiSecurity.getUser();
-      let id = user.email;
-      let email = user.email;
-      let [first_name,last_name] = user.name.split(' ');
-      let organisation = user.email.split('@')[1];
+      let collection = "sighting";
+      let base = "http://api.npolar.no";
+      let language = "en";
+      let draft = "yes";
+      let rights_holder = "Norwegian Polar Institute";
+      let basis_of_record = "HumanObservation";
+      let kingdom = "animalia";
+      let recorded_by = user.email;
+      let recorded_by_name = user.name;
 
-      let people = [user];
-      let locations = [{ country: 'NO'}];
-
-
-      let p = { title, collection, schema, people, publication_type, topics, locations,
-        state:'published', draft:'no'
-      };
+      let p = { collection, base, language, draft, rights_holder, basis_of_record, kingdom, recorded_by, recorded_by_name };
       console.debug(p);
       return p;
 
