@@ -6,7 +6,7 @@
           family: 'Ursus maritimus',
           image:  'info/img/isbjorn.jpg',
           link: 'http://www.npolar.no/en/species/polar-bear.html',
-          rights: ''
+          rights: 'Jon Aars / Norwegian Polar Institute'
       },
       {
           name: 'Hvalross',
@@ -14,7 +14,7 @@
           family: 'Odobenus rosmarus',
           image:  'info/img/hvalross.jpg',
           link: 'http://www.npolar.no/en/species/walrus.html',
-          rights: ''
+          rights: 'Tore Nordstad / Norwegian Polar Institute'
       },
       {
           name: 'Storkobbe',
@@ -22,7 +22,7 @@
           family: 'Erignathus barbatus',
           image: 'info/img/storkobbe.jpg',
           link: 'http://www.npolar.no/en/species/bearded-seal.html',
-          rights: ''
+          rights: 'Geir Wing Gabrielsen / Norwegian Polar Institute'
       },
       {
           name: 'Steinkobbe',
@@ -30,7 +30,7 @@
           family: 'Phoca vitulina',
           image:  'info/img/steinkobbe.jpg',
           link: 'http://www.npolar.no/en/species/harbour-seal.html',
-          rights: ''
+          rights: 'Max König / Norwegian Polar Institute'
       },
       {
         name: 'Grønlandssel',
@@ -110,7 +110,7 @@
           family: 'Monodon monoceros',
           image:  'info/img/narhval.jpg',
           link: 'http://www.npolar.no/en/species/narwhal.html',
-          rights: 'By Dr. Kristin Laidre, Polar Science Center, UW NOAA/OAR/OER - NOAA Photolib Library, Public Domain, https://commons.wikimedia.org/w/index.php?curid=45807231'
+          rights: 'Magnus Andersen / Norwegian Polar Institute'
       },
       { name: 'Nebbhval',
           eng: 'Northern northern-bottlenose-whale',
