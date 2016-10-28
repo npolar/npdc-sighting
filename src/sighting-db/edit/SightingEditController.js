@@ -114,7 +114,7 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
       },
       fileToValueMapper: Sighting.fileObject,
       valueToFileMapper: Sighting.hashiObject,
-      fields: [] // 'type', 'hash'
+      fields: ['filename', 'photographer','comments'] // 'type', 'hash'
     }, formula);
   }
 

@@ -34,14 +34,14 @@ function Sighting(SightingResource, NpolarApiSecurity) {
         url: file.uri,
         filename: file.filename,
         // icon
-        file_size: file.length,
+        length: file.file_size,
         md5sum: (file.hash||'md5:').split('md5:')[1],
         content_type: file.type
       };
     },
 
   fileObject: function(hashi) {
-      console.debug('hashiObject', hashi);
+      console.debug('fileObject', hashi);
       return {
         uri: hashi.url,
         filename: hashi.filename,

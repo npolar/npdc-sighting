@@ -142,7 +142,7 @@
             ]
 },
 {
-    "title": "Upload photo",
+    "title": "Upload photo(s)",
     "fields": [{
       "id": "files",
       "title":"upload photos"

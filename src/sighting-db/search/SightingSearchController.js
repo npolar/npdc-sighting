@@ -19,7 +19,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
       const base = NpolarApiSecurity.canonicalUri('/sighting/admin');
       var ret = $scope.security.isAuthorized('create', base);
       return (ret);
-  }
+  };
    $scope.isAdmin = isAdmin();
 
 
@@ -34,7 +34,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
         sort: "-updated",
         fields: 'species,event_date,total,updated,id,habitat,@placename,draft,recorded_by',
         'filter-draft':'no',
-        facets: 'draft'}
+        facets: 'draft'};
     } else {
        //A user should see his/hers entries
         defaults = {
@@ -44,7 +44,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
         'filter-recorded_by': user.email,
         'filter-draft':'yes',
         facets: 'draft'};
-    };
+    }
 
     let invariants = $scope.security.isAuthenticated() ? {} : {} ;
     return Object.assign({}, defaults, invariants);

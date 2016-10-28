@@ -28,8 +28,16 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
 
     $scope.show().$promise.then((sighting) => {
 
+      //If lat lng does not exist, we need a stanrad map without markers. Use Svalbard centerpoints.
+      var center_lat = 78.22;
+      var center_lng = 15.63;
       var lat = $scope.document.latitude;
-     var lng = $scope.document.longitude;
+      var lng = $scope.document.longitude;
+
+       if ((lat) && (lng)) {
+            center_lat = lat;
+            center_lng = lng;
+       }
 
        //Loading leaflet
     var L = require('leaflet');
@@ -38,17 +46,7 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
       fullscreenControl: true,
       fullscreenControlOptions: {
       position: 'topleft'
-      }}).setView([lat, lng], 4);
-
-
-  /*  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
-      maxZoom: 18,
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      id: 'mapbox.streets'
-    }).addTo(map2); */
-
+      }}).setView([center_lat, center_lng], 4);
 
     L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}/', {
        maxZoom: 18,
@@ -61,10 +59,11 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
      iconSize: [50, 50]
     });
 
-
-    var marker2 = L.marker([lat, lng], {icon: markerIcon}).addTo(map2);
-    marker2.bindPopup($scope.document['@placename']).openPopup();
-
+     //Draw marker if we have lat and lng coords
+     if ((lat) && (lng)) {
+       var marker2 = L.marker([lat, lng], {icon: markerIcon}).addTo(map2);
+       marker2.bindPopup($scope.document['@placename']).openPopup();
+     }
 
      if (sighting.links && sighting.links !== null) {
      $scope.links = sighting.links.filter(l => (l.rel !== "alternate" && l.rel !== "edit") && l.rel !== "data");
@@ -100,20 +99,5 @@ function get_key(NpolarApiSecurity,path) {
         return system.key;
       }
 }
-
-/* convert from camelCase to lower case text*/
-/*function convert(str) {
-       var  positions = '';
-
-       for(var i=0; i<(str).length; i++){
-           if(str[i].match(/[A-Z]/) !== null){
-             positions += " ";
-             positions += str[i].toLowerCase();
-        } else {
-            positions += str[i];
-        }
-      }
-        return positions;
-} */
 
 module.exports = SightingShowController;
