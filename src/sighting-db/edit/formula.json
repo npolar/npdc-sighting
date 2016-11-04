@@ -153,12 +153,12 @@
             "fields": [
                  {
                     "id": "excel_filename",
-                    "title": "excel filename",
+                    "title": "excel filename (don't add anything here, computerized reading only)",
                     "disabled": true
                 },
                 {
                     "id": "excel_length",
-                    "description": "Size of excel file in bytes",
+                    "title": "size of excel file in bytes (don't add anything here, computerized reading only)",
                     "disabled": true
                 }
             ]

@@ -181,10 +181,10 @@
       "description": "Opplasting av observasjonsbilder"
       },
       "excel_filename":{
-          "title": "excel filnavn"
+          "title": "excel filnavn (ikke skriv her, leses inn av datamaskiner)"
       },
       "excel_length":{
-          "title": "filstørrelse i bytes"
+          "title": "filstørrelse i bytes (ikke skriv her, leses inn av datamaskiner)"
       },
       "date_identified":{
                     "title": "vurderingsdato",
