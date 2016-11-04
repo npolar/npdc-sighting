@@ -71,5 +71,5 @@ npdcSightingApp.run(($http, npolarApiConfig, npdcAppConfig, NpolarTranslate, Npo
  // console.log("npolarApiConfig", npolarApiConfig);
 
   NpolarTranslate.loadBundles('npdc-sighting');
-  npdcAppConfig.toolbarTitle = 'Marine Mammal Sighting';
+  npdcAppConfig.toolbarTitle = 'Marine Mammal Sightings';
 });
