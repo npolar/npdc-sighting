@@ -21,6 +21,7 @@ function Sighting(SightingResource, NpolarApiSecurity) {
       let kingdom = "animalia";
       let recorded_by = user.email;
       let recorded_by_name = user.name;
+      let editor_assessment = "unknown";
 
       let p = { collection, base, language, draft, rights_holder, basis_of_record, kingdom, recorded_by, recorded_by_name };
       console.debug(p);
