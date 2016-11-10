@@ -1,0 +1,112 @@
+#Background
+Marine Mammal Sightings (MMS) is a database where people report their observations of Svalbard marine mammals to the Norwegian Polar Institute. Thus, if you are spending time in Svalbard, or planning to do so, we hope you'll consider sending your observations of marine mammals to us. The Norwegian Polar Institute thanks the cruise tourist guides and others who have reported their observations over the previous years. We hope you will continue reporting, and look forward to our future collaboration!
+
+#Login
+To enter a new observation in the database or to edit a draft entry, start by logging in to [Norwegian Polar Institute Marine Mammal Sighting Database](https://data.npolar.no/sighting). Use the "user menu" button located in the upper right corner (se picture below).
+[[https://github.com/npolar/npdc-sighting/blob/master/docs/img/menu_buttons.png | alt="How to login"]]
+
+If you do not have a data.npolar.no account, choose the "user menu" icon, write your e-mail address and choose the "email code"-button. You should then receive a one-time password and a link to update your password by email. If you know your login name but have forgotten your password, you can also use the button "email code". To see if you are really logged in, hover the mouse over the "user menu"-icon. If you are logged in, you will see your name instead of "user menu".
+
+If you do not see any green buttons to the right at all when you should be logged in and have chosen "MMS", you are either not logged in or something is wrong. By hovering over the "user menu" button, you should see your login name as a check. If you only see "User menu", try to log in again. If you still do not succeed, [contact us](https://github.com/npolar/npdc-sighting/wiki/helpfile#contact).
+
+#Language
+We are trying to keep the database in English, but if you want Norwegian texts, you can use "Usermenu" and select "English" at the bottom of the menu. Then you will be able to switch to Norwegian texts.
+
+[[https://github.com/npolar/npdc-sighting/blob/master/docs/img/language.png |alt="Change language"]]
+
+#Get started
+Choose "Your observations" from the home page menu. To enter a new observation, choose "New", the green "+"-icon button in the top right corner (see screenshot below).
+
+[[https://github.com/npolar/npdc-sighting/blob/master/docs/img/new.png |alt="Add new entry"]]
+
+From your search homepage you may search for all observations that are not yet submitted. By choosing an observation, you can see all your written information. Choose "Edit”, the green button in the right corner with a pencil-icon to change/update the information. You can also see the a summary of the information by selecting the id in the headline when you are editing the form.
+
+
+[[https://github.com/npolar/npdc-sighting/blob/master/docs/img/edit.png |alt="Edit an entry"]]
+
+When you are on the edit page, you can save your data by using the green "Save" button to the right with a disk symbol.
+
+[[https://github.com/npolar/npdc-sighting/blob/master/docs/img/save.png |alt="How to save"]]
+
+You can switch between tabs as you wish without saving, but you should save from time to time not to loose data. After you have saved the information, the first tab page will appear again.
+
+On the last tab "Submit" when you set "Submit the observation" to "yes" and save, the observation will disappear from the search list. Once the observation is submitted you will not be able to change the information anymore. If you wish to add/change anything, [contact us](https://github.com/npolar/npdc-sighting/wiki/helpfile-en#contact).
+
+
+#Tabs
+
+##Travel/Trip
+**Observer's name:** Name of observer.
+
+**Observer's organisation:** Organisation of the observer. Of you are not at work, omit this.
+
+**Contact information/address, email etc:** We would like to get your address (alternatively phone number) so we can contact you about the observation.
+
+**Email of the person reporting observation:** Is automatically filled with your login email address.
+
+**Platforms -boat, skis, kayak, scooter, plane etc:** Many observations are done by ship, but also other means of transport.
+
+**Platform comment -vessel name:** Usually the ship name.
+
+**Start date:** For the expedition, cruise, trip or similar.
+
+**End date:** For the expedition, cruise, trip or similar.
+
+**Link to NPI's expedition database:** Only for the Norwegian Polar Institute staff, otherwise omit this field. The expedition database is located under https://data.npolar.no/expedition/
+
+
+##Observation
+**Species:** Choose amongst the species from the list. If you saw a whale but don't know which one, you can choose whale(unspecified) or similarly seal(unspecified).
+
+**If other species is selected, please specify:** If you saw an animal not on the list, choose "other species" and specify in the field below.
+
+**Habitat:** Where did you see the animal - was it on shore, in the water, on ice or another place?
+
+**Number of male adults:** Count/estimate the number as closely as possible. Only include adult males, juvenile males are added later. The individuals should only be counted once. If in doubt, write the most likely number and specify uncertainity in the observation comment field below.
+
+**Number of female adults:** Count/estimate the number as closely as possible. Only include adult females, juvenile females are added later. The individuals should only be counted once. If in doubt, write the most likely number and specify uncertainity in the observation comment field below.
+
+**Number of adults wen sex is unknown:** Sometimes it can be hard to tell the difference between males and females. If so, just add the number you saw here.The individuals should only be counted once. If in doubt, write the most likely number and specify uncertainity in the observation comment field below.
+
+**Number of young adults, not included previously:** Here you can add juvenile adults. Altogether, individuals should be counted only once. If in doubt, use what you think is correct and specify uncertainity in the observation comment field below.
+
+**Number of cubs/calfs/pups:** If you see any cubs/calfs/pups add those individuals in this field. In the comment below, please not how many offsprings each adult had if you saw more than one adult.
+
+**How old were the polar bear cubs:** Guess the age. It gives us valuable information about litters, survival rate etc.
+
+**What was the condition of the polar bear(s):** Suggest a number from 1 to 5 where 5 is very fat and 1 is very skinny.
+
+**Did you see a polar bear den?** If so, choose yes.
+
+**Number of unidentified:** If you did not see the individuals clearly, or are uncertain, you can add all individuals you are uncertain of here.
+
+**Observed dead of alive?** Normally we assume you saw them alive, if not, please select dead or unknown.
+
+**Total count:** Summarize the number of individuals you saw.
+
+**Observation comment:** Explain what you saw in your own words. If you saw several polar bear females with cubs please describe how many cubs belonged to each mother, f.ex. "one female with two cubs, another with one". It tells us more about the size of litters.
+
+##Time/location
+**Observation date:** The date you observed the mammal.
+
+**Latitude:** We prefer these as decimal degrees to have a common reference to plot the locations on a map automatically. Thus we strive to avoid degrees, minutes and seconds. If you have data with these measurements, we hope that you will convert the measurements, f.ex. by means of https://www.fcc.gov/media/radio/dms-decimal
+
+**Longitude:** We prefer these as decimal degrees to have a common reference to plot the locations on a map automatically. Thus we strive to avoid degrees, minutes and seconds. If you have data with these measurements, we hope that you will convert the measurements, f.ex. by means of https://www.fcc.gov/media/radio/dms-decimal
+
+**Placename:** If you are unsure of the name, Svalbard placenames (http://stadnamn.npolar.no/stadnamn?lang=en) or TopoSvalbard (http://toposvalbard.npolar.no) can be used for name search. Still, if you don't have the placename the gps coordinates are most important to us.
+
+**Place comment:** Please describe in your own words where it was, especially if it is a larger area. Was the polar bear hiding behind a rock or swimming at a far distance? If you saw a whale from shore it is good to know you used the GPS shore coordinates.
+
+##Upload photo
+Images are great, especially if you have seen many individuals and have problems counting, if you are unsure of a species or have done an unusual observation. Here you can upload observation images. Remember to name the photographer if it is not you.
+
+##Excel file
+If an observation comes from from an Excel sheet, you can view the name of the schema and file size here.
+
+At time being you cannot upload Excel files yourself, but we hope you will send these [by email to us](https://github.com/npolar/npdc-sighting/wiki/helpfile-en#contact). If you have got feedback or comments, please also contact us rather than using the Excel sheet. The Excel sheets read by computers directly into our database.
+
+##Submit
+**Submit the observation:** Set to "yes" if you have finished the observation form and are ready to submit. When you have set it to "yes" and saved, you can no longer change the observation information (and it will disappear from the user search).
+
+##Contact
+<a href="mailto:mms@npolar.no" onmouseover="this.href=this.href.replace(/x/g,'');">MMS Norwegian Polar Institute</a>

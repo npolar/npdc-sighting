@@ -1,0 +1,112 @@
+#Bakgrunn
+Marine Mammal Sightings (MMS) er et rapporteringsverktøy der folk kan melde inn observasjoner av marine sjøpattedyr på Svalbard til Norsk Polarinstitutt. Hvis du oppholder deg eller planlegger opphold i Svalbard-området, håper vi du kan ta deg tid til å registrere dine observasjoner av sjøpattedyr.
+
+Norsk Polarinstitutt takker alle cruiseguider og andre som har meldt inn sine sjøpattedyrobservasjoner fra Svalbard de siste årene. Vi håper dere fortsetter med dette, og ser frem til et fortsatt godt samarbeid!
+
+#Logge inn
+For å legge inn en ny observasjon i databasen eller for å editere en kladd, starter du med å logge inn på
+[Norwegian Polar Institute Marine Mammal Sighting Database](https://data.npolar.no/sighting/?lang=no). Bruk "brukermeny" knappen i øvre høyre hjørne (se bilde nedenfor).
+
+[[https://github.com/npolar/npdc-sighting/blob/master/docs/img/menu_buttons.png | alt="Innlogging"]]
+
+Hvis du ikke har konto på data.npolar.no velger du "brukermeny" ikonet og skriver inn e-post adressen din og velger "email code"-knappen. Du skal da motta en e-post med et engangspassord og en lenke slik at du kan sette passordet ditt. Hvis du husker loginnavn men har glemt passordet kan du også bruke "email code"-knappen. For å kontrollere om du virkelig er logget inn kan du holde muspeker over "Brukermeny"-knappen. Hvis du er logget inn vil du se ditt navn istedet for "Brukermeny".
+
+#Språk
+Vi prøver å holde databasen engelskspråklig, men hvis du har engelske tekster og ønsker norske, kan du velge "Brukermeny" og velge "English" nederst på menyen. Du kan så skifte til norsk tekst.
+
+[[https://github.com/npolar/npdc-sighting/blob/master/docs/img/language.png |alt="Skifte språk"]]
+
+#Komme igang
+Velg "Dine observasjoner" fra hjemmesiden. For å skrive inn en ny observasjon velger du "Ny" som er den grønne "+"-knappen i øvre høyre hjørne (se bilde under).
+
+[[https://github.com/npolar/npdc-sighting/blob/master/docs/img/new.png |alt="Legg til ny observasjon"]]
+
+Fra søkehjemmesiden din kan du finne alle observasjoner du har som ikke er sendt inn enda. Ved å klikke på en observasjon får du opp all informasjon du har lagt inn. For å endre teksten velger du den grønne knappen med et blyant-ikon i øvre høyre hjørne. Du kan også få oversikt over hvilken tekst som er lagt inn ved å velge overskriften på observasjonen når du er inne for å endre tekst.
+
+[[https://github.com/npolar/npdc-sighting/blob/master/docs/img/edit.png |alt="Endre en observasjon"]]
+
+Når du er inne på skjemaet kan du lagre det ved å bruke den grønne "Save"-knappen til høyre med diskett symbol.
+
+[[https://github.com/npolar/npdc-sighting/blob/master/docs/img/save.png |alt="Lagring av en observasjon"]]
+
+Du kan hoppe mellom faner uten å måtte lagre, men fra tid til annen bør du lagre for ikke å miste data. Etter at du har lagret informasjonen vil den første fanen bli vist igjen.
+
+Under den siste fanen "send inn" vil observasjonen forsvinne når du setter "send inn observasjon"  til "ja" og lagrer. Når observasjonen er sendt vil du ikke kunne endre informasjonen lengre. Hvis du ønsker å legge til eller endre må du sende en [epost](https://github.com/npolar/npdc-sighting/wiki/helpfile-no#kontakt).
+
+#Faner:
+
+##Reise/Tur
+**Observatørs navn:** Navn på observatør.
+
+**Observatørs organisasjon:** Organisasjonen observatør jobbet for, ev la stå tom hvis observasjonen ble gjort som privatperson.
+
+**Kontaktinformasjon:** Vi vil gjerne ha adresse (alternativt telefonnummer) så vi kan kontakte deg angående observasjonen.
+
+**Epost adresse til den som rapporterer hendelsen:** Epost adressen fylles ut automatisk med innloggingsadressen. Endre hvis dette er feil.
+
+**Plattform:** Mange observasjoner blir gjort ifra skip, men også med andre transportmiddel.
+
+**Kommentar til plattform -navn på skip etc:** Som oftest skipsnavn, men også andre plattformer kan ha et navn.
+
+**Startdato, tur/ekspedisjon:** Dagen da ekspedisjonen, cruiset, turen el.l. begynte.
+
+**Sluttdato, tur/ekspedisjon:** Dagen da ekspedisjonen, cruiset, turen el.l. sluttet.
+
+**Lenke til NPs ekspedisjonsdatabase:** Fylles bare ut hvis du er ansatt på Norsk Polarinstitutt. Ekspedisjonsdatabasen finnes under https://data.npolar.no/expedition/
+
+
+##Observasjon
+**Art:** Velg blant artene fra lista. Så du en hval, men ikke vet hvilken art det er, kan du velge hval(uspesifisert) eller tilsvarende sel(uspesifisert).
+
+**Hvis 'annen art' er valgt, si noe om art:** Hvis du så et dyr som ikke står på lista over arter, velg "annen art" og spesifiser her hvilket dyr du tror det var.
+
+**Habitat:** Hvor så du dyret - var det på land, i vannet, på is eller annet?
+
+**Antall voksne hanner:** Oppgi antallet så nøyaktig som mulig. Individene skal kun telles en gang. Er du i tvil, angir du det mest sannsynlige og utdyper i kommentarfeltet nederst.
+
+**Antall voksne hunner:** Oppgi antallet så nøyaktig som mulig. Individene skal kun telles en gang. Er du i tvil, angir du det mest sannsynlige og utdyper i kommentarfeltet nederst.
+
+**Antall voksne av ukjent kjønn:** Er du i tvil om kjønn, men vet det er voksne individer, skriver du antallet her.
+Ev kan du utdype i kommentarfeltet nederst.
+
+**Unge voksne som ikke er inkludert tidligere:** Ser individene ut som unge voksne, skriver du antallet her. Ikke ta med individer som er tatt med tidligere.
+
+**Antall unger:** Skriv ned antallet unger du så.
+
+**Hvor gamle var isbjørnungene:** Her anslår du alder på ungene. Det gir oss verdifull informasjon om ungekull størrelse, hvor mange som vokser opp, overlevelsesrate osv.
+
+**I hvilken kondisjon var isbjørnen(e):** Oppgi et tall ifra 1 til 5, der 5 er svært feit og 1 er radmager.
+
+**Så du et isbjørnhi?** Hvis du så et isbjørnhi, sett denne til ja.
+
+**Antall uidentifiserte:** Hvis du er usikker på kjønn og alder kan du notere individer du er usikker på her.
+
+**Totalt antall:** Her summerer du antall individer du har sett.
+
+**Kommentar til observasjon:** Her kan du utdype hva du så med fritekst. Har du sett flere isbjørnbinner med unger er det fint å spesifisere hvor mange unger som tilhørte den enkelt binna, f.eks. "ei binne med to unger og ei med en". Det forteller oss noe om hvor store ungekullene er.
+
+
+##Tid/lokasjon
+**Observasjonsdato:** Dagen du observerte pattedyret.
+
+**Breddegrad:** Vi ønsker breddegrad i desimalgrader for å ha en felles refereranse til å plotte lokasjonene på kart maskinelt. Derfor ønsker vi å unngå å bruke grader, minutter og sekunder. Hvis du har data med slike målinger, håper vi at du er villig til å konvertere målingene vha oversetter f.eks. https://www.fcc.gov/media/radio/dms-decimal.
+
+**Lengdegrad:** Vi ønsker lengdegrad i desimalgrader for å ha en felles refereranse til å plotte lokasjonene på kart maskinelt. Derfor ønsker vi å unngå å bruke grader, minutter og sekunder. Hvis du har data med slike målinger, håper vi at du er villig til å konvertere målingene vha oversetter f.eks. https://www.fcc.gov/media/radio/dms-decimal.
+
+**Stedsnavn:**  Er du usikker på navnet, kan du søke på Stadnamn i norske polarområde (http://stadnamn.npolar.no/stadnamn) eller bruke TopoSvalbard (http://toposvalbard.npolar.no) for å finne ut hva området heter. Har du ikke stedsnavn, er GPS posisjon uansett det viktigste.
+
+**Kommentar til sted:** Her kan du skrive mer utfyllende om hvor det var, særlig hvis det er et større område. Om du så en hval fra land er det fint om du skriver at det er koordinatene til utkikkspunktet.
+
+##Bildeopplasting
+Det er veldig fint med bilder, særlig hvis du har sett mange individer og har problemer med å telle, hvis du er usikker på art eller det er en uvanlig observasjon. Her kan du laste opp bilder tilknyttet observasjonen. Navngi fotograf hvis det ikke er deg.
+
+##Excelfil
+Hvis en observasjon er hentet inn fra et excel skjema, kan du se navn på skjemaet og filstørrelse her. Her trenger du ikke skrive inn noe.
+
+Foreløpig kan du ikke laste opp Excelfiler selv, men vi håper du sender disse på [epost til oss](https://github.com/npolar/npdc-sighting/wiki/helpfile-no#kontakt). Har du tilbakemeldinger eller kommentarer, send også disse på epost heller enn å bruke excelskjemaet. Excelskjemaene er til maskinell lesning.
+
+##Send inn
+**Send inn observasjonen:** Sett denne til "ja" hvis skjemaet er ferdig utfylt og kan sendes inn. Når du har gjort dette og lagret, kan du ikke lengre endre informasjonen (og den vil ikke lengre bli synlig i brukergrensesnittet).
+
+#Kontakt
+Send epost til <a href="mailto:mms@npolar.no" onmouseover="this.href=this.href.replace(/x/g,'');">Marine Mammal Sighting Norsk Polarinstitutt</a> hvis du har spørsmål eller tilbakemeldinger.
