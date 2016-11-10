@@ -31,7 +31,7 @@ Når du er inne på skjemaet kan du lagre det ved å bruke den grønne "Save"-kn
 
 Du kan hoppe mellom faner uten å måtte lagre, men fra tid til annen bør du lagre for ikke å miste data. Etter at du har lagret informasjonen vil den første fanen bli vist igjen.
 
-Under den siste fanen "send inn" vil observasjonen forsvinne når du setter "send inn observasjon"  til "ja" og lagrer. Når observasjonen er sendt vil du ikke kunne endre informasjonen lengre. Hvis du ønsker å legge til eller endre må du sende en [epost](https://github.com/npolar/npdc-sighting/wiki/helpfile-no#kontakt).
+Under den siste fanen "send inn" vil observasjonen forsvinne når du setter "send inn observasjon"  til "ja" og lagrer. Når observasjonen er sendt vil du ikke kunne endre informasjonen lengre (edit-knappen forsvinner). Hvis du ønsker å legge til eller endre må du sende en [epost](https://github.com/npolar/npdc-sighting/wiki/helpfile-no#kontakt).
 
 #Faner:
 
@@ -106,7 +106,7 @@ Hvis en observasjon er hentet inn fra et excel skjema, kan du se navn på skjema
 Foreløpig kan du ikke laste opp Excelfiler selv, men vi håper du sender disse på [epost til oss](https://github.com/npolar/npdc-sighting/wiki/helpfile-no#kontakt). Har du tilbakemeldinger eller kommentarer, send også disse på epost heller enn å bruke excelskjemaet. Excelskjemaene er til maskinell lesning.
 
 ##Send inn
-**Send inn observasjonen:** Sett denne til "ja" hvis skjemaet er ferdig utfylt og kan sendes inn. Når du har gjort dette og lagret, kan du ikke lengre endre informasjonen (og den vil ikke lengre bli synlig i brukergrensesnittet).
+**Send inn observasjonen:** Sett denne til "ja" hvis skjemaet er ferdig utfylt og kan sendes inn. Når du har gjort dette og lagret, kan du ikke lengre endre informasjonen (edit-knappen vil ikke lengre bli synlig i brukergrensesnittet).
 
 #Kontakt
 Send epost til <a href="mailto:mms@npolar.no" onmouseover="this.href=this.href.replace(/x/g,'');">Marine Mammal Sighting Norsk Polarinstitutt</a> hvis du har spørsmål eller tilbakemeldinger.

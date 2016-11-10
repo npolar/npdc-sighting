@@ -30,7 +30,7 @@ When you are on the edit page, you can save your data by using the green "Save" 
 
 You can switch between tabs as you wish without saving, but you should save from time to time not to loose data. After you have saved the information, the first tab page will appear again.
 
-On the last tab "Submit" when you set "Submit the observation" to "yes" and save, the observation will disappear from the search list. Once the observation is submitted you will not be able to change the information anymore. If you wish to add/change anything, [contact us](https://github.com/npolar/npdc-sighting/wiki/helpfile-en#contact).
+On the last tab "Submit" when you set "Submit the observation" to "yes" and save, the observation will disappear from the search list. Once the observation is submitted you will not be able to change the information anymore (the green "edit"-button disappears). If you wish to add/change anything, [contact us](https://github.com/npolar/npdc-sighting/wiki/helpfile-en#contact).
 
 
 #Tabs
@@ -106,7 +106,7 @@ If an observation comes from from an Excel sheet, you can view the name of the s
 At time being you cannot upload Excel files yourself, but we hope you will send these [by email to us](https://github.com/npolar/npdc-sighting/wiki/helpfile-en#contact). If you have got feedback or comments, please also contact us rather than using the Excel sheet. The Excel sheets read by computers directly into our database.
 
 ##Submit
-**Submit the observation:** Set to "yes" if you have finished the observation form and are ready to submit. When you have set it to "yes" and saved, you can no longer change the observation information (and it will disappear from the user search).
+**Submit the observation:** Set to "yes" if you have finished the observation form and are ready to submit. When you have set it to "yes" and saved, you can no longer change the observation information (and the green "edit"-button will disappear).
 
 ##Contact
 <a href="mailto:mms@npolar.no" onmouseover="this.href=this.href.replace(/x/g,'');">MMS Norwegian Polar Institute</a>

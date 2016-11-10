@@ -2,12 +2,14 @@
 <!-- <npdc:edit-button class="np-primary-control"></npdc:edit-button> -->
 
 
+  <div ng-if="security.isAuthorized('create', admin) || document.draft === 'yes'">
 <span class="np-primary-control">
   <md-button class="md-fab" ng-if="security.isAuthorized('update', resource.path)" ng-href="{{ resource.editHref(document.id) }}">
   <md-tooltip md-direction="top">Edit</md-tooltip>
   <md-icon>edit</md-icon>
   </md-button>
 </span>
+</div>
 
 
 <npdc:loader ng-if="!document"></npdc:loader>

@@ -42,7 +42,7 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
         sort: "-updated",
         fields: 'species,event_date,total,updated,id,habitat,@placename,draft,recorded_by',
         'filter-recorded_by': user.email,
-        'filter-draft':'yes',
+     //   'filter-draft':'yes',
         facets: 'draft'};
     }
 

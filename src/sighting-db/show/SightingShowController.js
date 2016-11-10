@@ -23,6 +23,9 @@ var SightingShowController = function($controller, $routeParams, $scope, $q, Sig
     }
   };
 
+   $scope.admin = NpolarApiSecurity.canonicalUri('/sighting/admin');
+   console.log($scope.admin);
+
 
   let show = function() {
 
