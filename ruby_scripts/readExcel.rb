@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # Convert from the incoming mms Excel files to the new sightings database
-# Fetch Excel files from excel_download2/done, reads thems and moves them to excel_download2/done2
+# Fetch Excel files from excel_download/start, reads thems and moves them to excel_download/done
 #
 # Author: srldl
 #
@@ -78,7 +78,7 @@ module Couch
              return dt.to_time.utc.iso8601
     end
 
-     #Set server
+    #Set server
     host = Couch::Config::HOST1
     port = Couch::Config::PORT1
     user = Couch::Config::USER1
@@ -121,6 +121,8 @@ module Couch
      #Get filename -last part of array (path is the first)
      filename =  excel_file[18..-1]
 
+     puts filename
+
 
      #Open the file
      s = SimpleSpreadsheet::Workbook.read(excel_file)
@@ -130,9 +132,14 @@ module Couch
 
      #Start down the form -after
      line = 19
+   #  while (line > 18 and line < (s.last_row).to_i+1)
      while (line > 18 and line < (s.last_row).to_i)
 
           #if row hasn't got event_date, lat or lon, skip it
+          puts line
+          puts (s.cell(line,1));
+          puts(s.cell(line,2));
+          puts(s.cell(line,3));
           unless ((s.cell(line,1)== nil) or (s.cell(line,1) == "Add your observations here:") or (s.cell(line,1)==' ')) \
           and ((s.cell(line,2)==nil) or (s.cell(line,2).to_i)==0 or (s.cell(line,2).to_s) =='') \
           and ((s.cell(line,3)==nil) or (s.cell(line,3).to_i)==0 or (s.cell(line,3).to_s) =='')
@@ -169,7 +176,7 @@ module Couch
                 if uuids[index].include? filename2[1].to_s
                     uuidarr =  uuids[index].split(':')
                     uuidexcel = uuidarr[0].gsub(/\s+/, "")
-                    puts uuidexcel
+                   # puts uuidexcel
                 end
             end
 
@@ -215,8 +222,10 @@ module Couch
                 :recorded_by => s.cell(3,11),
                 :recorded_by_name => s.cell(2,11),
                 :editor_assessment => 'green',
+                :editor_comment => 'not available',
               #  :excelfile => Object.new,
               #  :expedition => Object.new,
+                :kingdom => 'animalia',
                 :created => timestamp,
                 :updated => timestamp,
                 :created_by => user,
@@ -226,7 +235,7 @@ module Couch
                 :excel_filename => filename2[1],
                 :excel_type => "application/vnd.ms-excel",
                 :excel_length => (File.size(excel_file)).to_s,
-                :title => s.cell(2,11),
+             #   :title => s.cell(2,11),
                 :start_date => (if s.cell(5,11) then iso8601time(s.cell(5,11)) end),
                 :end_date => (if s.cell(6,11) then iso8601time(s.cell(6,11)) end),
                 :contact_info => s.cell(3,11),
@@ -238,7 +247,13 @@ module Couch
                   end
               }
 
+              if (@entry["end_date"] == "" || @entry["end_date"] == nil)
+                  @entry.tap { |k| k.delete("end_date") }
+              end
 
+
+
+#Remove this part since expedition and excel object is now integrated
 =begin             #Extract expedition info
             @expedition = Object.new
             @expedition = {
@@ -290,21 +305,23 @@ module Couch
             #Add expedition and excelfile objects to entry object
           #  defined?(@expedition[:name]).nil? ? @entry[:expedition] = nil : @entry[:expedition] = @expedition
           #  defined?(@excelfile[:filename]).nil? ?  @entry[:excelfile] = nil : @entry[:excelfile] = @excelfile
-
+=end
 
 
             #Traverse @entry and remove all empty entries
             @entry.each do | key, val |
-              if  val == "" || val == ""
+              if  val == "" || val == nil
                 puts key
                 @entry.delete(key)
               end
             end
 
-=end
 
 
             #save entry in database
+
+            puts @entry[:id]
+            puts @entry['id']
 
             doc = @entry.to_json
             res = server.post("/"+ Couch::Config::COUCH_DB_NAME + "/", doc, user, password)

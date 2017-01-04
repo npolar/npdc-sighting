@@ -52,7 +52,7 @@ module Couch
        password = Couch::Config::PASSWORD1
 
          # do work on files ending in .xls in the desired directory
-    Dir.glob('./excel_download/forms/*.xls*') do |excel_file|
+    Dir.glob('./excel_download/start/*.xls*') do |excel_file|
 
     # puts excel_file
     # puts "got excelfile"
@@ -98,7 +98,7 @@ module Couch
             :language => 'en',  #converted to eng for the database
             :draft => 'no',
             :rights => 'No licence announced on web site',
-            :uri =>  "https://api.npolar.no/sighting-excel/" + uuid + "/_file/" + filename,
+            :uri =>  "https://api.npolar.no/sighting-excel/" + uuid + "/_file/",
             :filename => filename,
             :type => "application/vnd.ms-excel", #last digits
             :length => (File.size(excel_file)).to_s, #size
@@ -128,21 +128,21 @@ module Couch
 
     #Create thumbnail and image on apptest
     # Net::SSH.start(host, user, :password => password) do |ssh|
-    Net::SSH.start(Couch::Config::HOST1, Couch::Config::USER2, :password => Couch::Config::PASSWORD1) do |ssh|
+    Net::SSH.start(Couch::Config::HOST1, Couch::Config::USERX, :password => Couch::Config::PASSWORDX) do |ssh|
       ssh.exec "mkdir -p /srv/hashi/storage/sighting-excel/restricted/" + uuid
     end
 
 
      #Send schema to sighting-excel database
-    Net::SCP.start(Couch::Config::HOST1, Couch::Config::USER2, :password => Couch::Config::PASSWORD1 ) do |scp|
+    Net::SCP.start(Couch::Config::HOST1, Couch::Config::USERX, :password => Couch::Config::PASSWORDX) do |scp|
 
     #Create a remote directory
-    scp.upload!("/home/siri/projects/ruby_scripts/excel_download/forms/"+ filename, "/srv/hashi/storage/sighting-excel/restricted/" + uuid + "/" + filename, :recursive => true)
+    scp.upload!("/home/siri/projects/ruby_scripts/excel_download/start/"+ filename, "/srv/hashi/storage/sighting-excel/restricted/" + uuid + "/" + filename, :recursive => true)
      end
 
 
     #Finally write the uuid and the filename to the file excel_uuid
-    text = uuid.to_s + ' | ' + filename + ' : '
+    text = uuid.to_s + ' : ' + (File.size(excel_file)).to_s + ':' + filename + ' | '
     inputfile = 'excel_uuid.txt'
     File.open(inputfile, 'a') { |f| f.write(text) }
 
