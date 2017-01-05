@@ -1,6 +1,6 @@
 {
   "name": "npdc-sighting",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "NPDC marine mammal sighting",
   "main": "gulpfile.js",
   "scripts": {
@@ -29,7 +29,14 @@
   },
   "browserify": {
     "transform": [
-      ["babelify",{"presets": ["es2015"]}],
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ],
       "partialify",
       "browserify-ngannotate"
     ]
