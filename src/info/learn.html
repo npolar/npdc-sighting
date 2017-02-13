@@ -2,11 +2,13 @@
 <article class="np-padding np-doc" layout>
 	<h1 class="">{{'Welcome to Svalbard Marine Mammal Sightings' | t }}</h1>
 </article>
+
 <article>
 	<nav>
 	<ul style="list-style: none;">
 		<li style="display: inline;"><a href="observe">{{ 'Introduction' | t}}</a>&nbsp;&nbsp;</li>
-		<li style="display: inline;"><a href="db">{{ 'Your observations' | t }}</a>&nbsp;&nbsp;</li>
+		<li ng-if="security.isAuthorized('create', resource.path + '/')" style="display: inline;"><a href="db">{{ 'Your observations' | t }}</a>&nbsp;&nbsp;</li>
+		<li ng-if="!security.isAuthorized('create', resource.path + '/')" style="display: inline;"><a href="https://data.npolar.no/user/register">{{ 'Register new account' | t }}</a>&nbsp;&nbsp;</li>
 		<li ng-if="security.isAuthorized('create', 'https:' + resource.path + '/admin')" style="display: inline;"><a href="administrators">Administrator</a></li>
 	</ul>
 	</nav>
