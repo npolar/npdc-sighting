@@ -8,15 +8,16 @@
 
 require './server'
 require 'net/http'
+require 'json'
 
 
 module Couchdb
 
   class DeleteEntries
 
-    host = "dbmaster.data.npolar.no"
+    host = "db-test.data.npolar.no"
     port  = "5984"
-    database = "sighting-excel"  #"sighting-excel"
+    database = "sighting"
 
     #Get ready to put into database
     server = Couch::Server.new(host, port)
@@ -24,32 +25,15 @@ module Couchdb
     #Fetch a UUIDs from couchdb
     res = server.get("/"+ database +"/_all_docs")
 
+    json = JSON.parse(res.body)
+    rows = json["rows"]
 
-    #puts "res"
-    #puts res
-
-    #Get the UUIDS
-    str = (res.body).tr('"','')
-    #puts str
-
-
-    #Need id
-    id = str.split('id:')
-
-    #Need revision
-    rev = str.split('rev:')
-
-    #Delete all entries
-    (id).each_with_index { |r, i|
-        #NB! Sometimes it's 36 chars, sometimes it's 32..
-        puts r[0,32] + '  ' + (rev[i])[0,34]
-        puts r[0,36] + '  ' + (rev[i])[0,34]
-
-        if i > 0
-          server.delete(("/" + database + "/" + r[0,36]).to_s + "?rev=" + (rev[i])[0,34])
-        end
-     }
-
+    (rows).each_with_index { |r, i|
+         puts r['id']
+         puts r['value']['rev']
+         #database/sighting/275d07fc-7cd9-cd10-7731-b01ed6736116?_rev
+         server.delete("/" + database + "/" + (r['id']).to_s + "?rev=" + r['value']['rev'])
+    }
 
   end
 end
