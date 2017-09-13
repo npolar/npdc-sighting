@@ -8,8 +8,8 @@
 #
 ########################################
 
-require './config'
-require './server'
+require '../config'
+require '../server'
 require 'net/http'
 require 'net/ssh'
 require 'net/scp'
@@ -45,25 +45,30 @@ module Couch
        return uuid
     end
 
-      #Set server
-       host = Couch::Config::HOST1
-       port = Couch::Config::PORT1
-       user = Couch::Config::USER1
-       password = Couch::Config::PASSWORD1
+       #Set server
+       host3 = Couch::Config::HOST3
+       port3 = Couch::Config::PORT3
+       user3 = Couch::Config::USER3
+       password3 = Couch::Config::PASSWORD3
 
-         # do work on files ending in .xls in the desired directory
+        #Set server
+       host = Couch::Config::HOST2
+       port = Couch::Config::PORT2
+       user = Couch::Config::USER2
+       password = Couch::Config::PASSWORD2
+
+
+       # do work on files ending in .xls in the desired directory
     Dir.glob('./excel_download/start/*.xls*') do |excel_file|
 
-    # puts excel_file
-    # puts "got excelfile"
+       #Get filename -last part of array (path is the first)
+       filename =  excel_file[23..-1]
+       puts filename
 
-     #Get filename -last part of array (path is the first)
-     filename =  excel_file[23..-1]
-     puts filename
-
-     #get UUID
-      #Get ready to put into database
+       #get UUID
+       #Get ready to put into database
        server = Couch::Server.new(host, port)
+       server3 = Couch::Server.new(host3,port3)
 
        #Fetch a UUID from courchdb
        res = server.get("/_uuids")
@@ -71,6 +76,7 @@ module Couch
 
        #Extract the UUID from reply
        uuid = (res.body).split('"')[3]
+
 
        #Convert UUID to RFC UUID
        uuid.insert 8, "-"
@@ -92,22 +98,21 @@ module Couch
        @entry = {
             :id => uuid,
             :_id => uuid,
-            :schema => 'http://api.npolar.no/schema/sighting-excel.json',
-            :collection => 'sighting-excel.json',
+            :schema => 'http://api.npolar.no/schema/sighting-excel',
+            :collection => 'sighting-excel',
             :base => 'http://api.npolar.no',
             :language => 'en',  #converted to eng for the database
-            :draft => 'no',
             :rights => 'No licence announced on web site',
-            :uri =>  "https://api.npolar.no/sighting-excel/" + uuid + "/_file/",
+            :uri =>  "https://api.npolar.no/sighting-excel/" + uuid + "/_file/" + filename,
             :filename => filename,
             :type => "application/vnd.ms-excel", #last digits
-            :length => (File.size(excel_file)).to_s, #size
+            :length => (File.size(excel_file)).to_i, #size
             :hash => md5excel,
             :created => timestamp,
             :updated => timestamp,
             :created_by => user,
             :updated_by => user
-         }
+      }
 
     #Traverse @entry and remove all empty entries
     @entry.each do | key, val |
@@ -120,34 +125,53 @@ module Couch
     #Convert to json
     doc = @entry.to_json
 
-    #puts doc
 
-    #post to server
-    res = server.post("/"+ Couch::Config::COUCH_DB_EXCEL + "/", doc, user, password)
+    #post the attchment to server
+    #Obs! Slurping the file, not good
+    excel = File.read(excel_file)
+
+    app = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    #'application/vnd.ms-excel'
+
+    @uri2 = URI.parse('http://api-test.data.npolar.no/sighting-excel/' + uuid + '/_file')
+    http2 = Net::HTTP.new(@uri2.host, @uri2.port)
+    req = Net::HTTP::Post.new(@uri2.path,{'Authorization' => Couch::Config::AUTH3, 'Content-Type' => app})
+    req.body = excel
+    req["Content-Disposition"] = "attachment;filename=\"SR52-2016.xlsx\""
+    req.basic_auth(user3, password3)
+    res = http2.request(req)
+    puts (res.header).inspect
+    body = res.body
+    puts body.to_json
+
+    exit
 
 
-    #Create thumbnail and image on apptest
-    # Net::SSH.start(host, user, :password => password) do |ssh|
-    Net::SSH.start(Couch::Config::HOST1, Couch::Config::USERX, :password => Couch::Config::PASSWORDX) do |ssh|
-      ssh.exec "mkdir -p /srv/hashi/storage/sighting-excel/restricted/" + uuid
-    end
+    #Post to server
+    @uri = URI.parse('http://api-test.data.npolar.no/sighting-excel')
+    http = Net::HTTP.new(@uri.host, @uri.port)
+    req = Net::HTTP::Post.new(@uri.path,{'Authorization' => Couch::Config::AUTH3, 'Content-Type' => 'application/json' })
+    req.body = doc
+    req.basic_auth(user3, password3)
+    res = http.request(req)
+    puts (res.header).inspect
+    puts (res.body).inspect
 
 
-     #Send schema to sighting-excel database
-    Net::SCP.start(Couch::Config::HOST1, Couch::Config::USERX, :password => Couch::Config::PASSWORDX) do |scp|
-
-    #Create a remote directory
-    scp.upload!("/home/siri/projects/ruby_scripts/excel_download/start/"+ filename, "/srv/hashi/storage/sighting-excel/restricted/" + uuid + "/" + filename, :recursive => true)
-     end
 
 
-    #Finally write the uuid and the filename to the file excel_uuid
+
+
+
+
+
+=begin    #Finally write the uuid and the filename to the file excel_uuid
     text = uuid.to_s + ' : ' + (File.size(excel_file)).to_s + ':' + filename + ' | '
     inputfile = 'excel_uuid.txt'
     File.open(inputfile, 'a') { |f| f.write(text) }
+=end
 
-
-  end
+end
 
 
 end #class
