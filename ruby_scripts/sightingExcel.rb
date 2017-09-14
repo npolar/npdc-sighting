@@ -127,24 +127,25 @@ module Couch
 
 
     #post the attchment to server
-    #Obs! Slurping the file, not good
+    #Not good slurping the file, but the file sizes are small
     excel = File.read(excel_file)
 
-    app = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    #'application/vnd.ms-excel'
+    #app is the content-type
+    app = 'application/vnd.ms-excel'
+    if (excel_file.include? "xlsx")
+        app = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    end
 
-    @uri2 = URI.parse('http://api-test.data.npolar.no/sighting-excel/' + uuid + '/_file')
+    puts app
+
+    @uri2 = URI.parse('http://api-test.data.npolar.no/sighting-excel/' + uuid + '/_file/'+ filename)
     http2 = Net::HTTP.new(@uri2.host, @uri2.port)
     req = Net::HTTP::Post.new(@uri2.path,{'Authorization' => Couch::Config::AUTH3, 'Content-Type' => app})
     req.body = excel
-    req["Content-Disposition"] = "attachment;filename=\"SR52-2016.xlsx\""
     req.basic_auth(user3, password3)
     res = http2.request(req)
-    puts (res.header).inspect
     body = res.body
     puts body.to_json
-
-    exit
 
 
     #Post to server
@@ -154,22 +155,14 @@ module Couch
     req.body = doc
     req.basic_auth(user3, password3)
     res = http.request(req)
-    puts (res.header).inspect
+    #puts (res.header).inspect
     puts (res.body).inspect
 
 
-
-
-
-
-
-
-
-=begin    #Finally write the uuid and the filename to the file excel_uuid
+    #Finally write the uuid and the filename to the file excel_uuid
     text = uuid.to_s + ' : ' + (File.size(excel_file)).to_s + ':' + filename + ' | '
     inputfile = 'excel_uuid.txt'
     File.open(inputfile, 'a') { |f| f.write(text) }
-=end
 
 end
 

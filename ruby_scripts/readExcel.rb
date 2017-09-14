@@ -9,8 +9,8 @@
 #
 ########################################
 
-require './config'
-require './server'
+require '../config'
+require '../server'
 require 'net/http'
 require 'net/ssh'
 require 'net/scp'
@@ -21,7 +21,6 @@ require 'oci8'
 require 'net-ldap'
 require 'rmagick'
 require 'simple-spreadsheet'
-
 
 
 module Couch
@@ -55,6 +54,11 @@ module Couch
        return dt.to_time.utc.iso8601
     end
 
+    #If number exist, return it, if not return 0
+    def self.check(numb)
+       return (numb == nil ? 0 : numb)
+    end
+
 
     #Get date, convert to iso8601
     #Does not handle chars as month such as 6.june 2015 etc
@@ -79,10 +83,10 @@ module Couch
     end
 
     #Set server
-    host = Couch::Config::HOST1
-    port = Couch::Config::PORT1
-    user = Couch::Config::USER1
-    password = Couch::Config::PASSWORD1
+    host = Couch::Config::HOST2
+    port = Couch::Config::PORT2
+    user = Couch::Config::USER2
+    password = Couch::Config::PASSWORD2
 
 
     species = {'polar bear' => 'ursus maritimus',
@@ -135,11 +139,20 @@ module Couch
    #  while (line > 18 and line < (s.last_row).to_i+1)
      while (line > 18 and line < (s.last_row).to_i)
 
-          #if row hasn't got event_date, lat or lon, skip it
-          puts line
-          puts (s.cell(line,1));
-          puts(s.cell(line,2));
-          puts(s.cell(line,3));
+          #lat and lng
+          #if lat and lng decimal degrees are empty, use degrees min sec instead if existing
+         # puts (s.cell(line,21)).is_a? Numeric
+
+          unless  ((s.cell(line,18)).is_a? Numeric) && ((s.cell(line,21)).is_a? Numeric)
+            lat =  (s.cell(line,2)).to_f()   #Not big decimal
+            lng =  (s.cell(line,3)).to_f()   #Not big decimal
+          else
+            lat = check(s.cell(line,18)) + check(s.cell(line,19))/60 + check(s.cell(line,20))/3600
+            lng = check(s.cell(line,21)) + check(s.cell(line,22))/60 + check(s.cell(line,23))/3600
+          end
+
+         #puts lat, lng
+
           unless ((s.cell(line,1)== nil) or (s.cell(line,1) == "Add your observations here:") or (s.cell(line,1)==' ')) \
           and ((s.cell(line,2)==nil) or (s.cell(line,2).to_i)==0 or (s.cell(line,2).to_s) =='') \
           and ((s.cell(line,3)==nil) or (s.cell(line,3).to_i)==0 or (s.cell(line,3).to_s) =='')
@@ -168,15 +181,13 @@ module Couch
             readtext = File.read("./excel_uuid.txt")
             uuidexcel = ""
             uuids = readtext.split('|')
-          #  puts uuids
-          #  puts "uuids"
+
 
             #Find excelname in uuids array
             for index in 0 ... uuids.size
                 if uuids[index].include? filename2[1].to_s
                     uuidarr =  uuids[index].split(':')
                     uuidexcel = uuidarr[0].gsub(/\s+/, "")
-                   # puts uuidexcel
                 end
             end
 
@@ -184,7 +195,7 @@ module Couch
             filenameExcel = filename2[1].to_s
             md5excel = Digest::MD5.hexdigest(filenameExcel)
 
-
+=begin
               #Create the json structure object
               @entry = {
                 :id => uuid,
@@ -199,8 +210,8 @@ module Couch
                 :basis_of_record => 'HumanObservation',
                 :event_date => (if (s.cell(line,1)) then iso8601time(s.cell(line,1)) end),
                 :@placename => (s.cell(line,4)) == "(select or write placename)"? "": (s.cell(line,4)),
-                :latitude => (s.cell(line,2)).to_f(),    #Not big decimal
-                :longitude => (s.cell(line,3)).to_f(),   #Not big decimal
+                :latitude => lat,
+                :longitude => lng,
                 :species => unless (s.cell(line,5)) == nil then \
                     (s.cell(line,5)) == "(select species)"? "": (species[(s.cell(line,5)).downcase]) \
                   end,
@@ -253,65 +264,10 @@ module Couch
 
 
 
-#Remove this part since expedition and excel object is now integrated
-=begin             #Extract expedition info
-            @expedition = Object.new
-            @expedition = {
-                :name => s.cell(2,11),
-                :contact_info => s.cell(3,11),
-                :organisation => s.cell(4,11),
-                :platform_comment => s.cell(7,11),
-                #:platform => '',
-                :start_date => (if s.cell(5,11) then iso8601time(s.cell(5,11)) end),
-                :end_date => (if s.cell(6,11) then iso8601time(s.cell(6,11)) end)
-                }  #end exped object
-
-            #Extract excelfile info
-            @excelfile = Object.new
-            filename2 = filename.split("/");
-
-            #open excel_uuid file and fetch excel uuid
-            readtext = File.read("./excel_uuid.txt")
-            uuidexcel = ""
-            uuids = readtext.split('|')
-            puts uuids
-            puts "uuids"
-
-            #Find excelname in uuids array
-            for index in 0 ... uuids.size
-                if uuids[index].include? filename2[1].to_s
-                    uuidarr =  uuids[index].split(':')
-                    uuidexcel = uuidarr[0].gsub(/\s+/, "")
-                    puts uuidexcel
-                end
-            end
-
-            #Extract the MD5 checksum from reply
-            filenameExcel = filename2[1].to_s
-            md5excel = Digest::MD5.hexdigest(filenameExcel)
-
-
-            @excelfile = {
-                 :items => {
-                  :uri => "https://api.npolar.no/sighting-excel/" + uuidexcel + "/_file/",
-                  :filename => filename2[1],
-                  :type => "application/vnd.ms-excel", #last digits
-                  :length => (File.size(excel_file)).to_s
-                  },
-                  :hash => md5excel
-            } #Excelfile
-
-
-            #Add expedition and excelfile objects to entry object
-          #  defined?(@expedition[:name]).nil? ? @entry[:expedition] = nil : @entry[:expedition] = @expedition
-          #  defined?(@excelfile[:filename]).nil? ?  @entry[:excelfile] = nil : @entry[:excelfile] = @excelfile
-=end
-
-
             #Traverse @entry and remove all empty entries
             @entry.each do | key, val |
               if  val == "" || val == nil
-                puts key
+             #   puts key
                 @entry.delete(key)
               end
             end
@@ -321,7 +277,7 @@ module Couch
             #save entry in database
 
             puts @entry[:id]
-            puts @entry['id']
+           # puts @entry['id']
 
             doc = @entry.to_json
             res = server.post("/"+ Couch::Config::COUCH_DB_NAME + "/", doc, user, password)
@@ -329,8 +285,7 @@ module Couch
             text = (@entry[:excel_filename]).to_s + "   "  + @entry[:id]
               inputfile = 'output.txt'
               File.open(inputfile, 'a') { |f| f.write(text) }
-
-
+=end
 
           end #unless nil
 
@@ -344,7 +299,7 @@ module Couch
 
 
      #Move Excel file to 'done'
-     File.rename excel_file, (excel_file[0..16]+'done/' + filename2[1])
+#     File.rename excel_file, (excel_file[0..16]+'done/' + filename2[1])
   end #file
 
   end
