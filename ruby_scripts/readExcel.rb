@@ -56,7 +56,7 @@ module Couch
 
     #If number exist, return it, if not return 0
     def self.check(numb)
-       return (numb == nil ? 0 : numb)
+       return (numb == nil ? 0 : numb.abs)
     end
 
 
@@ -65,7 +65,6 @@ module Couch
     #Does not handle day in the middle, such as 04/23/2014 etc
     def self.iso8601time(inputdate)
        a = (inputdate).to_s
-       #puts "a " + a
 
        #Delimiter space, -, .,/
        b = a.split(/\.|\s|\/|-/)
@@ -137,18 +136,22 @@ module Couch
      #Start down the form -after
      line = 19
    #  while (line > 18 and line < (s.last_row).to_i+1)
-     while (line > 18 and line < (s.last_row).to_i)
+     while (line > 18 and line < (s.last_row).to_i + 1)
 
           #lat and lng
           #if lat and lng decimal degrees are empty, use degrees min sec instead if existing
          # puts (s.cell(line,21)).is_a? Numeric
+         s.cell(line,2)
 
-          unless  ((s.cell(line,18)).is_a? Numeric) && ((s.cell(line,21)).is_a? Numeric)
+
+          #Use the decimal degree fields if existing
+          unless ((s.cell(line,18)).is_a? Numeric) && ((s.cell(line,21)).is_a? Numeric)
             lat =  (s.cell(line,2)).to_f()   #Not big decimal
             lng =  (s.cell(line,3)).to_f()   #Not big decimal
           else
             lat = check(s.cell(line,18)) + check(s.cell(line,19))/60 + check(s.cell(line,20))/3600
             lng = check(s.cell(line,21)) + check(s.cell(line,22))/60 + check(s.cell(line,23))/3600
+            if s.cell(line,21).to_i < 0  then lng = -1 * lng end
           end
 
          #puts lat, lng
@@ -195,7 +198,6 @@ module Couch
             filenameExcel = filename2[1].to_s
             md5excel = Digest::MD5.hexdigest(filenameExcel)
 
-=begin
               #Create the json structure object
               @entry = {
                 :id => uuid,
@@ -267,7 +269,6 @@ module Couch
             #Traverse @entry and remove all empty entries
             @entry.each do | key, val |
               if  val == "" || val == nil
-             #   puts key
                 @entry.delete(key)
               end
             end
@@ -277,15 +278,14 @@ module Couch
             #save entry in database
 
             puts @entry[:id]
-           # puts @entry['id']
 
             doc = @entry.to_json
-            res = server.post("/"+ Couch::Config::COUCH_DB_NAME + "/", doc, user, password)
+            puts doc
+         #   res = server.post("/"+ Couch::Config::COUCH_DB_NAME + "/", doc, user, password)
 
             text = (@entry[:excel_filename]).to_s + "   "  + @entry[:id]
               inputfile = 'output.txt'
               File.open(inputfile, 'a') { |f| f.write(text) }
-=end
 
           end #unless nil
 
