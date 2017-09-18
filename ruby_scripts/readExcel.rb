@@ -82,10 +82,10 @@ module Couch
     end
 
     #Set server
-    host = Couch::Config::HOST2
-    port = Couch::Config::PORT2
-    user = Couch::Config::USER2
-    password = Couch::Config::PASSWORD2
+    host = Couch::Config::HOST1
+    port = Couch::Config::PORT1
+    user = Couch::Config::USER1
+    password = Couch::Config::PASSWORD1
 
 
     species = {'polar bear' => 'ursus maritimus',
@@ -281,7 +281,7 @@ module Couch
 
             doc = @entry.to_json
             puts doc
-         #   res = server.post("/"+ Couch::Config::COUCH_DB_NAME + "/", doc, user, password)
+            res = server.post("/"+ Couch::Config::COUCH_DB_NAME + "/", doc, user, password)
 
             text = (@entry[:excel_filename]).to_s + "   "  + @entry[:id]
               inputfile = 'output.txt'

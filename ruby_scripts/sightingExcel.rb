@@ -46,16 +46,16 @@ module Couch
     end
 
        #Set server
-       host3 = Couch::Config::HOST3
-       port3 = Couch::Config::PORT3
-       user3 = Couch::Config::USER3
-       password3 = Couch::Config::PASSWORD3
+       host3 = Couch::Config::HOST4
+       port3 = Couch::Config::PORT4
+       user3 = Couch::Config::USER4
+       password3 = Couch::Config::PASSWORD4
 
         #Set server
-       host = Couch::Config::HOST2
-       port = Couch::Config::PORT2
-       user = Couch::Config::USER2
-       password = Couch::Config::PASSWORD2
+       host = Couch::Config::HOST1
+       port = Couch::Config::PORT1
+       user = Couch::Config::USER1
+       password = Couch::Config::PASSWORD1
 
 
        # do work on files ending in .xls in the desired directory
@@ -138,7 +138,7 @@ module Couch
 
     puts app
 
-    @uri2 = URI.parse('http://api-test.data.npolar.no/sighting-excel/' + uuid + '/_file/'+ filename)
+    @uri2 = URI.parse('http://api.npolar.no/sighting-excel/' + uuid + '/_file/restricted/'+ filename)
     http2 = Net::HTTP.new(@uri2.host, @uri2.port)
     req = Net::HTTP::Post.new(@uri2.path,{'Authorization' => Couch::Config::AUTH3, 'Content-Type' => app})
     req.body = excel
@@ -149,14 +149,14 @@ module Couch
 
 
     #Post to server
-    @uri = URI.parse('http://api-test.data.npolar.no/sighting-excel')
+    @uri = URI.parse('http://api.npolar.no/sighting-excel')
     http = Net::HTTP.new(@uri.host, @uri.port)
     req = Net::HTTP::Post.new(@uri.path,{'Authorization' => Couch::Config::AUTH3, 'Content-Type' => 'application/json' })
     req.body = doc
     req.basic_auth(user3, password3)
     res = http.request(req)
     #puts (res.header).inspect
-    puts (res.body).inspect
+    #puts (res.body).inspect
 
 
     #Finally write the uuid and the filename to the file excel_uuid
