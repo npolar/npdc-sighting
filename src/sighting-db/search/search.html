@@ -39,12 +39,10 @@
 
             <img class="md-avatar" ng-src={{icon(e)}} title="ID: {{ e.id }}" >
 
-
             <div class="md-list-item-text">
               <h3 class="md-headline">
-              <h3 ng-if="e.draft">DRAFT {{ e.total | t }} {{ e.species | t }} <em ng-if="e.habitat">「{{ e.habitat | t }}」</em></h3>
-              </h3>
-             <h3 ng-if=!"e.draft">{{ e.total | t }} {{ e.species | t }} <em ng-if="e.habitat">「{{ e.habitat | t }}」</em></h3>
+              <h3>{{ e.total | t }} {{ e.species | t }} <em ng-if="e.habitat">「{{ e.habitat | t }}」</em><em ng-show=!{{e.draft}}>Draft</em>
+                </h3>
               </h3>
               <h4>{{ (e.event_date).substring(0,10) }}</h4>
             </div>

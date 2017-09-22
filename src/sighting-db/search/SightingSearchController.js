@@ -23,6 +23,16 @@ var SightingSearchController = function ($scope, $location, $controller, $filter
    $scope.isAdmin = isAdmin();
 
 
+   //Draft is true or false?
+   var evaluate2 = function(){
+
+     // let ret = draft === 'yes' ? true : false;
+      return true;
+  };
+
+
+
+
   let query = function() {
 
     let defaults;
