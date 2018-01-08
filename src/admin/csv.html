@@ -1,11 +1,14 @@
 
-<div ng-if="!security.isAuthorized('create', resource.path + '/administrators')">
+
+<div ng-if=!authorized>
       <p>&nbsp;&nbsp;&nbsp;Please log in with your admin account in order to view this page.</p>
       <p> &nbsp;&nbsp;&nbsp;<a href="/sighting">{{ 'Back' | t }}</a></p>
 </div>
 
 
-<div ng-if="security.isAuthorized('create', resource.path + '/administrators')">
+
+
+<div ng-if=authorized>
 
 <h1><b>CSV <b></h1>
 <p><a href="/sighting/administrators">{{ 'Back' | t }}</a></p>

@@ -1,19 +1,15 @@
 
 
-
-
-<div ng-if=!authorized>
-
+<div ng-if="authorized==false" style="display: inline;">
      <p>Please log in with your admin account before searching.</p>
 </div>
 
-<div ng-if=authorized>
+
+<div ng-if="authorized==true" style="display: inline;">
 <article class="np-padding np-doc" layout>
   <h1 class="">{{ 'Map search' | t }}</h1>
 </article>
 
-
- <!--<div ng-show="isAdmin"> -->
 
 <article>&nbsp;&nbsp;<a href="quality_check">{{'Quality check' | t }}</a>&nbsp;&nbsp;
 <!-- <a href="upload">Upload Excelsheet</a>&nbsp;&nbsp; -->
@@ -21,9 +17,9 @@
 </article>
 
 
+<p>&nbsp;&nbsp;{{'Select an area on the map by dragging/dropping' | t }}</p>
 </div>
 
-<p>&nbsp;&nbsp;{{'Select an area on the map by dragging/dropping' | t }}</p>
 <form id="submit" ng-submit="submit()">
 
 
@@ -61,7 +57,7 @@
 <br />
 
 
-&nbsp;&nbsp;<input type="submit" id="submit" value="{{ 'Search' | t }}" />
+&nbsp;&nbsp;<input ng-disabled="!authorized" type="submit" id="submit" value="{{ 'Search' | t }}" />
 
 
 &nbsp;&nbsp;<input type="reset" id="reset" value="Reset" ng-click="reset()"/>

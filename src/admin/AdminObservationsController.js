@@ -18,12 +18,12 @@ var AdminObservationsController = function(chronopicService, $scope, $http, SPEC
 
     $scope.resource = Sighting;
 
-    //$scope.security = NpolarApiSecurity;
     //Need to create an alternative base address to
-    const admin_base = NpolarApiSecurity.canonicalUri('/sighting/admin');
+    $scope.authorized = NpolarApiSecurity.isAuthorized('create', 'https:' + $scope.resource.path + '/admin');
+
 
     //Use authorized to limit access
-    $scope.authorized = NpolarApiSecurity.isAuthorized('create', admin_base + '/administrators');
+    //$scope.authorized = NpolarApiSecurity.isAuthorized('create', admin_base + '/administrators');
 
 
     //using chronopic to show dates
