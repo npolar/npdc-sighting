@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var npdcGulp = require('npdc-gulp');
 var config = npdcGulp.baseConfig;
+config.COMMON_VERSION = '4.7.8';
 npdcGulp.loadAppTasks(gulp, {
-  'COMMON_VERSION': '4.7.8',
   'deps': {
     'assets': [
                 'node_modules/leaflet-draw/dist/**/*',
