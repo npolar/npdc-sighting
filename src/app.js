@@ -65,6 +65,9 @@ npdcSightingApp.run(($http, npolarApiConfig, npdcAppConfig, NpolarTranslate, Npo
 
   //var environment = "test";
   var autoconfig = new AutoConfig(environment);
+  autoconfig.environment = "development";
+  autoconfig.base = "//api-test.data.npolar.no";
+
   //console.log("npdcAppConfig", npdcAppConfig);
 
   Object.assign(npolarApiConfig, autoconfig, { resources, formula : { template : 'default' } });

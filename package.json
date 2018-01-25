@@ -11,12 +11,11 @@
   "private": true,
   "repository": "https://github.com/npolar/npdc-station-booking",
   "dependencies": {
-    "leaflet": "^0.7.3",
-    "leaflet-draw": "^0.2.3",
-    "angular-leaflet-directive": "^0.7.11",
-    "npdc-common": "npolar/npdc-common#v4.7.8",
-    "xlsx": "git+https://github.com/SheetJS/js-xlsx.git",
-    "angular-smart-table": "^2.1.5"
+    "angular-smart-table": "^2.1.5",
+    "leaflet": "^1.0.3",
+    "leaflet-draw": "^0.2.4",
+    "npdc-common": "npolar/npdc-common#v4.10.14",
+    "xlsx": "git+https://github.com/SheetJS/js-xlsx.git"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
