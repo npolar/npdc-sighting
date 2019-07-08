@@ -14,7 +14,7 @@
     "angular-smart-table": "^2.1.5",
     "leaflet": "^1.0.3",
     "leaflet-draw": "^0.2.4",
-    "npdc-common": "npolar/npdc-common#v4.10.14",
+    "npdc-common": "npolar/npdc-common#v4.11.3",
     "xlsx": "git+https://github.com/SheetJS/js-xlsx.git"
   },
   "devDependencies": {
