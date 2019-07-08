@@ -10,21 +10,21 @@
 
 <div ng-if=authorized>
 
-<h1><b>CSV <b></h1>
+<h1><b>CSV<b></h1>
 <p><a href="/sighting/administrators">{{ 'Back' | t }}</a></p>
 
 <!--<div ng-show="isAdmin"> --> <div>
 
 <div ng-controller="CSVController">
-Id | {{ 'Date' | t }} | {{ 'Latitude' | t }} | {{ 'Longitude' | t }} | {{ 'Location' | t }} | {{ 'Location comment' | t }} | {{ 'Species' | t }} | {{ 'Adult M' | t }} | {{ 'Adult F' | t }} | {{ 'Adult' | t }} | {{ 'Subadult' | t }} | {{ 'Polar bear condition' | t }} | {{ 'Cub/calf/pup' | t }} | {{ 'Bear cubs' | t }} | {{ 'Unidentified' | t }} | {{ 'Total' | t }} | Habitat | {{ 'Occurrence remark' | t }} | {{ 'Excelfile' | t }} | {{ 'Expedition name' | t }} | {{ 'Expedition contact info' | t }} | {{ 'Expedition organisation' | t }} | {{ 'Platforms' | t }} | {{ 'Platform comment' | t }}  <br />
+Id | {{ 'Date' | t }} | {{ 'Latitude' | t }} | {{ 'Longitude' | t }} | {{ 'Location' | t }} | {{ 'Location comment' | t }} | {{ 'Species' | t }} | {{ 'Adult M' | t }} | {{ 'Adult F' | t }} | {{ 'Adult' | t }} | {{ 'Subadult' | t }} | {{ 'Polar bear condition' | t }} | {{ 'Polar bear den' | t }} | {{ 'Cub/calf/pup' | t }} | {{ 'Bear cubs' | t }} | {{ 'Dead/alive' | t }} | {{ 'Unidentified' | t }} | {{ 'Total' | t }} | Habitat | {{ 'Occurrence remark' | t }} | {{ 'Excelfile' | t }} | {{ 'Expedition contact info' | t }} | {{ 'Expedition organisation' | t }} | {{ 'Platforms' | t }} | {{ 'Platform comment' | t }} | {{ 'Start date' | t }} | {{ 'End date' | t }}  | {{ 'Recorded by' | t }} | {{ 'Recorded by name' | t }} <br />
 
 <p ng-repeat="entry in entries">
 {{ entry.id }} | {{ (entry.event_date).substring(0,10) }} | {{ entry.latitude }} |
 {{ entry.longitude }} | {{ entry.locality }} |{{ entry.location_comment }} |
 {{ entry.species }} | {{entry.adult_m }} | {{ entry.adult_f }} | {{ entry.adult }} |
- {{ entry.subadult }} | {{ entry.polar_bear_condition }} | {{ entry.cub_calf_pup}} |
- {{ entry.bear_cubs }} | {{ entry.unidentified }} | {{ entry.total }} | {{ entry.habitat }} | {{ entry.occurrence_remark }} | {{entry.excelfile.filename}} | {{entry.expedition.name}} | {{entry.expedition.contact_info}} | {{entry.expedition.organisation}} | {{entry.expedition.platform}} |
- {{entry.expedition.platform_comment}} | {{ ((entry.expedition.start_date).substring(0,10)) }} | {{ ((entry.expedition.end_date).substring(0,10)) }}
+ {{ entry.sub_adult }} | {{ entry.polar_bear_condition }} |  {{ entry.polar_bear_den }} | {{ entry.cub_calf_pup}} |
+ {{ entry.bear_cubs }} | {{ entry.dead_alive }} | {{ entry.unidentified }} | {{ entry.total }} | {{ entry.habitat }} | {{ entry.occurrence_remarks }} | {{entry.excel_filename}} | {{entry.contact_info}} | {{entry.organisation}} | {{entry.platform}} |
+ {{entry.platform_comment}} | {{ ((entry.start_date).substring(0,10)) }} | {{ ((entry.end_date).substring(0,10)) }} | {{ entry.recorded_by }} | {{ entry.recorded_by_name }}
 </p>
 
 
@@ -32,12 +32,3 @@ Id | {{ 'Date' | t }} | {{ 'Latitude' | t }} | {{ 'Longitude' | t }} | {{ 'Locat
 </div>
 
 </div>
-
-
-
-
-
-
-
-
-
