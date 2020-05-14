@@ -10,7 +10,6 @@ function Sighting(SightingResource, NpolarApiSecurity) {
     schema,
 
   create: function() {
-
       let user = NpolarApiSecurity.getUser();
       let collection = "sighting";
       let base = "http://api.npolar.no";

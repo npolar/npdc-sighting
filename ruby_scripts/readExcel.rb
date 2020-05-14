@@ -4,8 +4,9 @@
 #
 # Author: srldl
 #
-# Requirements: At least one of the three fields lat, lon or event_date must be filled in
-# for the script to work.
+# If placename exists, coord can be inserted.
+# This script replaces the old one since now I use the 'spreadsheet' gem.
+# This gem requires only xls files, cannot do xlsx!
 #
 ########################################
 
@@ -17,10 +18,11 @@ require 'net/scp'
 require 'time'
 require 'date'
 require 'json'
-require 'oci8'
-require 'net-ldap'
-require 'rmagick'
-require 'simple-spreadsheet'
+require 'digest'
+require 'spreadsheet'
+require 'securerandom'
+require 'fileutils'
+
 
 
 module Couch
@@ -28,22 +30,10 @@ module Couch
   class ReadExcel
 
     #Get hold of UUID for database storage
-    def self.getUUID(server)
+     def self.getUUID()
+        return SecureRandom.uuid
+     end
 
-       #Fetch a UUID from couchdb
-       res = server.get("/_uuids")
-
-
-       #Extract the UUID from reply
-       uuid = (res.body).split('"')[3]
-
-       #Convert UUID to RFC UUID
-       uuid.insert 8, "-"
-       uuid.insert 13, "-"
-       uuid.insert 18, "-"
-       uuid.insert 23, "-"
-       return uuid
-    end
 
     #Get a timestamp - current time
     def self.timestamp()
@@ -60,6 +50,24 @@ module Couch
     end
 
 
+    def self.getFileInfo(filename)
+        #open excel_uuid file and fetch excel uuid
+        readtext = File.read("./excel_uuid.txt")
+        uuidexcel = ""
+        uuids = readtext.split('|')
+
+
+        #Find excelname in uuids array
+        for index in 0 ... uuids.size
+            if uuids[index].include? filename.to_s
+                uuidarr =  uuids[index].split(':')
+                uuidexcel = uuidarr[0].gsub(/\s+/, "")
+            end
+        end
+        return uuidexcel,uuidarr[1]
+    end
+
+
     #Get date, convert to iso8601
     #Does not handle chars as month such as 6.june 2015 etc
     #Does not handle day in the middle, such as 04/23/2014 etc
@@ -72,8 +80,6 @@ module Couch
        if b[0].size == 4 #Assume YYYY.MM.DD
              dt = DateTime.new(b[0].to_i, b[1].to_i, b[2].to_i, 12, 0, 0, 0)
        elsif b[2].size == 4  #Assume DD.MM.YYYY
-            # puts b
-            # puts "here's b"
              dt = DateTime.new(b[2].to_i, b[1].to_i, b[0].to_i, 12, 0, 0, 0)
        else
              puts "cannot read dateformat"
@@ -81,226 +87,255 @@ module Couch
              return dt.to_time.utc.iso8601
     end
 
+    #Put request to server
+    def self.postToServer(doc,auth,user,password,host,port,id)
+
+      http = Net::HTTP.new(host, 443);
+      http.use_ssl = true
+      #req = Net::HTTP::Put.new('/radiation-weather/'+id,initheader ={'Authorization' => auth, 'Content-Type' => 'application/json' })
+      req = Net::HTTP::Post.new('/sighting/'+id,initheader ={'Authorization' => auth, 'Content-Type' => 'application/json' })
+      req.body = doc
+      req.basic_auth(user, password)
+      res2 = http.request(req)
+      unless ((res2.header).inspect) == "#<Net::HTTPOK 200 OK readbody=true>"
+          puts (res2.header).inspect
+          puts (res2.body).inspect
+      end
+      return http #res2
+    end
+
+    #Make a get request to a server
+    def self.httpGet(url,host,port)
+      http = Net::HTTP.new(host, port)
+      http.use_ssl = true
+      request = Net::HTTP::Get.new(url)
+      response = http.request(request)
+      return response.body
+    end
+
+
+    def self.buildEntry(arr,arr2,filename,species)
+
+      use_id = getUUID()
+      user = 'siri.uldal@npolar.no'
+
+      uuidexcel, uuidarr = getFileInfo(filename[6..-1])
+
+      mime_type = 'application/vnd.ms-excel'
+      if filename.end_with? ".xlsx"
+        mime_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      end
+
+      #poar_bear_condition = 0 has to be handled
+     if arr2[9] == '' then arr2[9]= 'not applicable/unknown' end
+
+
+
+      #Build json
+      @entry = {
+        :id => use_id,
+        :_id => use_id,
+        :schema => 'http://api.npolar.no/schema/sighting.json',
+        :collection => 'sighting',
+        :base => 'http://api.npolar.no',
+        :language => 'en',
+        :rights => 'No licence announced on web site',
+        :rights_holder => 'Norwegian Polar Institute',
+        :basis_of_record => 'HumanObservation',
+        :event_date => if arr2[0] then iso8601time(arr2[0]) end,
+        :@placename => arr2[3] == "(select or write placename)"? "": arr2[3],
+        :latitude => ((arr2[1].to_f)*1000).round / 1000.0,
+        :longitude => ((arr2[2].to_f)*1000).round / 1000.0,
+        :species => unless (arr2[4] == nil) then \
+            (arr2[4] == "(select species)"? "": species[arr2[4].downcase])  end,
+        :adult_m => (arr2[5].to_i).to_s,
+        :adult_f => (arr2[6].to_i).to_s,
+        :adult => (arr2[7].to_i).to_s,
+        :sub_adult => (arr2[8].to_i).to_s,
+        :polar_bear_condition => (arr2[9] == "(select condition)") || (arr2[9] == 'not applicable/unknown') ? "not applicable/unknown":(arr2[9].to_i).to_s,
+        :polar_bear_den => unless (arr2[4] == nil) then \
+          ([arr2[4].downcase]) == 'polar bear den'? "1" : "" \
+           end,
+        :cub_calf_pup => (arr2[10].to_i).to_s,
+        :bear_cubs => arr2[11] == "(select years)"? "": (arr2[11].to_i).to_s,
+        :unidentified => (arr2[12].to_i).to_s,
+        :dead_alive => (arr2[13]) == "NA"? "unknown": (arr2[13]),
+        :total => arr2[14].to_i.to_s,
+        :habitat => (arr2[15]) == "(select habitat)"? "": (arr2[15]).downcase,
+        :occurrence_remarks => arr2[16] == nil ? "": arr2[16],
+        :recorded_by => arr[1].downcase,
+        :recorded_by_name => arr[0],
+        :editor_assessment => 'green',
+        :editor_comment => 'not available',
+        :kingdom => 'animalia',
+        :created => timestamp,
+        :updated => timestamp,
+        :created_by => user,
+        :updated_by => user,
+        :draft => 'no',
+        :excel_uri => "https://api.npolar.no/sighting-excel/" + uuidexcel + "/_file/",
+        :excel_filename => filename[6..-1],
+        :excel_type => mime_type,
+        :excel_length => (uuidarr.to_s).strip,
+        :start_date => if arr[3] != nil then iso8601time(arr[3]) end,
+        :end_date => if arr[4] != nil then iso8601time(arr[4]) end,
+        :contact_info => arr[2],
+        :organisation => arr[0],
+        :platform => "",
+        :platform_comment => arr[5],
+        :info_comment => arr[5].downcase
+      }
+
+
+
+
+      if (@entry["end_date"] == "" || @entry["end_date"] == nil)
+          @entry.tap { |k| k.delete("end_date") }
+      end
+
+      #Traverse @entry and remove all empty entries
+      @entry.each do | key, val |
+        if  val == "" || val == nil
+          @entry.delete(key)
+        end
+      end
+
+      return @entry
+
+    end #method
+
+
     #Set server
-    host = Couch::Config::HOST1
-    port = Couch::Config::PORT1
-    user = Couch::Config::USER1
-    password = Couch::Config::PASSWORD1
+    host = Couch::Config::HOST4
+    port = Couch::Config::PORT4
+    user = Couch::Config::USER4
+    password = Couch::Config::PASSWORD4
+    auth = Couch::Config::AUTH4
 
 
-    species = {'polar bear' => 'ursus maritimus',
+
+    species = {
+              'ursus maritimus' => 'ursus maritimus',
+              'polar bear' => 'ursus maritimus',
               'polar bear den' => 'polar bear den',
+              'odobenus rosmarus' => 'odobenus rosmarus',
               'walrus' => 'odobenus rosmarus',
               'ringed seal' => 'pusa hispida',
               'phoca hispida' => 'pusa hispida',
+              'erignathus barbatus' => 'erignathus barbatus',
               'bearded seal' => 'erignathus barbatus',
+              'phoca vitulina' => 'phoca vitulina',
               'harbour seal' => 'phoca vitulina',
+              'pagophilus groenlandicus' => 'phoca groenlandica',
               'harp seal' => 'phoca groenlandica',
+              'cystophora cristata' => 'cystophora cristata',
               'hooded seal' => 'cystophora cristata',
               'seal'=> 'pinnipedia',
+              'balaena mysticetus' => 'balaena mysticetus',
               'bowhead whale' => 'balaena mysticetus',
+              'delphinapterus leucas' => 'delphinapterus leucas',
               'white whale' => 'delphinapterus leucas',
+              'monodon monoceros' => 'monodon monoceros',
               'narwhal' => 'monodon monoceros',
+              'balaenoptera musculus' => 'balaenoptera musculus',
               'blue whale' => 'balaenoptera musculus',
+              'balaenoptera physalus' => 'balaenoptera physalus',
               'fin whale' => 'balaenoptera physalus',
+              'megaptera novaeangliae' => 'megaptera novaeangliae',
               'humpback whale' => 'megaptera novaeangliae',
+              'balaenoptera acutorostrata' => 'balaenoptera acutorostrata',
               'minke whale' => 'balaenoptera acutorostrata',
+              'balaenoptera borealis' => 'balaenoptera borealis',
               'sei whale' => 'balaenoptera borealis',
+              'physeter catodon' => 'physeter macrocephalus',
               'sperm whale' => 'physeter macrocephalus',
+              'hyperoodon ampullatus' =>'hyperoodon ampullatus',
               'northern bottlenose whale' =>'hyperoodon ampullatus',
+              'orcinus orca' => 'orcinus orca',
               'killer whale' => 'orcinus orca',
+              'globicephala melas' => 'globicephala melas',
               'pilot whale' => 'globicephala melas',
+              'lagenorhynchus acutus' => 'lagenorhynchus acutus',
               'atlantic white-sided dolphin' => 'lagenorhynchus acutus',
+              'lagenorhynchus albirostris'=> 'lagenorhynchus albirostris',
               'white-beaked dolphin' => 'lagenorhynchus albirostris',
+              'phocoena phocoena' => 'phocoena phocoena',
               'harbour porpoise' => 'phocoena phocoena',
               'whale' => 'cetacea',
+              'alopex lagopus' => 'vulpes lagopus',
               'other species' =>'other species'}
+
+
 
     # do work on files ending in .xls in the desired directory
     Dir.glob('./excel_download/start/*.xls*') do |excel_file|
 
-     #puts start excel_file
-
      #Get filename -last part of array (path is the first)
-     filename =  excel_file[18..-1]
+     filename =  excel_file[17..-1]
 
      puts filename
 
+     # Open source spreadsheet - must be xls, NOT xlsx
+     workbook = Spreadsheet.open './excel_download/'+filename
 
-     #Open the file
-     s = SimpleSpreadsheet::Workbook.read(excel_file)
+     # Specify a single worksheet by index
+     s = workbook.worksheet 0
+     arr = Array.new(6)
 
-     #Always fetch the first sheet
-     s.selected_sheet = s.sheets.first
+     s.each_with_index do |row,i|
+        date1 = "#{row[0]}"
+        #arr holds the contact info
+        if (i<7)
+           arr[i] = "#{row[10]}"
+        end
+       #Build and send json if first element is a date in in 2005 (example date)
+       if (i>12)&&(date1.include? "20")&&(!date1.include?("2005"))   #&&(!date1.start_with?("2005"))
+         #Put all variables into arr2
 
-     #Start down the form -after
-     line = 19
-   #  while (line > 18 and line < (s.last_row).to_i+1)
-     while (line > 18 and line < (s.last_row).to_i + 1)
+         arr2 = Array.new(17)
+         for j in 0..17
+           arr2[j] = "#{row[j]}"
+           if (j==14)&&(row[14].class==Spreadsheet::Formula)
+             arr2[j] = row[14].value
+           end
+         end
 
-          #lat and lng
-          #if lat and lng decimal degrees are empty, use degrees min sec instead if existing
-         # puts (s.cell(line,21)).is_a? Numeric
-         s.cell(line,2)
+         #get lat, lng if not existing
+         placename = arr2[3].downcase.gsub(/\s/,'%20')
 
+         if ((arr2[1]=='')&&(arr2[2]=='')&&(arr2[3]!='')&&(arr2[3]!=nil))
+            all_ret = httpGet('/placename/?q=&filter-name.@value='+placename,'api.npolar.no',443)
+            ret =  JSON.parse(all_ret)
+            #Choose first entry
+            ret_entry = ret['feed']['entries']
+            if (ret_entry!=nil)
 
-          #Use the decimal degree fields if existing
-          unless ((s.cell(line,18)).is_a? Numeric) && ((s.cell(line,21)).is_a? Numeric)
-            lat =  (s.cell(line,2)).to_f()   #Not big decimal
-            lng =  (s.cell(line,3)).to_f()   #Not big decimal
-          else
-            lat = check(s.cell(line,18)) + check(s.cell(line,19))/60 + check(s.cell(line,20))/3600
-            lng = check(s.cell(line,21)) + check(s.cell(line,22))/60 + check(s.cell(line,23))/3600
-            if s.cell(line,21).to_i < 0  then lng = -1 * lng end
-          end
+              ret_entry.each_with_index do | p, index|
 
-         #puts lat, lng
+              ent =  ret_entry[index]
+              if (ent['name']['@value'] == arr2[3])
 
-          unless ((s.cell(line,1)== nil) or (s.cell(line,1) == "Add your observations here:") or (s.cell(line,1)==' ')) \
-          and ((s.cell(line,2)==nil) or (s.cell(line,2).to_i)==0 or (s.cell(line,2).to_s) =='') \
-          and ((s.cell(line,3)==nil) or (s.cell(line,3).to_i)==0 or (s.cell(line,3).to_s) =='')
-
-
-              #Total is an object --but some people use integer or Fixnum instead..
-              if (s.cell(line,15) != "") and (s.cell(line,15).class == Object)
-                    total = (((s.cell(line,15)).value).to_i).to_s
-              else  #But some users fix it to be Fixnum or integer..
-                    total = (s.cell(line,15)).to_i.to_s
+                 arr2[1] = ent['geometry']['coordinates'][1]
+                 arr2[2] = ent['geometry']['coordinates'][0]
               end
-
-              #Read the row here
-              #Get ready to put into database
-              #Set server database here
-              server = Couch::Server.new(host, port)
-
-              #Get uuid
-              uuid = getUUID(server)
-
-               #Extract excelfile info
-           # @excelfile = Object.new
-            filename2 = filename.split("/");
-
-            #open excel_uuid file and fetch excel uuid
-            readtext = File.read("./excel_uuid.txt")
-            uuidexcel = ""
-            uuids = readtext.split('|')
-
-
-            #Find excelname in uuids array
-            for index in 0 ... uuids.size
-                if uuids[index].include? filename2[1].to_s
-                    uuidarr =  uuids[index].split(':')
-                    uuidexcel = uuidarr[0].gsub(/\s+/, "")
-                end
             end
-
-            #Extract the MD5 checksum from reply
-            filenameExcel = filename2[1].to_s
-            md5excel = Digest::MD5.hexdigest(filenameExcel)
-
-              #Create the json structure object
-              @entry = {
-                :id => uuid,
-                :_id => uuid,
-                :schema => 'http://api.npolar.no/schema/' + Couch::Config::COUCH_DB_NAME + '.json',
-                :collection => Couch::Config::COUCH_DB_NAME,
-                :base => 'http://api.npolar.no',
-                :language => 'en',
-                :draft => 'no',
-                :rights => 'No licence announced on web site',
-                :rights_holder => 'Norwegian Polar Institute',
-                :basis_of_record => 'HumanObservation',
-                :event_date => (if (s.cell(line,1)) then iso8601time(s.cell(line,1)) end),
-                :@placename => (s.cell(line,4)) == "(select or write placename)"? "": (s.cell(line,4)),
-                :latitude => lat,
-                :longitude => lng,
-                :species => unless (s.cell(line,5)) == nil then \
-                    (s.cell(line,5)) == "(select species)"? "": (species[(s.cell(line,5)).downcase]) \
-                  end,
-                :adult_m => ((s.cell(line,6)).to_i).to_s,
-                :adult_f => ((s.cell(line,7)).to_i).to_s,
-                :adult => (s.cell(line,8).to_i).to_s,
-                :sub_adult => ((s.cell(line,9)).to_i).to_s,
-                :polar_bear_condition => ((s.cell(line,10)) == "(select condition)")? "":((s.cell(line,10)).to_i).to_s,
-                :polar_bear_den => unless (s.cell(line,5)) == nil then \
-                  (species[(s.cell(line,5)).downcase]) == 'polar bear den'? "1" : "" \
-                   end,
-                :cub_calf_pup => ((s.cell(line,11)).to_i).to_s,
-                :bear_cubs => (s.cell(line,12)) == "(select years)"? "": ((s.cell(line,12)).to_i).to_s,
-                :unidentified => (s.cell(line,13).to_i).to_s,
-                :dead_alive => (s.cell(line,14)) == "NA"? "unknown": (s.cell(line,14)),
-                :total => total,
-                :habitat => (s.cell(line,16)) == "(select habitat)"? "": (s.cell(line,16)),
-                :occurrence_remarks => s.cell(line,17) == nil ? "": s.cell(line,17),
-                :recorded_by => s.cell(3,11),
-                :recorded_by_name => s.cell(2,11),
-                :editor_assessment => 'green',
-                :editor_comment => 'not available',
-              #  :excelfile => Object.new,
-              #  :expedition => Object.new,
-                :kingdom => 'animalia',
-                :created => timestamp,
-                :updated => timestamp,
-                :created_by => user,
-                :updated_by => user,
-                :draft => 'no',
-                :excel_uri => "https://api.npolar.no/sighting-excel/" + uuidexcel + "/_file/",
-                :excel_filename => filename2[1],
-                :excel_type => "application/vnd.ms-excel",
-                :excel_length => (File.size(excel_file)).to_s,
-             #   :title => s.cell(2,11),
-                :start_date => (if s.cell(5,11) then iso8601time(s.cell(5,11)) end),
-                :end_date => (if s.cell(6,11) then iso8601time(s.cell(6,11)) end),
-                :contact_info => s.cell(3,11),
-                :organisation => s.cell(4,11),
-                :platform => "",
-                :platform_comment => s.cell(7,11),
-                :info_comment => unless (s.cell(line,5)) == nil then \
-                    (s.cell(line,5)) == "(select species)"? "": (species[(s.cell(line,5)).downcase]) \
-                  end
-              }
-
-              if (@entry["end_date"] == "" || @entry["end_date"] == nil)
-                  @entry.tap { |k| k.delete("end_date") }
-              end
-
-
-
-            #Traverse @entry and remove all empty entries
-            @entry.each do | key, val |
-              if  val == "" || val == nil
-                @entry.delete(key)
-              end
+            else
+              puts "No name match - cannot find lat and lng!"
             end
 
 
+         end
 
-            #save entry in database
-
-            puts @entry[:id]
-
-            doc = @entry.to_json
-            puts doc
-            res = server.post("/"+ Couch::Config::COUCH_DB_NAME + "/", doc, user, password)
-
-            text = (@entry[:excel_filename]).to_s + "   "  + @entry[:id]
-              inputfile = 'output.txt'
-              File.open(inputfile, 'a') { |f| f.write(text) }
-
-          end #unless nil
-
-          #Count up next line
-          line += 1
-     end #while line
-
-     puts 'filename' + filename
-     #File contains a subdir as well, need to remove this first
-    #puts excel_file[0..17]
+         entry = buildEntry(arr,arr2,filename,species)
+         doc = entry.to_json
+         id = getUUID()
+         postToServer(doc,auth,user,password,host,port,id)
+       end
 
 
-     #Move Excel file to 'done'
-#     File.rename excel_file, (excel_file[0..16]+'done/' + filename2[1])
-  end #file
+    end
 
-  end
+
+end
+end
 end

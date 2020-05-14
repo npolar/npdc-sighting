@@ -12,12 +12,15 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
   };
 
   function init() {
+
   // EditController -> NpolarEditController
   $controller('NpolarEditController', {
     $scope: $scope
   });
 
+
   $scope.isAdmin = isAdmin();
+
 
  //Different schemas depening on admin or ordinary user
   var schemaChoice = function(){
@@ -29,7 +32,10 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
 
 
   // Sighting -> npolarApiResource -> ngResource
+
   $scope.resource = Sighting;
+
+  console.log($scope);
 
   let formulaOptions = {
       schema: '//api.npolar.no/schema/sighting',
@@ -67,6 +73,7 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
 
 
   $scope.formula = formula.getInstance(formulaOptions);
+
   initFileUpload($scope.formula);
 
   //$scope.formula.getFieldByPath("#/date_identified")
@@ -96,6 +103,7 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
  chronopicService.defineOptions({ match(field) {
     return field.path.match(/_date$/);
  }, format: '{date}'});
+
 }
 
 
@@ -121,7 +129,9 @@ var SightingEditController = function($scope, $controller, $routeParams, Sightin
   try {
     init();
     // edit (or new) action
+
     $scope.edit();
+
   } catch (e) {
   //Received error for missing title, thus muting this feedback
   //  NpolarMessage.error(e);
